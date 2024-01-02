@@ -61,7 +61,7 @@ Iterable<io.FileSystemEntity> _recursiveDirectories(
     io.Directory directory) sync* {
   for (final e in directory.listSync(recursive: false, followLinks: false)) {
     if (e is io.File) {
-      if (_extensions.contains(p.extension(e.path))) continue;
+      if (!_extensions.contains(p.extension(e.path))) continue;
       yield e;
     } else if (e is io.Directory) {
       if (p.basename(e.path).startsWith('.')) continue;
