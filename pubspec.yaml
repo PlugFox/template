@@ -1,0 +1,113 @@
+name: flutter_template_name
+
+description: "flutter_template_description"
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+#homepage: https://github.com/
+
+#repository: https://github.com/
+
+#issue_tracker: https://github.com/
+
+#funding:
+#  - https://www.buymeacoffee.com/
+#  - https://www.patreon.com/
+#  - https://boosty.to/
+
+#topics:
+#  -
+#  -
+
+#platforms:
+#  android:
+#  ios:
+#  linux:
+#  macos:
+#  web:
+#  windows:
+
+#screenshots:
+#  - description: 'Example of using the ws library to connect to a WebSocket server.'
+#    path: example.png
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+  flutter: ">=3.16.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  #flutter_web_plugins:
+  #  sdk: flutter
+
+  # Localization
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+
+  # Routing
+  octopus: ^0.0.0
+
+  # Utility
+  collection: any
+  async: any
+  meta: any
+  path: any
+  convert: any
+  #path_provider: ^2.0.15
+  #url_launcher: ^6.1.11
+  #platform_info: ^4.0.2
+
+  # Logger
+  l: ^4.1.0-pre.1
+
+  # Storage
+  shared_preferences: ^2.2.2
+
+  # UI and Widgets
+  cupertino_icons: ^1.0.5
+  #google_fonts: ^6.1.0
+  #font_awesome_flutter: ^10.6.0
+
+dev_dependencies:
+  # Unit & Widget tests for Flutter
+  flutter_test:
+    sdk: flutter
+  # Integration tests for Flutter
+  integration_test:
+    sdk: flutter
+
+  # Linting
+  flutter_lints: ^2.0.1
+
+  # Code generation
+  build_runner: ^2.4.6
+  pubspec_generator: ^4.1.0-pre.1
+  flutter_gen_runner: ^5.3.2
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.8
+
+flutter:
+  uses-material-design: true
+
+  #shaders:
+  #  - assets/shaders/
+
+  #assets:
+  #  - assets/images/
+
+flutter_intl:
+  enabled: true
+  class_name: GeneratedLocalization
+  main_locale: en
+  arb_dir: lib/src/common/localization
+  output_dir: lib/src/common/localization/generated
+  use_deferred_loading: false
+
+flutter_gen:
+  output: lib/src/common/constant/
+  line_length: 120
