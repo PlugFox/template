@@ -4,7 +4,7 @@ description: "flutter_template_description"
 
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 0.0.0+1-dev
 
 #homepage: https://github.com/
 
@@ -92,10 +92,11 @@ dev_dependencies:
   flutter_native_splash: ^2.3.8
 
 flutter:
+  generate: true
   uses-material-design: true
 
   shaders:
-    - assets/shaders/
+    - assets/shaders/shimmer.frag
 
   #assets:
   #  - assets/images/
