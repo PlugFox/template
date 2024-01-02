@@ -1,0 +1,30 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run App (Debug)",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "--dart-define-from-file=config/development.json",
+        "--dart-define=octopus.logs=true",
+        "--dart-define=octopus.measure=false"
+      ],
+      "env": {}
+    },
+    {
+      "name": "Web server (Debug)",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "--dart-define-from-file=config/development.json",
+        "--device-id=web-server",
+        "--dart-define=octopus.logs=true",
+        "--dart-define=octopus.measure=false"
+      ],
+      "env": {}
+    }
+  ]
+}

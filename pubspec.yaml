@@ -30,8 +30,8 @@ version: 1.0.0+1
 #  windows:
 
 #screenshots:
-#  - description: 'Example of using the ws library to connect to a WebSocket server.'
-#    path: example.png
+#  - description: 'Screenshot 1'
+#    path: screenshot_1.png
 
 environment:
   sdk: '>=3.2.3 <4.0.0'
@@ -94,8 +94,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  #shaders:
-  #  - assets/shaders/
+  shaders:
+    - assets/shaders/
 
   #assets:
   #  - assets/images/
