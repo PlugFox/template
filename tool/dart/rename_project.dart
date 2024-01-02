@@ -6,23 +6,6 @@ import 'package:path/path.dart' as p;
 const String _defaultName = 'flutter_template_name';
 const String _defaultOrganization = 'dev.flutter.template';
 const String _defaultDescription = 'flutter_template_description';
-const Set<String> _extensions = {
-  '.dart',
-  '.yaml',
-  '.gradle',
-  '.xml',
-  '.kt',
-  '.plist',
-  '.txt',
-  '.cc',
-  '.cpp',
-  '.rc',
-  '.xcconfig',
-  '.pbxproj',
-  '.xcscheme',
-  '.html',
-  '.json',
-};
 
 /// dart run tool/dart/rename_project.dart --name="qqq" --organization="www" --description="eee"
 void main([List<String>? args]) {
@@ -59,12 +42,34 @@ Never _throwArguments() {
 
 Iterable<io.FileSystemEntity> _recursiveDirectories(
     io.Directory directory) sync* {
+  const excludeFiles = <String>{
+    'README.md',
+    'rename_project.dart',
+  };
+  const Set<String> includeExtensions = <String>{
+    '.dart',
+    '.yaml',
+    '.gradle',
+    '.xml',
+    '.kt',
+    '.plist',
+    '.txt',
+    '.cc',
+    '.cpp',
+    '.rc',
+    '.xcconfig',
+    '.pbxproj',
+    '.xcscheme',
+    '.html',
+    '.json',
+  };
   for (final e in directory.listSync(recursive: false, followLinks: false)) {
+    if (p.basename(e.path).startsWith('.')) continue;
     if (e is io.File) {
-      if (!_extensions.contains(p.extension(e.path))) continue;
+      if (!includeExtensions.contains(p.extension(e.path))) continue;
+      if (excludeFiles.contains(p.basename(e.path))) continue;
       yield e;
     } else if (e is io.Directory) {
-      if (p.basename(e.path).startsWith('.')) continue;
       yield e;
       yield* _recursiveDirectories(e);
     }
