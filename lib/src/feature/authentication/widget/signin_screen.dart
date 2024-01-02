@@ -1,9 +1,9 @@
 import 'dart:math' as math;
 
+import 'package:control/control.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_template_name/src/common/constant/config.dart';
-import 'package:flutter_template_name/src/common/controller/state_consumer.dart';
 import 'package:flutter_template_name/src/common/router/routes.dart';
 import 'package:flutter_template_name/src/feature/authentication/controller/authentication_controller.dart';
 import 'package:flutter_template_name/src/feature/authentication/controller/authentication_state.dart';
@@ -22,12 +22,10 @@ class SignInScreen extends StatefulWidget {
   State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen>
-    with _UsernamePasswordFormStateMixin {
+class _SignInScreenState extends State<SignInScreen> with _UsernamePasswordFormStateMixin {
   final FocusNode _usernameFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
-  late final Listenable _formChangedNotifier =
-      Listenable.merge([_usernameController, _passwordController]);
+  late final Listenable _formChangedNotifier = Listenable.merge([_usernameController, _passwordController]);
   final _usernameFormatters = <TextInputFormatter>[
     FilteringTextInputFormatter.allow(
       /// Allow only letters, numbers,
@@ -47,7 +45,7 @@ class _SignInScreenState extends State<SignInScreen>
                 padding: EdgeInsets.symmetric(
                   horizontal: math.max(16, (constraints.maxWidth - 620) / 2),
                 ),
-                child: StateConsumer<AuthenticationState>(
+                child: StateConsumer<AuthenticationController, AuthenticationState>(
                   controller: _authenticationController,
                   buildWhen: (previous, current) => previous != current,
                   builder: (context, state, _) => Column(
@@ -65,10 +63,7 @@ class _SignInScreenState extends State<SignInScreen>
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineLarge
-                                  ?.copyWith(height: 1),
+                              style: Theme.of(context).textTheme.headlineLarge?.copyWith(height: 1),
                             ),
                             const SizedBox(width: 2),
                             Align(
@@ -104,10 +99,7 @@ class _SignInScreenState extends State<SignInScreen>
                         minLines: 1,
                         controller: _usernameController,
                         autocorrect: false,
-                        autofillHints: const <String>[
-                          AutofillHints.username,
-                          AutofillHints.email
-                        ],
+                        autofillHints: const <String>[AutofillHints.username, AutofillHints.email],
                         keyboardType: TextInputType.emailAddress,
                         inputFormatters: _usernameFormatters,
                         decoration: InputDecoration(
@@ -141,11 +133,8 @@ class _SignInScreenState extends State<SignInScreen>
                           errorMaxLines: 1,
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: IconButton(
-                            icon: Icon(_obscurePassword
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                            onPressed: () => setState(
-                                () => _obscurePassword = !_obscurePassword),
+                            icon: Icon(_obscurePassword ? Icons.visibility : Icons.visibility_off),
+                            onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
                           ),
                         ),
                       ),
@@ -155,18 +144,12 @@ class _SignInScreenState extends State<SignInScreen>
                         child: AnimatedBuilder(
                           animation: _formChangedNotifier,
                           builder: (context, _) {
-                            final formFilled =
-                                _usernameController.text.length > 3 &&
-                                    _passwordController.text.length >=
-                                        Config.passwordMinLength;
-                            final signInCallback = state.isIdling && formFilled
-                                ? () => signIn(context)
-                                : null;
-                            final signUpCallback =
-                                state.isIdling ? () => signUp(context) : null;
-                            final key = ValueKey<int>(
-                                (signInCallback == null ? 0 : 1 << 1) |
-                                    (signUpCallback == null ? 0 : 1));
+                            final formFilled = _usernameController.text.length > 3 &&
+                                _passwordController.text.length >= Config.passwordMinLength;
+                            final signInCallback = state.isIdling && formFilled ? () => signIn(context) : null;
+                            final signUpCallback = state.isIdling ? () => signUp(context) : null;
+                            final key =
+                                ValueKey<int>((signInCallback == null ? 0 : 1 << 1) | (signUpCallback == null ? 0 : 1));
                             return _SignInScreen$Buttons(
                               signIn: signInCallback,
                               signUp: signUpCallback,
@@ -232,9 +215,7 @@ class _SignInScreen$Buttons extends StatelessWidget {
 class _UsernameTextFormatter extends TextInputFormatter {
   const _UsernameTextFormatter();
   @override
-  TextEditingValue formatEditUpdate(
-          TextEditingValue oldValue, TextEditingValue newValue) =>
-      TextEditingValue(
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) => TextEditingValue(
         text: newValue.text.toLowerCase(),
         selection: newValue.selection,
       );
@@ -257,8 +238,7 @@ mixin _UsernamePasswordFormStateMixin on State<SignInScreen> {
   }
 
   static String? _passwordValidator(String password) {
-    const passwordMinLength = Config.passwordMinLength,
-        passwordMaxLength = Config.passwordMaxLength;
+    const passwordMinLength = Config.passwordMinLength, passwordMaxLength = Config.passwordMaxLength;
     final length = switch (password.length) {
       0 => 'Password is required.',
       < passwordMinLength => 'Password must be 8 characters or more.',
@@ -277,8 +257,7 @@ mixin _UsernamePasswordFormStateMixin on State<SignInScreen> {
   }
 
   late final AuthenticationController _authenticationController;
-  final TextEditingController _usernameController =
-      TextEditingController(text: 'test@gmail.com');
+  final TextEditingController _usernameController = TextEditingController(text: 'test@gmail.com');
   final TextEditingController _passwordController = TextEditingController();
   String? _usernameError, _passwordError;
 
@@ -315,15 +294,12 @@ mixin _UsernamePasswordFormStateMixin on State<SignInScreen> {
     const numbers = '0123456789';
     const chars = lower + upper + numbers;
     final rnd = math.Random();
-    final length =
-        rnd.nextInt(Config.passwordMaxLength - Config.passwordMinLength) +
-            Config.passwordMinLength;
+    final length = rnd.nextInt(Config.passwordMaxLength - Config.passwordMinLength) + Config.passwordMinLength;
     final password = <int>[
       lower.codeUnitAt(rnd.nextInt(lower.length)),
       upper.codeUnitAt(rnd.nextInt(upper.length)),
       numbers.codeUnitAt(rnd.nextInt(numbers.length)),
-      for (var i = 0; i < length - 3; i++)
-        chars.codeUnitAt(rnd.nextInt(chars.length)),
+      for (var i = 0; i < length - 3; i++) chars.codeUnitAt(rnd.nextInt(chars.length)),
     ];
     _passwordController.text = String.fromCharCodes(password..shuffle());
   }

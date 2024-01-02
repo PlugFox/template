@@ -193,6 +193,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  control:
+    dependency: "direct main"
+    description:
+      name: control
+      sha256: db0596ede0d145ad1499dd2e2dba25b364fec809934f08fafcb6f80a7d025971
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1-pre.0"
   convert:
     dependency: "direct main"
     description:

@@ -4,6 +4,7 @@ import 'package:flutter_template_name/src/feature/account/widget/profile_screen.
 import 'package:flutter_template_name/src/feature/account/widget/settings_dialog.dart';
 import 'package:flutter_template_name/src/feature/authentication/widget/signin_screen.dart';
 import 'package:flutter_template_name/src/feature/authentication/widget/signup_screen.dart';
+import 'package:flutter_template_name/src/feature/developer/widget/developer_screen.dart';
 import 'package:flutter_template_name/src/feature/home/widget/home_screen.dart';
 import 'package:octopus/octopus.dart';
 
@@ -12,6 +13,7 @@ enum Routes with OctopusRoute {
   signup('signup', title: 'Sign-Up'),
   home('home', title: 'Octopus'),
   profile('profile', title: 'Profile'),
+  developer('developer', title: 'Developer'),
   settingsDialog('settings-dialog', title: 'Settings'),
   aboutAppDialog('about-app-dialog', title: 'About Application');
 
@@ -29,6 +31,7 @@ enum Routes with OctopusRoute {
         Routes.signup => const SignUpScreen(),
         Routes.home => const HomeScreen(),
         Routes.profile => const ProfileScreen(),
+        Routes.developer => const DeveloperScreen(),
         Routes.settingsDialog => const SettingsDialog(),
         Routes.aboutAppDialog => const AboutApplicationDialog(),
       };

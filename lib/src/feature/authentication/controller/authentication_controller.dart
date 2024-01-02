@@ -1,25 +1,20 @@
 import 'dart:async';
 
-import 'package:flutter_template_name/src/common/controller/droppable_controller_concurrency.dart';
-import 'package:flutter_template_name/src/common/controller/state_controller.dart';
+import 'package:control/control.dart';
 import 'package:flutter_template_name/src/feature/authentication/controller/authentication_state.dart';
 import 'package:flutter_template_name/src/feature/authentication/data/authentication_repository.dart';
 import 'package:flutter_template_name/src/feature/authentication/model/sign_in_data.dart';
 import 'package:flutter_template_name/src/feature/authentication/model/user.dart';
 
-final class AuthenticationController
-    extends StateController<AuthenticationState>
-    with DroppableControllerConcurrency {
+final class AuthenticationController extends StateController<AuthenticationState> with DroppableControllerHandler {
   AuthenticationController(
       {required IAuthenticationRepository repository,
-      super.initialState =
-          const AuthenticationState.idle(user: User.unauthenticated())})
+      super.initialState = const AuthenticationState.idle(user: User.unauthenticated())})
       : _repository = repository {
     _userSubscription = repository
         .userChanges()
         .map<AuthenticationState>((u) => AuthenticationState.idle(user: u))
-        .where((newState) =>
-            state.isProcessing || !identical(newState.user, state.user))
+        .where((newState) => state.isProcessing || !identical(newState.user, state.user))
         .listen(setState, cancelOnError: false);
   }
 

@@ -13,7 +13,11 @@ void main([List<String>? args]) {
   String? extractArg(String key) {
     final value = args.firstWhereOrNull((e) => e.startsWith(key));
     if (value == null) return null;
-    return RegExp(r'[\d\w\.\-\_ ]+').allMatches(value.substring(key.length)).map((e) => e.group(0)).join().trim();
+    return RegExp(r'[\d\w\.\-\_ ]+')
+        .allMatches(value.substring(key.length))
+        .map((e) => e.group(0))
+        .join()
+        .trim();
   }
 
   final name = extractArg('--name');
@@ -36,7 +40,8 @@ Never _throwArguments() {
   io.exit(1);
 }
 
-Iterable<io.FileSystemEntity> _recursiveDirectories(io.Directory directory) sync* {
+Iterable<io.FileSystemEntity> _recursiveDirectories(
+    io.Directory directory) sync* {
   const excludeFiles = <String>{
     'README.md',
     'rename_project.dart',
@@ -71,14 +76,17 @@ Iterable<io.FileSystemEntity> _recursiveDirectories(io.Directory directory) sync
   }
 }
 
-void _renameDirectory(String from, String to) => _recursiveDirectories(io.Directory.current)
-    .whereType<io.Directory>()
-    .toList(growable: false)
-    .where((dir) => p.basename(dir.path) == from)
-    .forEach((dir) => dir.renameSync(p.join(p.dirname(dir.path), to)));
+void _renameDirectory(String from, String to) =>
+    _recursiveDirectories(io.Directory.current)
+        .whereType<io.Directory>()
+        .toList(growable: false)
+        .where((dir) => p.basename(dir.path) == from)
+        .forEach((dir) => dir.renameSync(p.join(p.dirname(dir.path), to)));
 
 void _changeContent(List<({String from, String to})> pairs) =>
-    _recursiveDirectories(io.Directory.current).whereType<io.File>().forEach((e) {
+    _recursiveDirectories(io.Directory.current)
+        .whereType<io.File>()
+        .forEach((e) {
       var content = e.readAsStringSync();
       var changed = false;
       for (final pair in pairs) {

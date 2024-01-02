@@ -66,6 +66,9 @@ dependencies:
   # Logger
   l: ^4.1.0-pre.1
 
+  # State management
+  control: ^0.0.1-pre.0
+
   # Database
   shared_preferences: ^2.2.2
   drift: ^2.14.1

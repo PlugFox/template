@@ -1,25 +1,24 @@
-import 'package:flutter_template_name/src/common/controller/controller.dart';
+import 'package:control/control.dart';
 import 'package:l/l.dart';
 
 class ControllerObserver implements IControllerObserver {
   @override
-  void onCreate(IController controller) {
+  void onCreate(Controller controller) {
     l.v6('Controller | ${controller.runtimeType} | Created');
   }
 
   @override
-  void onDispose(IController controller) {
+  void onDispose(Controller controller) {
     l.v5('Controller | ${controller.runtimeType} | Disposed');
   }
 
   @override
-  void onStateChanged(
-      IController controller, Object prevState, Object nextState) {
-    l.d('Controller | ${controller.runtimeType} | $prevState -> $nextState');
+  void onStateChanged<S extends Object>(StateController<S> controller, S prevState, S nextState) {
+    l.d('StateController | ${controller.runtimeType} | $prevState -> $nextState');
   }
 
   @override
-  void onError(IController controller, Object error, StackTrace stackTrace) {
+  void onError(Controller controller, Object error, StackTrace stackTrace) {
     l.w('Controller | ${controller.runtimeType} | $error', stackTrace);
   }
 }

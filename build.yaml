@@ -9,3 +9,12 @@ targets:
       pubspec_generator:
         options:
           output: lib/src/common/constant/pubspec.yaml.g.dart
+      drift_dev:
+        generate_for:
+          include:
+            - lib/src/common/database/**
+        options:
+          data_class_to_companions: true
+          mutable_classes: false
+          sqlite:
+            version: "3.41"
