@@ -4,7 +4,7 @@ description: "flutter_template_description"
 
 publish_to: 'none'
 
-version: 0.0.0+1-dev
+version: 0.0.1+1
 
 #homepage: https://github.com/
 
@@ -59,9 +59,10 @@ dependencies:
   path: any
   convert: any
   path_provider: ^2.1.1
+  platform_info: ^4.0.2
   #url_launcher: ^6.1.11
-  #platform_info: ^4.0.2
   #multiline: ^3.0.0
+  rxdart: ^0.28.0-dev.0
 
   # Logger
   l: ^4.1.0-pre.1

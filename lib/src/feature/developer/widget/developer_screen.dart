@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template_name/src/common/localization/localization.dart';
 import 'package:flutter_template_name/src/common/widget/scaffold_padding.dart';
 
 /// {@template developer_screen}
@@ -12,8 +13,8 @@ class DeveloperScreen extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         body: CustomScrollView(
           slivers: <Widget>[
-            const SliverAppBar(
-              title: Text('Profile'),
+            SliverAppBar(
+              title: Text(Localization.of(context).developer),
               pinned: true,
               floating: true,
               snap: true,
