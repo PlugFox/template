@@ -4,7 +4,6 @@ import 'package:flutter_template_name/src/common/constant/config.dart';
 import 'package:flutter_template_name/src/common/localization/localization.dart';
 import 'package:flutter_template_name/src/common/router/router_state_mixin.dart';
 import 'package:flutter_template_name/src/feature/authentication/widget/authentication_scope.dart';
-import 'package:flutter_template_name/src/feature/shop/widget/shop_scope.dart';
 import 'package:octopus/octopus.dart';
 
 /// {@template app}
@@ -52,10 +51,8 @@ class _AppState extends State<App> with RouterStateMixin {
           child: OctopusTools(
             enable: true,
             octopus: router,
-            child: ShopScope(
-              child: AuthenticationScope(
-                child: child ?? const SizedBox.shrink(),
-              ),
+            child: AuthenticationScope(
+              child: child ?? const SizedBox.shrink(),
             ),
           ),
         ),

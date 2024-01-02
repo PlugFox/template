@@ -4,9 +4,6 @@ import 'package:flutter_template_name/src/common/model/dependencies.dart';
 import 'package:flutter_template_name/src/feature/authentication/controller/authentication_controller.dart';
 import 'package:flutter_template_name/src/feature/authentication/data/authentication_repository.dart';
 import 'package:flutter_template_name/src/feature/initialization/data/platform/platform_initialization.dart';
-import 'package:flutter_template_name/src/feature/shop/controller/favorite_controller.dart';
-import 'package:flutter_template_name/src/feature/shop/controller/shop_controller.dart';
-import 'package:flutter_template_name/src/feature/shop/data/product_repository.dart';
 import 'package:l/l.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,22 +19,18 @@ Future<Dependencies> $initializeDependencies({
       currentStep++;
       final percent = (currentStep * 100 ~/ totalSteps).clamp(0, 100);
       onProgress?.call(percent, step.key);
-      l.v6(
-          'Initialization | $currentStep/$totalSteps ($percent%) | "${step.key}"');
+      l.v6('Initialization | $currentStep/$totalSteps ($percent%) | "${step.key}"');
       await step.value(dependencies);
     } on Object catch (error, stackTrace) {
       l.e('Initialization failed at step "${step.key}": $error', stackTrace);
-      Error.throwWithStackTrace(
-          'Initialization failed at step "${step.key}": $error', stackTrace);
+      Error.throwWithStackTrace('Initialization failed at step "${step.key}": $error', stackTrace);
     }
   }
   return dependencies;
 }
 
-typedef _InitializationStep = FutureOr<void> Function(
-    Dependencies dependencies);
-final Map<String, _InitializationStep> _initializationSteps =
-    <String, _InitializationStep>{
+typedef _InitializationStep = FutureOr<void> Function(Dependencies dependencies);
+final Map<String, _InitializationStep> _initializationSteps = <String, _InitializationStep>{
   'Platform pre-initialization': (_) => $platformInitialization(),
   'Creating app metadata': (_) {},
   'Observer state managment': (_) {},
@@ -53,22 +46,7 @@ final Map<String, _InitializationStep> _initializationSteps =
           sharedPreferences: dependencies.sharedPreferences,
         ),
       ),
-  'Restore last user': (dependencies) =>
-      dependencies.authenticationController.restore(),
-  'Prepare shop controller': (dependencies) {
-    final repository = ProductRepositoryImpl(
-      sharedPreferences: dependencies.sharedPreferences,
-    );
-    // Shop controller
-    dependencies.shopController = ShopController(
-      repository: repository,
-    )..fetch();
-    // Favorite controller
-    // ignore: cascade_invocations
-    dependencies.favoriteController = FavoriteController(
-      repository: repository,
-    )..fetch();
-  },
+  'Restore last user': (dependencies) => dependencies.authenticationController.restore(),
   'Initialize localization': (_) {},
   'Migrate app from previous version': (_) {},
   'Collect logs': (_) {},

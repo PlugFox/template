@@ -1,29 +1,20 @@
+import 'package:flutter/widgets.dart' show State, StatefulWidget, ValueNotifier;
 import 'package:flutter_template_name/src/common/model/dependencies.dart';
 import 'package:flutter_template_name/src/common/router/authentication_guard.dart';
 import 'package:flutter_template_name/src/common/router/home_guard.dart';
 import 'package:flutter_template_name/src/common/router/routes.dart';
-import 'package:flutter_template_name/src/common/router/shop_guard.dart';
-import 'package:flutter_template_name/src/feature/shop/data/shop_tabs_cache_service.dart';
-import 'package:flutter/widgets.dart' show State, StatefulWidget, ValueNotifier;
 import 'package:octopus/octopus.dart';
 
 mixin RouterStateMixin<T extends StatefulWidget> on State<T> {
   late final Octopus router;
-  late final ValueNotifier<List<({Object error, StackTrace stackTrace})>>
-      errorsObserver;
+  late final ValueNotifier<List<({Object error, StackTrace stackTrace})>> errorsObserver;
 
   @override
   void initState() {
     final dependencies = Dependencies.of(context);
     // Observe all errors.
-    errorsObserver =
-        ValueNotifier<List<({Object error, StackTrace stackTrace})>>(
+    errorsObserver = ValueNotifier<List<({Object error, StackTrace stackTrace})>>(
       <({Object error, StackTrace stackTrace})>[],
-    );
-
-    // Create cache for shop tabs.
-    final shopTabCache = ShopTabsCacheService(
-      sharedPreferences: dependencies.sharedPreferences,
     );
 
     // Create router.
@@ -49,11 +40,8 @@ mixin RouterStateMixin<T extends StatefulWidget> on State<T> {
         ),
         // Home route should be always on top.
         HomeGuard(),
-        // Check shop tabs with nested navigation.
-        ShopGuard(cache: shopTabCache),
       ],
-      onError: (error, stackTrace) =>
-          errorsObserver.value = <({Object error, StackTrace stackTrace})>[
+      onError: (error, stackTrace) => errorsObserver.value = <({Object error, StackTrace stackTrace})>[
         (error: error, stackTrace: stackTrace),
         ...errorsObserver.value,
       ],
