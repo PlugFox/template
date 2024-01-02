@@ -1,5 +1,5 @@
-import 'package:flutter_template_name/src/common/model/dependencies.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template_name/src/common/model/dependencies.dart';
 
 /// {@template inherited_dependencies}
 /// InheritedDependencies widget.

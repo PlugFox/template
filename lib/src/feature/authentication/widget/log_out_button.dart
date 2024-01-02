@@ -1,7 +1,7 @@
-import 'package:flutter_template_name/src/common/localization/localization.dart';
-import 'package:flutter_template_name/src/feature/authentication/widget/authentication_scope.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_template_name/src/common/localization/localization.dart';
+import 'package:flutter_template_name/src/feature/authentication/widget/authentication_scope.dart';
 
 /// {@template log_out_button}
 /// LogOutButton widget

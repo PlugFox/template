@@ -1,7 +1,7 @@
-import 'package:flutter_template_name/src/common/localization/localization.dart';
-import 'package:flutter_template_name/src/common/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_template_name/src/common/localization/localization.dart';
+import 'package:flutter_template_name/src/common/router/routes.dart';
 import 'package:octopus/octopus.dart';
 
 /// {@template profile_icon_button}

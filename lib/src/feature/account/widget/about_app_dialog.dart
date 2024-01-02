@@ -1,7 +1,7 @@
-import 'package:flutter_template_name/src/common/constant/pubspec.yaml.g.dart';
-import 'package:flutter_template_name/src/common/localization/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_template_name/src/common/constant/pubspec.yaml.g.dart';
+import 'package:flutter_template_name/src/common/localization/localization.dart';
 
 /// {@template about_app_dialog}
 /// AboutApplicationDialog widget.

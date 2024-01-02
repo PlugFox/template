@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_template_name/src/common/router/routes.dart';
 import 'package:flutter_template_name/src/common/widget/form_placeholder.dart';
 import 'package:flutter_template_name/src/common/widget/scaffold_padding.dart';
 import 'package:flutter_template_name/src/common/widget/shimmer.dart';
 import 'package:flutter_template_name/src/common/widget/text_placeholder.dart';
 import 'package:flutter_template_name/src/feature/authentication/widget/log_out_button.dart';
-import 'package:flutter/material.dart';
 import 'package:octopus/octopus.dart';
 
 /// {@template profile_screen}

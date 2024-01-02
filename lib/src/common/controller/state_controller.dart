@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter_template_name/src/common/controller/controller.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_template_name/src/common/controller/controller.dart';
 
 /// State controller
 abstract interface class IStateController<State extends Object>

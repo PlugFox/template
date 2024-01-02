@@ -53,20 +53,23 @@ dependencies:
   octopus: ^0.0.0
 
   # Utility
+  meta: any
   collection: any
   async: any
-  meta: any
   path: any
   convert: any
-  #path_provider: ^2.0.15
+  path_provider: ^2.1.1
   #url_launcher: ^6.1.11
   #platform_info: ^4.0.2
+  #multiline: ^3.0.0
 
   # Logger
   l: ^4.1.0-pre.1
 
-  # Storage
+  # Database
   shared_preferences: ^2.2.2
+  drift: ^2.14.1
+  sqlite3_flutter_libs: ^0.5.18
 
   # UI and Widgets
   cupertino_icons: ^1.0.5
@@ -86,6 +89,7 @@ dev_dependencies:
 
   # Code generation
   build_runner: ^2.4.6
+  drift_dev: ^2.14.1
   pubspec_generator: ^4.1.0-pre.1
   flutter_gen_runner: ^5.3.2
   flutter_launcher_icons: ^0.13.1

@@ -1,3 +1,4 @@
 {
-  "ENVIRONMENT": "staging"
+  "ENVIRONMENT": "staging",
+  "MAX_LAYOUT_WIDTH": 768
 }

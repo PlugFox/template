@@ -1,0 +1,51 @@
+-- Logs table
+CREATE TABLE IF NOT EXISTS log_tbl (
+    -- req Unique identifier of the log
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+
+    -- Time is the timestamp (in seconds) of the log message
+    time INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+
+    -- Level is the severity level (a value between 0 and 6)
+    level INTEGER NOT NULL,
+
+    -- req Message is the log message or error associated with this log event
+    message TEXT NOT NULL,
+
+    -- StackTrace a stack trace associated with this log event
+    stack TEXT
+) STRICT;
+
+-- Indexes
+CREATE INDEX IF NOT EXISTS log_time_idx ON log_tbl (time);
+CREATE INDEX IF NOT EXISTS log_level_idx ON log_tbl (level);
+
+-- Search table
+CREATE TABLE IF NOT EXISTS log_prefix_tbl (
+    -- req Prefix (first 3 chars of word, lowercased)
+    prefix TEXT NOT NULL, -- CHECK(length(prefix) = 3)
+
+    -- req Unique identifier
+    log_id INTEGER NOT NULL,
+
+    -- req Word (3 or more chars, lowercased)
+    word TEXT NOT NULL,
+
+    -- req Word's length
+    len INTEGER NOT NULL,
+
+    -- Composite primary key
+    PRIMARY KEY (prefix, log_id, word),
+
+    -- Foreign keys
+    FOREIGN KEY (log_id)
+        REFERENCES log_tbl (id)
+            ON UPDATE CASCADE
+            ON DELETE CASCADE
+) STRICT;
+
+-- Indexes
+CREATE INDEX IF NOT EXISTS log_prefix_prefix_idx ON log_prefix_tbl (prefix);
+CREATE INDEX IF NOT EXISTS log_prefix_log_id_idx ON log_prefix_tbl (log_id);
+CREATE INDEX IF NOT EXISTS log_prefix_len_idx ON log_prefix_tbl (len);
+

@@ -8,7 +8,8 @@ class Dependencies {
   Dependencies();
 
   /// The state from the closest instance of this class.
-  factory Dependencies.of(BuildContext context) => InheritedDependencies.of(context);
+  factory Dependencies.of(BuildContext context) =>
+      InheritedDependencies.of(context);
 
   /// Shared preferences
   late final SharedPreferences sharedPreferences;

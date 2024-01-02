@@ -19,18 +19,22 @@ Future<Dependencies> $initializeDependencies({
       currentStep++;
       final percent = (currentStep * 100 ~/ totalSteps).clamp(0, 100);
       onProgress?.call(percent, step.key);
-      l.v6('Initialization | $currentStep/$totalSteps ($percent%) | "${step.key}"');
+      l.v6(
+          'Initialization | $currentStep/$totalSteps ($percent%) | "${step.key}"');
       await step.value(dependencies);
     } on Object catch (error, stackTrace) {
       l.e('Initialization failed at step "${step.key}": $error', stackTrace);
-      Error.throwWithStackTrace('Initialization failed at step "${step.key}": $error', stackTrace);
+      Error.throwWithStackTrace(
+          'Initialization failed at step "${step.key}": $error', stackTrace);
     }
   }
   return dependencies;
 }
 
-typedef _InitializationStep = FutureOr<void> Function(Dependencies dependencies);
-final Map<String, _InitializationStep> _initializationSteps = <String, _InitializationStep>{
+typedef _InitializationStep = FutureOr<void> Function(
+    Dependencies dependencies);
+final Map<String, _InitializationStep> _initializationSteps =
+    <String, _InitializationStep>{
   'Platform pre-initialization': (_) => $platformInitialization(),
   'Creating app metadata': (_) {},
   'Observer state managment': (_) {},
@@ -46,7 +50,8 @@ final Map<String, _InitializationStep> _initializationSteps = <String, _Initiali
           sharedPreferences: dependencies.sharedPreferences,
         ),
       ),
-  'Restore last user': (dependencies) => dependencies.authenticationController.restore(),
+  'Restore last user': (dependencies) =>
+      dependencies.authenticationController.restore(),
   'Initialize localization': (_) {},
   'Migrate app from previous version': (_) {},
   'Collect logs': (_) {},

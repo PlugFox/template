@@ -7,13 +7,15 @@ import 'package:octopus/octopus.dart';
 
 mixin RouterStateMixin<T extends StatefulWidget> on State<T> {
   late final Octopus router;
-  late final ValueNotifier<List<({Object error, StackTrace stackTrace})>> errorsObserver;
+  late final ValueNotifier<List<({Object error, StackTrace stackTrace})>>
+      errorsObserver;
 
   @override
   void initState() {
     final dependencies = Dependencies.of(context);
     // Observe all errors.
-    errorsObserver = ValueNotifier<List<({Object error, StackTrace stackTrace})>>(
+    errorsObserver =
+        ValueNotifier<List<({Object error, StackTrace stackTrace})>>(
       <({Object error, StackTrace stackTrace})>[],
     );
 
@@ -41,7 +43,8 @@ mixin RouterStateMixin<T extends StatefulWidget> on State<T> {
         // Home route should be always on top.
         HomeGuard(),
       ],
-      onError: (error, stackTrace) => errorsObserver.value = <({Object error, StackTrace stackTrace})>[
+      onError: (error, stackTrace) =>
+          errorsObserver.value = <({Object error, StackTrace stackTrace})>[
         (error: error, stackTrace: stackTrace),
         ...errorsObserver.value,
       ],

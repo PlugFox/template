@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
-import 'package:flutter_template_name/src/common/widget/shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template_name/src/common/widget/shimmer.dart';
 
 /// {@template text_placeholder}
 /// TextPlaceholder widget.

@@ -1,5 +1,5 @@
-import 'package:flutter_template_name/src/common/widget/common_actions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template_name/src/common/widget/common_actions.dart';
 
 /// {@template not_found}
 /// NotFoundScreen widget.

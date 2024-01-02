@@ -14,7 +14,7 @@ library pubspec;
 
   MIT License
 
-  Copyright (c) 2023 Plague Fox
+  Copyright (c) 2024 Plague Fox
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -93,17 +93,17 @@ sealed class Pubspec {
   static const PubspecVersion version = (
     /// Non-canonical string representation of the version as provided
     /// in the pubspec.yaml file.
-    representation: r'1.0.0+1',
+    representation: r'0.0.0+1-dev',
 
     /// Returns a 'canonicalized' representation
     /// of the application version.
     /// This represents the version string in accordance with
     /// Semantic Versioning (SemVer) standards.
-    canonical: r'1.0.0+1',
+    canonical: r'0.0.0+1-dev',
 
     /// MAJOR version when you make incompatible API changes.
     /// The major version number: 1 in "1.2.3".
-    major: 1,
+    major: 0,
 
     /// MINOR version when you add functionality
     /// in a backward compatible manner.
@@ -118,19 +118,19 @@ sealed class Pubspec {
     preRelease: <String>[],
 
     /// The build identifier: "foo" in "1.2.3+foo".
-    build: <String>[r'1'],
+    build: <String>[r'1-dev'],
   );
 
   /// Build date and time (UTC)
   static final DateTime timestamp = DateTime.utc(
-    2023,
-    12,
+    2024,
+    1,
+    2,
     22,
-    14,
-    11,
-    18,
-    17,
-    314,
+    40,
+    29,
+    337,
+    731,
   );
 
   /// Name
@@ -150,7 +150,7 @@ sealed class Pubspec {
   /// Try to pick a name that is clear, terse, and not already in use.
   /// A quick search of packages on the [pub.dev site](https://pub.dev/packages)
   /// to make sure that nothing else is using your name is recommended.
-  static const String name = r'example';
+  static const String name = r'flutter_template_name';
 
   /// Description
   ///
@@ -165,7 +165,7 @@ sealed class Pubspec {
   /// Think of the description as the sales pitch for your package.
   /// Users see it when they [browse for packages](https://pub.dev/packages).
   /// The description is plain text: no markdown or HTML.
-  static const String description = r'Routing example';
+  static const String description = r'flutter_template_description';
 
   /// Homepage
   ///
@@ -177,7 +177,7 @@ sealed class Pubspec {
   /// While providing a homepage is optional,
   /// please provide it or repository (or both).
   /// It helps users understand where your package is coming from.
-  static const String homepage = r'https://github.com/PlugFox/octopus';
+  static const String homepage = r'';
 
   /// Repository
   ///
@@ -192,7 +192,7 @@ sealed class Pubspec {
   /// While providing a repository is optional,
   /// please provide it or homepage (or both).
   /// It helps users understand where your package is coming from.
-  static const String repository = r'https://github.com/PlugFox/octopus';
+  static const String repository = r'';
 
   /// Issue tracker
   ///
@@ -205,8 +205,7 @@ sealed class Pubspec {
   /// If issue_tracker is missing but repository is present and points to GitHub,
   /// then the pub.dev site uses the default issue tracker
   /// (https://github.com/<user>/<repository>/issues).
-  static const String issueTracker =
-      r'https://github.com/PlugFox/octopus/issues';
+  static const String issueTracker = r'';
 
   /// Documentation
   ///
@@ -248,11 +247,7 @@ sealed class Pubspec {
   ///
   /// If published to [pub.dev](https://pub.dev/) the links are displayed on the package page.
   /// This aims to help users fund the development of their dependencies.
-  static const List<Object> funding = <Object>[
-    r'https://www.buymeacoffee.com/plugfox',
-    r'https://www.patreon.com/plugfox',
-    r'https://boosty.to/plugfox',
-  ];
+  static const List<Object> funding = <Object>[];
 
   /// False_secrets
   ///
@@ -349,18 +344,12 @@ sealed class Pubspec {
   ///
   /// When choosing topics, consider if existing topics are relevant.
   /// Tagging with existing topics helps users discover your package.
-  static const List<Object> topics = <Object>[
-    r'router',
-    r'navigation',
-    r'navigator',
-    r'state',
-    r'octopus',
-  ];
+  static const List<Object> topics = <Object>[];
 
   /// Environment
   static const Map<String, String> environment = <String, String>{
-    'sdk': '>=3.2.0 <4.0.0',
-    'flutter': '>=3.2.0 <4.0.0',
+    'sdk': '>=3.2.3 <4.0.0',
+    'flutter': '>=3.2.3 <4.0.0',
   };
 
   /// Platforms
@@ -395,14 +384,7 @@ sealed class Pubspec {
   ///   linux:
   ///   macos:
   /// ```
-  static const Map<String, Object> platforms = <String, Object>{
-    'android': r'',
-    'ios': r'',
-    'linux': r'',
-    'macos': r'',
-    'web': r'',
-    'windows': r'',
-  };
+  static const Map<String, Object> platforms = <String, Object>{};
 
   /// Dependencies
   ///
@@ -434,19 +416,18 @@ sealed class Pubspec {
       'sdk': r'flutter',
     },
     'intl': r'any',
-    'octopus': <String, Object>{
-      'path': r'../',
-    },
+    'octopus': r'^0.0.0',
+    'meta': r'any',
     'collection': r'any',
     'async': r'any',
-    'meta': r'any',
     'path': r'any',
     'convert': r'any',
+    'path_provider': r'^2.1.1',
     'l': r'^4.1.0-pre.1',
     'shared_preferences': r'^2.2.2',
+    'drift': r'^2.14.1',
+    'sqlite3_flutter_libs': r'^0.5.18',
     'cupertino_icons': r'^1.0.5',
-    'photo_view': r'^0.14.0',
-    'google_fonts': r'^6.1.0',
   };
 
   /// Developer dependencies
@@ -459,6 +440,7 @@ sealed class Pubspec {
     },
     'flutter_lints': r'^2.0.1',
     'build_runner': r'^2.4.6',
+    'drift_dev': r'^2.14.1',
     'pubspec_generator': r'^4.1.0-pre.1',
     'flutter_gen_runner': r'^5.3.2',
     'flutter_launcher_icons': r'^0.13.1',
@@ -523,10 +505,6 @@ sealed class Pubspec {
       'shaders': <Object>[
         r'assets/shaders/shimmer.frag',
       ],
-      'assets': <Object>[
-        r'assets/data/',
-        r'assets/data/images/',
-      ],
     },
     'flutter_intl': <String, Object>{
       'enabled': true,
@@ -538,7 +516,7 @@ sealed class Pubspec {
     },
     'flutter_gen': <String, Object>{
       'output': r'lib/src/common/constant/',
-      'line_length': 80,
+      'line_length': 120,
     },
   };
 }

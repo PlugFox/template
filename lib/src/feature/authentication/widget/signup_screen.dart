@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
-import 'package:flutter_template_name/src/common/widget/form_placeholder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template_name/src/common/widget/form_placeholder.dart';
 
 /// {@template signup_screen}
 /// SignUpScreen widget.

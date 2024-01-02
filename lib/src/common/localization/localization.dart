@@ -1,6 +1,6 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_template_name/src/common/localization/generated/l10n.dart'
     as generated show GeneratedLocalization, AppLocalizationDelegate;
-import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 
 /// Localization.
