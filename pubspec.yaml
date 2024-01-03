@@ -60,9 +60,9 @@ dependencies:
   convert: any
   path_provider: ^2.1.1
   platform_info: ^4.0.2
-  #url_launcher: ^6.1.11
   #multiline: ^3.0.0
   rxdart: ^0.28.0-dev.0
+  url_launcher: ^6.2.2
 
   # Logger
   l: ^4.1.0-pre.1

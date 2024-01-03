@@ -7,6 +7,7 @@ import 'package:flutter_template_name/src/common/model/dependencies.dart';
 import 'package:flutter_template_name/src/common/widget/scaffold_padding.dart';
 import 'package:flutter_template_name/src/feature/developer/widget/logs_dialog.dart';
 import 'package:octopus/octopus.dart';
+import 'package:url_launcher/url_launcher_string.dart' as url_launcher;
 
 /// {@template developer_screen}
 /// DeveloperScreen widget.
@@ -31,9 +32,9 @@ class DeveloperScreen extends StatelessWidget {
             // --- Authentication --- //
 
             _GroupSeparator(title: Localization.of(context).authentication),
-            // User profile
-            // Refresh session
-            // Logout
+            const _OpenUriTile(title: 'Profile', description: 'Information about current user'),
+            const _OpenUriTile(title: 'Refresh session', description: 'Refresh current user\'s session'),
+            const _OpenUriTile(title: 'Logout', description: 'Logout current user'),
             SliverPadding(
               padding: ScaffoldPadding.of(context).copyWith(top: 16, bottom: 16),
               sliver: const SliverToBoxAdapter(
@@ -64,12 +65,28 @@ class DeveloperScreen extends StatelessWidget {
             const _ViewDatabaseTile(),
             const _ClearDatabaseTile(),
 
+            // --- Useful links --- //
+
+            _GroupSeparator(title: Localization.of(context).usefulLinks),
+            const _OpenUriTile(title: 'Flutter', description: 'Flutter website', uri: 'https://flutter.dev'),
+            const _OpenUriTile(title: 'Flutter API', description: 'Framework API', uri: 'https://api.flutter.dev'),
+            const _OpenUriTile(title: 'Portal', description: 'User portal'),
+            const _OpenUriTile(title: 'Tasks', description: 'Tasks tracker'),
+            const _OpenUriTile(title: 'Repository', description: 'Project repository'),
+            const _OpenUriTile(title: 'Pull requests', description: 'Pull requests list'),
+            const _OpenUriTile(title: 'Jenkins', description: 'CI/CD pipeline'),
+            const _OpenUriTile(title: 'Figma', description: 'Designs system'),
+            const _OpenUriTile(title: 'Firebase', description: 'Firebase console'),
+            const _OpenUriTile(title: 'Sentry', description: 'Sentry console'),
+
             /* SliverPadding(
               padding: ScaffoldPadding.of(context).copyWith(top: 16, bottom: 16),
               sliver: SliverList.list(
                 children: const <Widget>[],
               ),
             ), */
+
+            const SliverToBoxAdapter(child: SizedBox(height: 24)),
           ],
         ),
       );
@@ -439,6 +456,38 @@ class _ClearDatabaseTile extends StatelessWidget {
                 ),
               );
             },
+          ),
+        ),
+      );
+}
+
+class _OpenUriTile extends StatelessWidget {
+  const _OpenUriTile({
+    required this.title,
+    required this.description,
+    this.uri,
+    super.key, // ignore: unused_element
+  });
+
+  final String title;
+  final String description;
+  final String? uri;
+
+  @override
+  Widget build(BuildContext context) => SliverPadding(
+        padding: ScaffoldPadding.of(context),
+        sliver: SliverToBoxAdapter(
+          child: Opacity(
+            opacity: uri == null ? 0.5 : 1,
+            child: ListTile(
+              title: Text(title),
+              subtitle: Text(
+                description,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              onTap: uri == null ? null : () => url_launcher.launchUrlString(uri!).ignore(),
+            ),
           ),
         ),
       );

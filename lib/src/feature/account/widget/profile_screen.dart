@@ -25,8 +25,7 @@ class ProfileScreen extends StatelessWidget {
               snap: true,
             ),
             SliverPadding(
-              padding:
-                  ScaffoldPadding.of(context).copyWith(top: 16, bottom: 16),
+              padding: ScaffoldPadding.of(context).copyWith(top: 16, bottom: 16),
               sliver: SliverList.list(
                 children: <Widget>[
                   Padding(
@@ -132,38 +131,9 @@ class ProfileScreen extends StatelessWidget {
                       onTap: () => context.octopus.push(Routes.settingsDialog),
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  SizedBox(
-                    height: 68,
-                    child: ListTile(
-                      leading: const CircleAvatar(child: Icon(Icons.info)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      isThreeLine: false,
-                      title: const Text(
-                        'About',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          height: 1,
-                        ),
-                      ),
-                      subtitle: const Text(
-                        'Information about the application',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          height: 1,
-                        ),
-                      ),
-                      onTap: () => context.octopus.push(Routes.aboutAppDialog),
-                    ),
-                  ),
                   const SizedBox(height: 24),
                   const FormPlaceholder(title: false),
+                  const SizedBox(height: 24),
                 ],
               ),
             ),
