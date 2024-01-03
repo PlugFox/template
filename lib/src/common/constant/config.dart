@@ -12,7 +12,7 @@ abstract final class Config {
   // --- API --- //
 
   /// Base url for api.
-  /// e.g. https://api.vexus.io
+  /// e.g. https://api.domain.tld
   static const String apiBaseUrl = String.fromEnvironment('API_BASE_URL', defaultValue: 'https://api.domain.tld');
 
   /// Timeout in milliseconds for opening url.
@@ -41,6 +41,9 @@ abstract final class Config {
   /// Database file name by default.
   /// e.g. sqlite means "sqlite.db" for native platforms and "sqlite" for web platform.
   static const String databaseName = String.fromEnvironment('DATABASE_NAME', defaultValue: 'sqlite');
+
+  /// Whether to use in-memory database.
+  static const bool inMemoryDatabase = bool.fromEnvironment('IN_MEMORY_DATABASE', defaultValue: false);
 
   // --- AUTHENTICATION --- //
 

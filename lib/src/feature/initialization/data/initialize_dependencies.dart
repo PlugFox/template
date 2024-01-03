@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:control/control.dart';
+import 'package:flutter_template_name/src/common/constant/config.dart';
 import 'package:flutter_template_name/src/common/constant/pubspec.yaml.g.dart';
 import 'package:flutter_template_name/src/common/controller/controller_observer.dart';
 import 'package:flutter_template_name/src/common/database/database.dart';
@@ -66,7 +67,8 @@ final Map<String, _InitializationStep> _initializationSteps = <String, _Initiali
   'Restore settings': (_) {},
   'Initialize shared preferences': (dependencies) async =>
       dependencies.sharedPreferences = await SharedPreferences.getInstance(),
-  'Connect to database': (dependencies) => (dependencies.database = Database.lazy()).refresh(),
+  'Connect to database': (dependencies) =>
+      (dependencies.database = Config.inMemoryDatabase ? Database.memory() : Database.lazy()).refresh(),
   'Shrink database': (dependencies) async {
     await dependencies.database.customStatement('VACUUM;');
     await dependencies.database.transaction(() async {

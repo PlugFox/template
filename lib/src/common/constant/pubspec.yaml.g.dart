@@ -93,13 +93,13 @@ sealed class Pubspec {
   static const PubspecVersion version = (
     /// Non-canonical string representation of the version as provided
     /// in the pubspec.yaml file.
-    representation: r'0.0.0+1-dev',
+    representation: r'0.0.1+1',
 
     /// Returns a 'canonicalized' representation
     /// of the application version.
     /// This represents the version string in accordance with
     /// Semantic Versioning (SemVer) standards.
-    canonical: r'0.0.0+1-dev',
+    canonical: r'0.0.1+1',
 
     /// MAJOR version when you make incompatible API changes.
     /// The major version number: 1 in "1.2.3".
@@ -112,25 +112,25 @@ sealed class Pubspec {
 
     /// PATCH version when you make backward compatible bug fixes.
     /// The patch version number: 3 in "1.2.3".
-    patch: 0,
+    patch: 1,
 
     /// The pre-release identifier: "foo" in "1.2.3-foo".
     preRelease: <String>[],
 
     /// The build identifier: "foo" in "1.2.3+foo".
-    build: <String>[r'1-dev'],
+    build: <String>[r'1'],
   );
 
   /// Build date and time (UTC)
   static final DateTime timestamp = DateTime.utc(
     2024,
     1,
-    2,
-    22,
-    42,
-    49,
-    710,
-    654,
+    3,
+    9,
+    48,
+    27,
+    546,
+    75,
   );
 
   /// Name
@@ -423,11 +423,15 @@ sealed class Pubspec {
     'path': r'any',
     'convert': r'any',
     'path_provider': r'^2.1.1',
+    'platform_info': r'^4.0.2',
+    'rxdart': r'^0.28.0-dev.0',
     'l': r'^4.1.0-pre.1',
+    'control': r'^0.0.1-pre.0',
     'shared_preferences': r'^2.2.2',
     'drift': r'^2.14.1',
     'sqlite3_flutter_libs': r'^0.5.18',
     'cupertino_icons': r'^1.0.5',
+    'drift_db_viewer': r'^2.0.0',
   };
 
   /// Developer dependencies
@@ -519,4 +523,5 @@ sealed class Pubspec {
       'line_length': 120,
     },
   };
+
 }

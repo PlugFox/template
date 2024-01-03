@@ -8,27 +8,28 @@ class SettingsTbl extends Table with TableInfo<SettingsTbl, SettingsTblData> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   SettingsTbl(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _userIdMeta = VerificationMeta('userId');
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
   late final GeneratedColumn<String> userId = GeneratedColumn<String>(
       'user_id', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL PRIMARY KEY');
-  static const VerificationMeta _jsonDataMeta = VerificationMeta('jsonData');
+  static const VerificationMeta _jsonDataMeta =
+      const VerificationMeta('jsonData');
   late final GeneratedColumn<String> jsonData = GeneratedColumn<String>(
       'json_data', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints:
           'NOT NULL CHECK (length(json_data) > 2 AND json_valid(json_data))');
-  static const VerificationMeta _memoMeta = VerificationMeta('memo');
+  static const VerificationMeta _memoMeta = const VerificationMeta('memo');
   late final GeneratedColumn<String> memo = GeneratedColumn<String>(
       'memo', aliasedName, true,
       type: DriftSqlType.string,
       requiredDuringInsert: false,
       $customConstraints: '');
   static const VerificationMeta _metaCreatedAtMeta =
-      VerificationMeta('metaCreatedAt');
+      const VerificationMeta('metaCreatedAt');
   late final GeneratedColumn<int> metaCreatedAt = GeneratedColumn<int>(
       'meta_created_at', aliasedName, false,
       type: DriftSqlType.int,
@@ -36,7 +37,7 @@ class SettingsTbl extends Table with TableInfo<SettingsTbl, SettingsTblData> {
       $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
       defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
   static const VerificationMeta _metaUpdatedAtMeta =
-      VerificationMeta('metaUpdatedAt');
+      const VerificationMeta('metaUpdatedAt');
   late final GeneratedColumn<int> metaUpdatedAt = GeneratedColumn<int>(
       'meta_updated_at', aliasedName, false,
       type: DriftSqlType.int,
@@ -326,33 +327,34 @@ class LogTbl extends Table with TableInfo<LogTbl, LogTblData> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   LogTbl(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = VerificationMeta('id');
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
-  static const VerificationMeta _timeMeta = VerificationMeta('time');
+  static const VerificationMeta _timeMeta = const VerificationMeta('time');
   late final GeneratedColumn<int> time = GeneratedColumn<int>(
       'time', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
       defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
-  static const VerificationMeta _levelMeta = VerificationMeta('level');
+  static const VerificationMeta _levelMeta = const VerificationMeta('level');
   late final GeneratedColumn<int> level = GeneratedColumn<int>(
       'level', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
-  static const VerificationMeta _messageMeta = VerificationMeta('message');
+  static const VerificationMeta _messageMeta =
+      const VerificationMeta('message');
   late final GeneratedColumn<String> message = GeneratedColumn<String>(
       'message', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
-  static const VerificationMeta _stackMeta = VerificationMeta('stack');
+  static const VerificationMeta _stackMeta = const VerificationMeta('stack');
   late final GeneratedColumn<String> stack = GeneratedColumn<String>(
       'stack', aliasedName, true,
       type: DriftSqlType.string,
@@ -624,25 +626,25 @@ class LogPrefixTbl extends Table
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   LogPrefixTbl(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _prefixMeta = VerificationMeta('prefix');
+  static const VerificationMeta _prefixMeta = const VerificationMeta('prefix');
   late final GeneratedColumn<String> prefix = GeneratedColumn<String>(
       'prefix', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
-  static const VerificationMeta _logIdMeta = VerificationMeta('logId');
+  static const VerificationMeta _logIdMeta = const VerificationMeta('logId');
   late final GeneratedColumn<int> logId = GeneratedColumn<int>(
       'log_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
-  static const VerificationMeta _wordMeta = VerificationMeta('word');
+  static const VerificationMeta _wordMeta = const VerificationMeta('word');
   late final GeneratedColumn<String> word = GeneratedColumn<String>(
       'word', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
-  static const VerificationMeta _lenMeta = VerificationMeta('len');
+  static const VerificationMeta _lenMeta = const VerificationMeta('len');
   late final GeneratedColumn<int> len = GeneratedColumn<int>(
       'len', aliasedName, false,
       type: DriftSqlType.int,
@@ -904,20 +906,20 @@ class CharacteristicTbl extends Table
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   CharacteristicTbl(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _typeMeta = VerificationMeta('type');
+  static const VerificationMeta _typeMeta = const VerificationMeta('type');
   late final GeneratedColumn<String> type = GeneratedColumn<String>(
       'type', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints:
           'NOT NULL CHECK (length(type) > 0 AND length(type) <= 255)');
-  static const VerificationMeta _idMeta = VerificationMeta('id');
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
-  static const VerificationMeta _dataMeta = VerificationMeta('data');
+  static const VerificationMeta _dataMeta = const VerificationMeta('data');
   late final GeneratedColumn<String> data = GeneratedColumn<String>(
       'data', aliasedName, false,
       type: DriftSqlType.string,
@@ -925,7 +927,7 @@ class CharacteristicTbl extends Table
       $customConstraints:
           'NOT NULL CHECK (length(data) > 2 AND json_valid(data))');
   static const VerificationMeta _metaCreatedAtMeta =
-      VerificationMeta('metaCreatedAt');
+      const VerificationMeta('metaCreatedAt');
   late final GeneratedColumn<int> metaCreatedAt = GeneratedColumn<int>(
       'meta_created_at', aliasedName, false,
       type: DriftSqlType.int,
@@ -933,7 +935,7 @@ class CharacteristicTbl extends Table
       $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
       defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
   static const VerificationMeta _metaUpdatedAtMeta =
-      VerificationMeta('metaUpdatedAt');
+      const VerificationMeta('metaUpdatedAt');
   late final GeneratedColumn<int> metaUpdatedAt = GeneratedColumn<int>(
       'meta_updated_at', aliasedName, false,
       type: DriftSqlType.int,
@@ -1227,38 +1229,40 @@ class KvTbl extends Table with TableInfo<KvTbl, KvTblData> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   KvTbl(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _kMeta = VerificationMeta('k');
+  static const VerificationMeta _kMeta = const VerificationMeta('k');
   late final GeneratedColumn<String> k = GeneratedColumn<String>(
       'k', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL PRIMARY KEY');
-  static const VerificationMeta _vstringMeta = VerificationMeta('vstring');
+  static const VerificationMeta _vstringMeta =
+      const VerificationMeta('vstring');
   late final GeneratedColumn<String> vstring = GeneratedColumn<String>(
       'vstring', aliasedName, true,
       type: DriftSqlType.string,
       requiredDuringInsert: false,
       $customConstraints: '');
-  static const VerificationMeta _vintMeta = VerificationMeta('vint');
+  static const VerificationMeta _vintMeta = const VerificationMeta('vint');
   late final GeneratedColumn<int> vint = GeneratedColumn<int>(
       'vint', aliasedName, true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       $customConstraints: '');
-  static const VerificationMeta _vdoubleMeta = VerificationMeta('vdouble');
+  static const VerificationMeta _vdoubleMeta =
+      const VerificationMeta('vdouble');
   late final GeneratedColumn<double> vdouble = GeneratedColumn<double>(
       'vdouble', aliasedName, true,
       type: DriftSqlType.double,
       requiredDuringInsert: false,
       $customConstraints: '');
-  static const VerificationMeta _vboolMeta = VerificationMeta('vbool');
+  static const VerificationMeta _vboolMeta = const VerificationMeta('vbool');
   late final GeneratedColumn<int> vbool = GeneratedColumn<int>(
       'vbool', aliasedName, true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       $customConstraints: '');
   static const VerificationMeta _metaCreatedAtMeta =
-      VerificationMeta('metaCreatedAt');
+      const VerificationMeta('metaCreatedAt');
   late final GeneratedColumn<int> metaCreatedAt = GeneratedColumn<int>(
       'meta_created_at', aliasedName, false,
       type: DriftSqlType.int,
@@ -1266,7 +1270,7 @@ class KvTbl extends Table with TableInfo<KvTbl, KvTblData> {
       $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
       defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
   static const VerificationMeta _metaUpdatedAtMeta =
-      VerificationMeta('metaUpdatedAt');
+      const VerificationMeta('metaUpdatedAt');
   late final GeneratedColumn<int> metaUpdatedAt = GeneratedColumn<int>(
       'meta_updated_at', aliasedName, false,
       type: DriftSqlType.int,

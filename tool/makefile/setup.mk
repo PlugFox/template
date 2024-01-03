@@ -14,11 +14,11 @@ init-firebase:
 	@firebase init
 #	@dart pub global activate flutterfire_cli
 #	@flutterfire configure \
-#		-i com.vexus.app \
-#		-m com.vexus.app \
-#		-a com.vexus.app \
-#		-p vexus \
-#		-e plugfox@gmail.com \
+#		-i tld.domain.app \
+#		-m tld.domain.app \
+#		-a tld.domain.app \
+#		-p project \
+#		-e email@gmail.com \
 #		-o lib/src/common/constant/firebase_options.g.dart
 
 # "assets/images/products\/(\d+)\/(\d+)\.jpg"
