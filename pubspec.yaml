@@ -98,7 +98,7 @@ dev_dependencies:
     sdk: flutter
 
   # Linting
-  flutter_lints: ^2.0.1
+  flutter_lints: ^3.0.1
 
   # Code generation
   build_runner: ^2.4.6
