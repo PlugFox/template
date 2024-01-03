@@ -50,6 +50,7 @@ class _WindowTitle extends StatefulWidget {
   State<_WindowTitle> createState() => _WindowTitleState();
 }
 
+// ignore: prefer_mixin
 class _WindowTitleState extends State<_WindowTitle> with WindowListener {
   final ValueNotifier<bool> _isFullScreen = ValueNotifier(false);
   final ValueNotifier<bool> _isAlwaysOnTop = ValueNotifier(false);
@@ -85,6 +86,7 @@ class _WindowTitleState extends State<_WindowTitle> with WindowListener {
     // do something
   }
 
+  // ignore: avoid_positional_boolean_parameters
   void setAlwaysOnTop(bool value) {
     Future<void>(() async {
       await windowManager.setAlwaysOnTop(value);
