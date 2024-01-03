@@ -126,11 +126,11 @@ sealed class Pubspec {
     2024,
     1,
     3,
-    9,
-    48,
-    27,
-    546,
-    75,
+    10,
+    33,
+    41,
+    865,
+    500,
   );
 
   /// Name
@@ -425,7 +425,10 @@ sealed class Pubspec {
     'path_provider': r'^2.1.1',
     'platform_info': r'^4.0.2',
     'rxdart': r'^0.28.0-dev.0',
+    'url_launcher': r'^6.2.2',
     'l': r'^4.1.0-pre.1',
+    'win32': r'^5.1.1',
+    'window_manager': r'^0.3.4',
     'control': r'^0.0.1-pre.0',
     'shared_preferences': r'^2.2.2',
     'drift': r'^2.14.1',

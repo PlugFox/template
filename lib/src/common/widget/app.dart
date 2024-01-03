@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_template_name/src/common/constant/config.dart';
 import 'package:flutter_template_name/src/common/localization/localization.dart';
 import 'package:flutter_template_name/src/common/router/router_state_mixin.dart';
+import 'package:flutter_template_name/src/common/widget/window_scope.dart';
 import 'package:flutter_template_name/src/feature/authentication/widget/authentication_scope.dart';
 import 'package:octopus/octopus.dart';
 
@@ -40,7 +41,7 @@ class _AppState extends State<App> with RouterStateMixin {
 
         // Theme
         /* theme: SettingsScope.themeOf(context), */
-        theme: ThemeData.light(),
+        theme: ThemeData.dark(),
 
         // Scopes
         builder: (context, child) => MediaQuery(
@@ -48,11 +49,14 @@ class _AppState extends State<App> with RouterStateMixin {
           data: MediaQuery.of(context).copyWith(
             textScaler: TextScaler.noScaling,
           ),
-          child: OctopusTools(
-            enable: true,
-            octopus: router,
-            child: AuthenticationScope(
-              child: child ?? const SizedBox.shrink(),
+          child: WindowScope(
+            title: Localization.of(context).title,
+            child: OctopusTools(
+              enable: true,
+              octopus: router,
+              child: AuthenticationScope(
+                child: child ?? const SizedBox.shrink(),
+              ),
             ),
           ),
         ),

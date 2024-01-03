@@ -81,10 +81,10 @@ class GeneratedLocalization {
     );
   }
 
-  /// `Octopus`
+  /// `Title`
   String get title {
     return Intl.message(
-      'Octopus',
+      'Title',
       name: 'title',
       desc: '',
       args: [],
