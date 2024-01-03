@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart' show BuildContext;
 import 'package:flutter_template_name/src/common/database/database.dart';
 import 'package:flutter_template_name/src/common/model/app_metadata.dart';
@@ -15,11 +16,14 @@ class Dependencies {
   /// App metadata
   late final AppMetadata metadata;
 
+  /// Shared preferences
+  late final SharedPreferences sharedPreferences;
+
   /// Database
   late final Database database;
 
-  /// Shared preferences
-  late final SharedPreferences sharedPreferences;
+  /// API Client
+  late final Dio dio;
 
   /// Authentication controller
   late final AuthenticationController authenticationController;

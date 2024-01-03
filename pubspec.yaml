@@ -79,6 +79,10 @@ dependencies:
   drift: ^2.14.1
   sqlite3_flutter_libs: ^0.5.18
 
+  # Networking
+  dio: ^5.4.0
+  dio_smart_retry: ^6.0.0
+
   # UI and Widgets
   cupertino_icons: ^1.0.5
   #google_fonts: ^6.1.0

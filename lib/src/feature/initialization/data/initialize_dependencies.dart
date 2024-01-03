@@ -1,12 +1,16 @@
 import 'dart:async';
 
 import 'package:control/control.dart';
+import 'package:dio/dio.dart';
+import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter_template_name/src/common/constant/config.dart';
 import 'package:flutter_template_name/src/common/constant/pubspec.yaml.g.dart';
 import 'package:flutter_template_name/src/common/controller/controller_observer.dart';
 import 'package:flutter_template_name/src/common/database/database.dart';
 import 'package:flutter_template_name/src/common/model/app_metadata.dart';
 import 'package:flutter_template_name/src/common/model/dependencies.dart';
+import 'package:flutter_template_name/src/common/util/dio_proxy.dart';
+import 'package:flutter_template_name/src/common/util/http_log_interceptor.dart';
 import 'package:flutter_template_name/src/common/util/log_buffer.dart';
 import 'package:flutter_template_name/src/common/util/screen_util.dart';
 import 'package:flutter_template_name/src/feature/authentication/controller/authentication_controller.dart';
@@ -85,6 +89,43 @@ final Map<String, _InitializationStep> _initializationSteps = <String, _Initiali
     if (DateTime.now().second % 10 == 0) await dependencies.database.customStatement('VACUUM;');
   },
   'Migrate app from previous version': (dependencies) => AppMigrator.migrate(dependencies.database),
+  'API Client': (dependencies) => dependencies.dio = Dio(
+        BaseOptions(
+          baseUrl: Config.apiBaseUrl,
+          connectTimeout: Config.apiConnectTimeout,
+          receiveTimeout: Config.apiReceiveTimeout,
+          headers: <String, String>{
+            /* 'Connection': 'Close', */
+            Headers.acceptHeader: Headers.jsonContentType,
+          },
+          receiveDataWhenStatusError: false, // Don't convert 4XX & 5XX to JSON
+        ),
+      )..useProxy(),
+  'Add API interceptors': (dependencies) {
+    dependencies.dio.interceptors.addAll(<Interceptor>[
+      const HttpLogInterceptor(),
+      // TODO(plugfox): add sentry interceptor
+      // TODO(plugfox): save all requests to database
+      // TODO(plugfox): add cache interceptor
+      /* AuthenticationInterceptor(
+        token: () => authenticator.user.sessionId ?? (throw StateError('User is not logged in')),
+        logout: () => Future<void>.sync(authenticator.logOut),
+        refresh: () => Future<void>.sync(authenticator.refresh),
+        retry: (options) => apiClient.fetch(options),
+      ), */
+      RetryInterceptor(
+        dio: dependencies.dio,
+        logPrint: (message) => l.w('RetryInterceptor | API | $message'),
+        retries: 3, // retry count (optional)
+        retryDelays: const <Duration>[
+          Duration(seconds: 1), // wait 1 sec before first retry
+          Duration(seconds: 2), // wait 2 sec before second retry
+          Duration(seconds: 10), // wait 3 sec before third retry
+        ],
+      ),
+      // TODO(plugfox): add dedupe interceptor
+    ]);
+  },
   'Prepare authentication controller': (dependencies) =>
       dependencies.authenticationController = AuthenticationController(
         repository: AuthenticationRepositoryImpl(
