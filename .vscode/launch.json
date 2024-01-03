@@ -1,0 +1,48 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run DEV App (Debug)",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "--dart-define-from-file=config/development.json",
+      ],
+      "env": {}
+    },
+    {
+      "name": "Run DEV App (Debug, Drop database)",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "--dart-define-from-file=config/development.json",
+        "--dart-define=DROP_DATABASE=true"
+      ],
+      "env": {}
+    },
+    {
+      "name": "Run DEV App (Debug, Memmory database)",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "--dart-define-from-file=config/development.json",
+        "--dart-define=IN_MEMORY_DATABASE=true"
+      ],
+      "env": {}
+    },
+    {
+      "name": "Run DEV web server (Debug)",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "--dart-define-from-file=config/development.json",
+        "--device-id=web-server",
+      ],
+      "env": {}
+    }
+  ]
+}

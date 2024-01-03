@@ -20,15 +20,15 @@ void main([List<String>? args]) {
         .trim();
   }
 
-  final n = extractArg('--name');
-  final o = extractArg('--organization');
-  final d = extractArg('--description');
-  if (n == null || o == null || d == null) _throwArguments();
-  _renameDirectory(_defaultName, n);
+  final name = extractArg('--name');
+  final org = extractArg('--organization');
+  final desc = extractArg('--description');
+  if (name == null || org == null || desc == null) _throwArguments();
+  _renameDirectory(_defaultName, name);
   _changeContent([
-    (from: _defaultName, to: n),
-    (from: _defaultOrganization, to: o),
-    (from: _defaultDescription, to: d),
+    (from: _defaultName, to: name),
+    (from: _defaultOrganization, to: org),
+    (from: _defaultDescription, to: desc),
   ]);
 }
 
@@ -40,15 +40,51 @@ Never _throwArguments() {
   io.exit(1);
 }
 
-void _renameDirectory(String from, String to) => io.Directory(from)
-    .listSync(recursive: true)
-    .whereType<io.Directory>()
-    .where((dir) => p.basename(dir.path) == from)
-    .forEach((dir) => dir.renameSync(p.join(p.dirname(dir.path), to)));
+Iterable<io.FileSystemEntity> _recursiveDirectories(
+    io.Directory directory) sync* {
+  const excludeFiles = <String>{
+    'README.md',
+    'rename_project.dart',
+  };
+  const includeExtensions = <String>{
+    '.dart',
+    '.yaml',
+    '.gradle',
+    '.xml',
+    '.kt',
+    '.plist',
+    '.txt',
+    '.cc',
+    '.cpp',
+    '.rc',
+    '.xcconfig',
+    '.pbxproj',
+    '.xcscheme',
+    '.html',
+    '.json',
+  };
+  for (final e in directory.listSync(recursive: false, followLinks: false)) {
+    if (p.basename(e.path).startsWith('.')) continue;
+    if (e is io.File) {
+      if (!includeExtensions.contains(p.extension(e.path))) continue;
+      if (excludeFiles.contains(p.basename(e.path))) continue;
+      yield e;
+    } else if (e is io.Directory) {
+      yield e;
+      yield* _recursiveDirectories(e);
+    }
+  }
+}
+
+void _renameDirectory(String from, String to) =>
+    _recursiveDirectories(io.Directory.current)
+        .whereType<io.Directory>()
+        .toList(growable: false)
+        .where((dir) => p.basename(dir.path) == from)
+        .forEach((dir) => dir.renameSync(p.join(p.dirname(dir.path), to)));
 
 void _changeContent(List<({String from, String to})> pairs) =>
-    io.Directory.current
-        .listSync(recursive: true)
+    _recursiveDirectories(io.Directory.current)
         .whereType<io.File>()
         .forEach((e) {
       var content = e.readAsStringSync();

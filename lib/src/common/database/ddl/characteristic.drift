@@ -1,0 +1,29 @@
+-- Characteristics table
+CREATE TABLE IF NOT EXISTS characteristic_tbl (
+    -- req Type
+    type TEXT NOT NULL CHECK(length(type) > 0 AND length(type) <= 255),
+
+    -- req ID
+    id INTEGER NOT NULL,
+
+    -- JSON data
+    data TEXT NOT NULL CHECK(length(data) > 2 AND json_valid(data)),
+
+    -- Created date (unixtime in seconds)
+    meta_created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    -- Updated date (unixtime in seconds)
+    meta_updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')) CHECK(meta_updated_at >= meta_created_at),
+
+    -- Composite primary key
+    PRIMARY KEY (type, id)
+) STRICT;
+
+-- Indexes
+CREATE INDEX IF NOT EXISTS characteristic_meta_created_at_idx ON characteristic_tbl (meta_created_at);
+CREATE INDEX IF NOT EXISTS characteristic_meta_updated_at_idx ON characteristic_tbl (meta_updated_at);
+
+-- Triggers
+CREATE TRIGGER IF NOT EXISTS characteristic_meta_updated_at_trig AFTER UPDATE ON characteristic_tbl
+    BEGIN
+        UPDATE characteristic_tbl SET meta_updated_at = strftime('%s', 'now') WHERE type = NEW.type AND id = NEW.id;
+    END;

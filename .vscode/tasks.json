@@ -1,0 +1,85 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Dependencies",
+      "type": "shell",
+      "command": [
+        "flutter pub get"
+      ],
+      "group": {
+        "kind": "none",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Format",
+      "type": "shell",
+      "command": [
+        "dart format --fix -l 120"
+      ],
+      "group": {
+        "kind": "none",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Codegeneration",
+      "type": "shell",
+      "dependsOn": [
+        "Dependencies"
+      ],
+      "command": [
+        "dart run build_runner build --delete-conflicting-outputs"
+      ],
+      "group": {
+        "kind": "none",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Clear build",
+      "type": "shell",
+      "command": "make clear-client",
+      "windows": {
+        "command": "powershell.exe",
+        "args": [
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-Command",
+          "Remove-Item -Path '${workspaceFolder}\\build' -Recurse -Force -ErrorAction Ignore"
+        ]
+        /* "options": {
+          "shell": {
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          }
+        } */
+      },
+      "linux": {
+        "command": "rm -rf",
+        "args": [
+          "${workspaceFolder}/build"
+        ]
+      },
+      "osx": {
+        "command": "rm -rf",
+        "args": [
+          "${workspaceFolder}/build"
+        ]
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

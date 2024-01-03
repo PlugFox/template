@@ -1,0 +1,22 @@
+-- Settings table
+CREATE TABLE IF NOT EXISTS settings_tbl (
+    -- User ID
+    user_id TEXT NOT NULL PRIMARY KEY,
+
+    -- JSON data
+    json_data TEXT NOT NULL CHECK(length(json_data) > 2 AND json_valid(json_data)),
+
+    -- Description
+    memo TEXT,
+
+    -- Created date (unixtime in seconds)
+    meta_created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    -- Updated date (unixtime in seconds)
+    meta_updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')) CHECK(meta_updated_at >= meta_created_at)
+) STRICT;
+
+-- Triggers
+CREATE TRIGGER IF NOT EXISTS settings_meta_updated_at_trig AFTER UPDATE ON settings_tbl
+    BEGIN
+        UPDATE settings_tbl SET meta_updated_at = strftime('%s', 'now') WHERE user_id = NEW.user_id;
+    END;
