@@ -58,7 +58,7 @@ dependencies:
   async: any
   path: any
   convert: any
-  path_provider: ^2.1.1
+  path_provider: ^2.1.2
   platform_info: ^4.0.2
   #multiline: ^3.0.0
   rxdart: ^0.28.0-dev.0
