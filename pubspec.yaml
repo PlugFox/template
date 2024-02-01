@@ -50,7 +50,7 @@ dependencies:
   intl: any
 
   # Routing
-  octopus: ^0.0.0
+  octopus: ^0.0.8
 
   # Utility
   meta: any
