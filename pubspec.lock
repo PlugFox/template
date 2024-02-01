@@ -560,10 +560,10 @@ packages:
     dependency: "direct main"
     description:
       name: octopus
-      sha256: "6eee0d6084d60b4327c67e543a9804cb2601d40311b569f4979171b046ae4efb"
+      sha256: "473632810b7f72dfba60e0720a7e31b2ae20463827682b938d0098857e0f7849"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-pre.2"
+    version: "0.0.8"
   package_config:
     dependency: transitive
     description:
