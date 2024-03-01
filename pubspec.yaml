@@ -77,7 +77,7 @@ dependencies:
   # Database
   shared_preferences: ^2.2.2
   drift: ^2.14.1
-  sqlite3_flutter_libs: ^0.5.18
+  sqlite3_flutter_libs: ^0.5.20
 
   # Networking
   dio: ^5.4.0
