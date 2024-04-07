@@ -8,8 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 abstract interface class IAuthenticationRepository {
   Stream<User> userChanges();
   FutureOr<User> getUser();
-  Future<void> signIn(SignInData data);
-  Future<void> restore();
+  Future<User> signIn(SignInData data);
+  Future<User?> restore();
   Future<void> signOut();
 }
 
@@ -20,8 +20,7 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
 
   static const String _sessionKey = 'authentication.session';
   final SharedPreferences _sharedPreferences;
-  final StreamController<User> _userController =
-      StreamController<User>.broadcast();
+  final StreamController<User> _userController = StreamController<User>.broadcast();
   User _user = const User.unauthenticated();
 
   @override
@@ -31,26 +30,26 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
   Stream<User> userChanges() => _userController.stream;
 
   @override
-  Future<void> signIn(SignInData data) => Future<void>.delayed(
+  Future<User> signIn(SignInData data) => Future<User>.delayed(
         const Duration(seconds: 1),
         () {
           final user = User.authenticated(id: data.username);
-          _sharedPreferences
-              .setString(_sessionKey, jsonEncode(user.toJson()))
-              .ignore();
+          _sharedPreferences.setString(_sessionKey, jsonEncode(user.toJson())).ignore();
           _userController.add(_user = user);
+          return user;
         },
       );
 
   @override
-  Future<void> restore() async {
+  Future<User?> restore() async {
     final session = _sharedPreferences.getString(_sessionKey);
-    if (session == null) return;
+    if (session == null) return null;
     final json = jsonDecode(session);
     if (json case Map<String, Object?> jsonMap) {
       final user = User.fromJson(jsonMap);
       _userController.add(_user = user);
     }
+    return _user;
   }
 
   @override
