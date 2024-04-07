@@ -87,10 +87,10 @@ enum EnvironmentFlavor {
   /// Production
   production('production');
 
-  /// {@nodoc}
+  /// Create environment flavor.
   const EnvironmentFlavor(this.value);
 
-  /// {@nodoc}
+  /// Create environment flavor from string.
   factory EnvironmentFlavor.from(String? value) => switch (value?.trim().toLowerCase()) {
         'development' || 'debug' || 'develop' || 'dev' => development,
         'staging' || 'profile' || 'stage' || 'stg' => staging,

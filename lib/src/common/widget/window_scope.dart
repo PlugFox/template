@@ -3,6 +3,7 @@ import 'dart:io' as io;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template_name/src/common/localization/localization.dart';
+import 'package:platform_info/platform_info.dart';
 import 'package:window_manager/window_manager.dart';
 
 /// {@template window_scope}
@@ -133,11 +134,12 @@ class _WindowTitleState extends State<_WindowTitle> with WindowListener {
                     );
                   },
                 ),
-                _WindowButtons$Windows(
-                  isFullScreen: _isFullScreen,
-                  isAlwaysOnTop: _isAlwaysOnTop,
-                  setAlwaysOnTop: setAlwaysOnTop,
-                ),
+                if (platform.isWindows)
+                  _WindowButtons$Windows(
+                    isFullScreen: _isFullScreen,
+                    isAlwaysOnTop: _isAlwaysOnTop,
+                    setAlwaysOnTop: setAlwaysOnTop,
+                  ),
               ],
             ),
           ),
@@ -182,12 +184,14 @@ class _WindowButtons$Windows extends StatelessWidget {
               icon: Icons.minimize,
             ),
 
-            /* ValueListenableBuilder<bool>(
+            // Set full screen
+            ValueListenableBuilder<bool>(
               valueListenable: _isFullScreen,
               builder: (context, isFullScreen, _) => _WindowButton(
-                    onPressed: () => windowManager.setFullScreen(!isFullScreen),
-                    icon: isFullScreen ? Icons.fullscreen_exit : Icons.fullscreen,
-                  )), */
+                onPressed: () => windowManager.setFullScreen(!isFullScreen),
+                icon: isFullScreen ? Icons.fullscreen_exit : Icons.fullscreen,
+              ),
+            ),
 
             // Close
             _WindowButton(

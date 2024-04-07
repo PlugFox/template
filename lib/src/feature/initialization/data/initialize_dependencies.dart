@@ -141,13 +141,13 @@ final Map<String, _InitializationStep> _initializationSteps = <String, _Initiali
         .get()
         .then<List<LogMessage>>((logs) => logs
             .map((l) => l.stack != null
-                ? LogMessageWithStackTrace(
-                    date: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
+                ? LogMessageError(
+                    timestamp: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
                     level: LogLevel.fromValue(l.level),
                     message: l.message,
                     stackTrace: StackTrace.fromString(l.stack!))
-                : LogMessage(
-                    date: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
+                : LogMessageVerbose(
+                    timestamp: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
                     level: LogLevel.fromValue(l.level),
                     message: l.message,
                   ))
@@ -158,8 +158,8 @@ final Map<String, _InitializationStep> _initializationSteps = <String, _Initiali
         .map<LogTblCompanion>((log) => LogTblCompanion.insert(
               level: log.level.level,
               message: log.message.toString(),
-              time: Value<int>(log.date.millisecondsSinceEpoch ~/ 1000),
-              stack: Value<String?>(switch (log) { LogMessageWithStackTrace l => l.stackTrace.toString(), _ => null }),
+              time: Value<int>(log.timestamp.millisecondsSinceEpoch ~/ 1000),
+              stack: Value<String?>(switch (log) { LogMessageError l => l.stackTrace.toString(), _ => null }),
             ))
         .bufferTime(const Duration(seconds: 5))
         .where((logs) => logs.isNotEmpty)

@@ -34,7 +34,7 @@
       "env": {}
     },
     {
-      "name": "Run DEV web server (Debug)",
+      "name": "Run DEV Web Server (Debug)",
       "type": "dart",
       "request": "launch",
       "cwd": "${workspaceFolder}",

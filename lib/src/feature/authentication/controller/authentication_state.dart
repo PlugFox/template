@@ -25,40 +25,28 @@ sealed class AuthenticationState extends _$AuthenticationStateBase {
 }
 
 /// Idling state
-/// {@nodoc}
-final class AuthenticationState$Idle extends AuthenticationState
-    with _$AuthenticationState {
-  /// {@nodoc}
-  const AuthenticationState$Idle(
-      {required super.user, super.message = 'Idling', this.error});
+final class AuthenticationState$Idle extends AuthenticationState with _$AuthenticationState {
+  const AuthenticationState$Idle({required super.user, super.message = 'Idling', this.error});
 
   @override
   final String? error;
 }
 
 /// Processing
-/// {@nodoc}
-final class AuthenticationState$Processing extends AuthenticationState
-    with _$AuthenticationState {
-  /// {@nodoc}
-  const AuthenticationState$Processing(
-      {required super.user, super.message = 'Processing'});
+final class AuthenticationState$Processing extends AuthenticationState with _$AuthenticationState {
+  const AuthenticationState$Processing({required super.user, super.message = 'Processing'});
 
   @override
   String? get error => null;
 }
 
-/// {@nodoc}
 base mixin _$AuthenticationState on AuthenticationState {}
 
 /// Pattern matching for [AuthenticationState].
-typedef AuthenticationStateMatch<R, S extends AuthenticationState> = R Function(
-    S state);
+typedef AuthenticationStateMatch<R, S extends AuthenticationState> = R Function(S state);
 
-/// {@nodoc}
 @immutable
 abstract base class _$AuthenticationStateBase {
-  /// {@nodoc}
   const _$AuthenticationStateBase({required this.user, required this.message});
 
   /// Data entity payload.
@@ -76,8 +64,7 @@ abstract base class _$AuthenticationStateBase {
   bool get hasError => error != null;
 
   /// Is in progress state?
-  bool get isProcessing =>
-      maybeMap<bool>(orElse: () => false, processing: (_) => true);
+  bool get isProcessing => maybeMap<bool>(orElse: () => false, processing: (_) => true);
 
   /// Is in idle state?
   bool get isIdling => !isProcessing;
@@ -85,8 +72,7 @@ abstract base class _$AuthenticationStateBase {
   /// Pattern matching for [AuthenticationState].
   R map<R>({
     required AuthenticationStateMatch<R, AuthenticationState$Idle> idle,
-    required AuthenticationStateMatch<R, AuthenticationState$Processing>
-        processing,
+    required AuthenticationStateMatch<R, AuthenticationState$Processing> processing,
   }) =>
       switch (this) {
         AuthenticationState$Idle s => idle(s),

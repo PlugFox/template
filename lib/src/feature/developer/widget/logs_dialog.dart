@@ -47,17 +47,20 @@ class _LogsListState extends State<_LogsList> {
             ..orderBy([(tbl) => db.OrderingTerm(expression: tbl.time, mode: db.OrderingMode.desc)]))
           .get();
       logs = rows
-          .map((l) => l.stack != null
-              ? LogMessageWithStackTrace(
-                  date: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
-                  level: LogLevel.fromValue(l.level),
-                  message: l.message,
-                  stackTrace: StackTrace.fromString(l.stack!))
-              : LogMessage(
-                  date: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
-                  level: LogLevel.fromValue(l.level),
-                  message: l.message,
-                ))
+          .map(
+            (l) => l.stack != null
+                ? LogMessageVerbose(
+                    timestamp: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
+                    level: LogLevel.fromValue(l.level),
+                    message: l.message,
+                  )
+                : LogMessageError(
+                    timestamp: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
+                    level: LogLevel.fromValue(l.level),
+                    message: l.message,
+                    stackTrace: StackTrace.fromString(l.stack!),
+                  ),
+          )
           .toList();
       await _filter();
     });
@@ -157,7 +160,7 @@ class _LogTile extends StatelessWidget {
         children: [
           ListTile(
             title: Text(log.message.toString()),
-            subtitle: Text(log.date.format()),
+            subtitle: Text(log.timestamp.format()),
             leading: _LogIcon(log.level),
             dense: true,
             trailing: IconButton(
@@ -165,7 +168,7 @@ class _LogTile extends StatelessWidget {
               onPressed: () => Clipboard.setData(
                 ClipboardData(
                   text: switch (log) {
-                    LogMessageWithStackTrace log => '${log.message}\n${log.stackTrace}',
+                    LogMessageError log => '${log.message}\n${log.stackTrace}',
                     _ => '${log.message}'
                   },
                 ),

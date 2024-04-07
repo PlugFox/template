@@ -7,8 +7,8 @@ class AppError extends StatelessWidget {
   /// {@macro app_error}
   const AppError({
     this.error,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// Error
   final Object? error;
@@ -16,8 +16,7 @@ class AppError extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'App Error',
-        theme: View.of(context).platformDispatcher.platformBrightness ==
-                Brightness.dark
+        theme: View.of(context).platformDispatcher.platformBrightness == Brightness.dark
             ? ThemeData.dark(useMaterial3: true)
             : ThemeData.light(useMaterial3: true),
         home: Scaffold(
