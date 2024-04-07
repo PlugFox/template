@@ -39,17 +39,17 @@
     "**/generated/**"
   ],
   // Flutter Version Manager
-  //"dart.flutterSdkPath": ".fvm/flutter_sdk",
+  "dart.flutterSdkPath": ".fvm/flutter_sdk",
   // Remove .fvm files from search
   "search.exclude": {
-    //"**/.fvm": true,
+    "**/.fvm": true,
     ".dart_tool": true,
     "coverage": true,
     "build": true
   },
   // Remove from file watching
   "files.watcherExclude": {
-    //"**/.fvm": true,
+    "**/.fvm": true,
     ".dart_tool": true,
     "coverage": true,
     "build": true

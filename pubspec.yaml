@@ -34,8 +34,8 @@ version: 0.0.1+1
 #    path: screenshot_1.png
 
 environment:
-  sdk: '>=3.2.3 <4.0.0'
-  flutter: ">=3.16.0"
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: ">=3.19.2"
 
 dependencies:
   flutter:
@@ -50,7 +50,7 @@ dependencies:
   intl: any
 
   # Routing
-  octopus: ^0.0.0
+  octopus: ^0.0.8
 
   # Utility
   meta: any
@@ -65,22 +65,22 @@ dependencies:
   url_launcher: ^6.2.2
 
   # Logger
-  l: ^4.1.0-pre.1
+  l: ^5.0.0-pre.2
 
   # Desktop
   win32: ^5.1.1
   window_manager: ^0.3.4
 
   # State management
-  control: ^0.0.1-pre.0
+  control: ^0.1.0
 
   # Database
   shared_preferences: ^2.2.2
-  drift: ^2.14.1
-  sqlite3_flutter_libs: ^0.5.18
+  drift: ^2.16.0
+  sqlite3_flutter_libs: ^0.5.20
 
   # Networking
-  dio: ^5.4.0
+  dio: ^5.4.2+1
   dio_smart_retry: ^6.0.0
 
   # UI and Widgets
@@ -98,15 +98,17 @@ dev_dependencies:
     sdk: flutter
 
   # Linting
-  flutter_lints: ^2.0.1
+  flutter_lints: ^3.0.1
 
   # Code generation
   build_runner: ^2.4.6
-  drift_dev: ^2.14.1
+  drift_dev: ^2.16.0
   pubspec_generator: ^4.1.0-pre.1
   flutter_gen_runner: ^5.3.2
+  # dart run flutter_launcher_icons -f flutter_launcher_icons.yaml
   flutter_launcher_icons: ^0.13.1
-  flutter_native_splash: ^2.3.8
+  # dart run flutter_native_splash:create --path=flutter_native_splash.yaml
+  flutter_native_splash: ^2.4.0
 
 flutter:
   generate: true
@@ -115,8 +117,8 @@ flutter:
   shaders:
     - assets/shaders/shimmer.frag
 
-  #assets:
-  #  - assets/images/
+  assets:
+    - assets/icons/
 
 flutter_intl:
   enabled: true
