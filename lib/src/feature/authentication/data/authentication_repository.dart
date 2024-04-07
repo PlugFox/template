@@ -53,7 +53,8 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
   }
 
   @override
-  Future<void> signOut() => Future<void>.sync(
+  Future<void> signOut() => Future<void>.delayed(
+        Duration.zero,
         () {
           const user = User.unauthenticated();
           _sharedPreferences.remove(_sessionKey).ignore();

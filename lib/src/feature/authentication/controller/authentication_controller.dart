@@ -12,11 +12,11 @@ final class AuthenticationController extends StateController<AuthenticationState
       {required IAuthenticationRepository repository,
       super.initialState = const AuthenticationState.idle(user: User.unauthenticated())})
       : _repository = repository {
-    _userSubscription = repository
-        .userChanges()
-        .where((user) => !identical(user, state.user))
-        .map<AuthenticationState>((u) => AuthenticationState.idle(user: u))
-        .listen(setState, cancelOnError: false);
+    //_userSubscription = repository
+    //    .userChanges()
+    //    .where((user) => !identical(user, state.user))
+    //    .map<AuthenticationState>((u) => AuthenticationState.idle(user: u))
+    //    .listen(setState, cancelOnError: false);
   }
 
   final IAuthenticationRepository _repository;
@@ -85,9 +85,9 @@ final class AuthenticationController extends StateController<AuthenticationState
 
   /// Sign out.
   void signOut() {
-    if (state.user.isNotAuthenticated) return; // Already signed out.
     handle(
       () async {
+        //if (state.user.isNotAuthenticated) return; // Already signed out.
         setState(
           AuthenticationState.processing(
             user: state.user,
