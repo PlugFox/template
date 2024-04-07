@@ -52,8 +52,11 @@ dependencies:
   # Routing
   octopus: ^0.0.8
 
-  # Utility
+  # Annotation
   meta: any
+  json_annotation: ^4.8.1
+
+  # Utility
   collection: any
   async: any
   path: any
@@ -105,10 +108,12 @@ dev_dependencies:
   drift_dev: ^2.16.0
   pubspec_generator: ^4.1.0-pre.1
   flutter_gen_runner: ^5.3.2
+  json_serializable: ^6.7.1
   # dart run flutter_launcher_icons -f flutter_launcher_icons.yaml
   flutter_launcher_icons: ^0.13.1
   # dart run flutter_native_splash:create --path=flutter_native_splash.yaml
   flutter_native_splash: ^2.4.0
+
 
 flutter:
   generate: true
