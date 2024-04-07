@@ -66,6 +66,7 @@ dependencies:
   #multiline: ^3.0.0
   rxdart: ^0.28.0-dev.0
   url_launcher: ^6.2.2
+  money2: ^4.0.0
 
   # Logger
   l: ^5.0.0-pre.2
