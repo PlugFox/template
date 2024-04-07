@@ -61,7 +61,7 @@ dependencies:
   async: any
   path: any
   convert: any
-  path_provider: ^2.1.1
+  path_provider: ^2.1.2
   platform_info: ^4.0.2
   #multiline: ^3.0.0
   rxdart: ^0.28.0-dev.0
@@ -72,8 +72,8 @@ dependencies:
   l: ^5.0.0-pre.2
 
   # Desktop
-  win32: ^5.1.1
-  window_manager: ^0.3.4
+  win32: ^5.4.0
+  window_manager: ^0.3.8
 
   # State management
   control: ^0.1.0
@@ -102,7 +102,7 @@ dev_dependencies:
     sdk: flutter
 
   # Linting
-  flutter_lints: ^3.0.1
+  flutter_lints: ^3.0.2
 
   # Code generation
   build_runner: ^2.4.6
