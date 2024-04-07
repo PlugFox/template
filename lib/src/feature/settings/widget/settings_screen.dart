@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template_name/src/common/router/routes.dart';
+import 'package:flutter_template_name/src/common/widget/common_header.dart';
 import 'package:flutter_template_name/src/common/widget/form_placeholder.dart';
 import 'package:flutter_template_name/src/common/widget/scaffold_padding.dart';
 import 'package:flutter_template_name/src/common/widget/shimmer.dart';
 import 'package:flutter_template_name/src/common/widget/text_placeholder.dart';
-import 'package:flutter_template_name/src/feature/authentication/widget/log_out_button.dart';
-import 'package:octopus/octopus.dart';
 
-/// {@template profile_screen}
-/// ProfileScreen widget.
+/// {@template settings_screen}
+/// SettingsScreen widget.
 /// {@endtemplate}
-class ProfileScreen extends StatelessWidget {
+class SettingsScreen extends StatelessWidget {
   /// {@macro profile_screen}
-  const ProfileScreen({super.key});
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
         body: CustomScrollView(
           slivers: <Widget>[
-            const SliverAppBar(
-              title: Text('Profile'),
+            SliverCommonHeader(
+              title: const Text('Settings'),
               pinned: true,
-              floating: true,
-              snap: true,
             ),
             SliverPadding(
               padding: ScaffoldPadding.of(context).copyWith(top: 16, bottom: 16),
@@ -98,11 +94,10 @@ class ProfileScreen extends StatelessWidget {
                           height: 1,
                         ),
                       ),
-                      trailing: const LogOutButton(),
                     ),
                   ),
                   const SizedBox(width: 16),
-                  SizedBox(
+                  /* SizedBox(
                     height: 68,
                     child: ListTile(
                       leading: const CircleAvatar(child: Icon(Icons.settings)),
@@ -128,10 +123,10 @@ class ProfileScreen extends StatelessWidget {
                           height: 1,
                         ),
                       ),
-                      onTap: () => context.octopus.push(Routes.settings),
+                      onTap: () => context.octopus.push(Routes.settingsDialog),
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 24), */
                   const FormPlaceholder(title: false),
                   const SizedBox(height: 24),
                 ],
