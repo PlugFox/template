@@ -32,15 +32,19 @@ final class AuthenticationController extends StateController<AuthenticationState
           );
           await _repository.restore();
         },
-        (error, _) => setState(
-          const AuthenticationState.idle(
-            user: User.unauthenticated(),
-            error: 'Restore Error', // ErrorUtil.formatMessage(error)
-          ),
-        ),
-        () => setState(
-          AuthenticationState.idle(user: state.user),
-        ),
+        error: (error, _) async {
+          setState(
+            const AuthenticationState.idle(
+              user: User.unauthenticated(),
+              error: 'Restore Error', // ErrorUtil.formatMessage(error)
+            ),
+          );
+        },
+        done: () async {
+          setState(
+            AuthenticationState.idle(user: state.user),
+          );
+        },
       );
 
   /// Sign in with the given [data].
@@ -54,15 +58,19 @@ final class AuthenticationController extends StateController<AuthenticationState
           );
           await _repository.signIn(data);
         },
-        (error, _) => setState(
-          AuthenticationState.idle(
-            user: state.user,
-            error: 'Sign In Error', // ErrorUtil.formatMessage(error)
-          ),
-        ),
-        () => setState(
-          AuthenticationState.idle(user: state.user),
-        ),
+        error: (error, _) async {
+          setState(
+            AuthenticationState.idle(
+              user: state.user,
+              error: 'Sign In Error', // ErrorUtil.formatMessage(error)
+            ),
+          );
+        },
+        done: () async {
+          setState(
+            AuthenticationState.idle(user: state.user),
+          );
+        },
       );
 
   /// Sign out.
@@ -76,17 +84,21 @@ final class AuthenticationController extends StateController<AuthenticationState
           );
           await _repository.signOut();
         },
-        (error, _) => setState(
-          AuthenticationState.idle(
-            user: state.user,
-            error: 'Log Out Error', // ErrorUtil.formatMessage(error)
-          ),
-        ),
-        () => setState(
-          const AuthenticationState.idle(
-            user: User.unauthenticated(),
-          ),
-        ),
+        error: (error, _) async {
+          setState(
+            AuthenticationState.idle(
+              user: state.user,
+              error: 'Log Out Error', // ErrorUtil.formatMessage(error)
+            ),
+          );
+        },
+        done: () async {
+          setState(
+            const AuthenticationState.idle(
+              user: User.unauthenticated(),
+            ),
+          );
+        },
       );
 
   @override
