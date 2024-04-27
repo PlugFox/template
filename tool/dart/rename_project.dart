@@ -4,29 +4,28 @@ import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 
 const String _defaultName = 'flutter_template_name';
+const String _defaultAppName = 'flutter_template_app_name';
 const String _defaultOrganization = 'dev.flutter.template';
 const String _defaultDescription = 'flutter_template_description';
 
-/// dart run tool/dart/rename_project.dart --name="qqq" --organization="www" --description="eee"
+/// dart run tool/dart/rename_project.dart --project-name="qqq" --app-name="qqq" --organization="www" --description="eee"
 void main([List<String>? args]) {
   if (args == null || args.isEmpty) _throwArguments();
   String? extractArg(String key) {
     final value = args.firstWhereOrNull((e) => e.startsWith(key));
     if (value == null) return null;
-    return RegExp(r'[\d\w\.\-\_ ]+')
-        .allMatches(value.substring(key.length))
-        .map((e) => e.group(0))
-        .join()
-        .trim();
+    return RegExp(r'[\d\w\.\-\_ ]+').allMatches(value.substring(key.length)).map((e) => e.group(0)).join().trim();
   }
 
-  final name = extractArg('--name');
+  final name = extractArg('--project-name');
+  final appName = extractArg('--app-name');
   final org = extractArg('--organization');
   final desc = extractArg('--description');
-  if (name == null || org == null || desc == null) _throwArguments();
+  if (name == null || appName == null || org == null || desc == null) _throwArguments();
   _renameDirectory(_defaultName, name);
   _changeContent([
     (from: _defaultName, to: name),
+    (from: _defaultAppName, to: appName),
     (from: _defaultOrganization, to: org),
     (from: _defaultDescription, to: desc),
   ]);
@@ -35,13 +34,13 @@ void main([List<String>? args]) {
 Never _throwArguments() {
   io.stderr.writeln('Pass arguments: '
       '--name="name" '
+      '--app_name="application name" '
       '--organization="org.domain" '
       '--description="description"');
   io.exit(1);
 }
 
-Iterable<io.FileSystemEntity> _recursiveDirectories(
-    io.Directory directory) sync* {
+Iterable<io.FileSystemEntity> _recursiveDirectories(io.Directory directory) sync* {
   const excludeFiles = <String>{
     'README.md',
     'rename_project.dart',
@@ -76,17 +75,14 @@ Iterable<io.FileSystemEntity> _recursiveDirectories(
   }
 }
 
-void _renameDirectory(String from, String to) =>
-    _recursiveDirectories(io.Directory.current)
-        .whereType<io.Directory>()
-        .toList(growable: false)
-        .where((dir) => p.basename(dir.path) == from)
-        .forEach((dir) => dir.renameSync(p.join(p.dirname(dir.path), to)));
+void _renameDirectory(String from, String to) => _recursiveDirectories(io.Directory.current)
+    .whereType<io.Directory>()
+    .toList(growable: false)
+    .where((dir) => p.basename(dir.path) == from)
+    .forEach((dir) => dir.renameSync(p.join(p.dirname(dir.path), to)));
 
 void _changeContent(List<({String from, String to})> pairs) =>
-    _recursiveDirectories(io.Directory.current)
-        .whereType<io.File>()
-        .forEach((e) {
+    _recursiveDirectories(io.Directory.current).whereType<io.File>().forEach((e) {
       var content = e.readAsStringSync();
       var changed = false;
       for (final pair in pairs) {

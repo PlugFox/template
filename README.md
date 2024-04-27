@@ -3,7 +3,7 @@
 Created with
 
 ```bash
-flutter create -t app --project-name "flutter_template_name" --org "dev.flutter.template" --description "flutter_template_description" --platform=android,ios,macos,windows,linux,web flutter_template
+flutter create -t app --project-name "flutter_template_name" --app-name "flutter_template_app_name" --org "dev.flutter.template" --description "flutter_template_description" --platform=android,ios,macos,windows,linux,web flutter_template
 ```
 
 ## Get started

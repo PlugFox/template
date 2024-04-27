@@ -510,7 +510,7 @@ sealed class Pubspec {
       'generate': true,
       'uses-material-design': true,
       'shaders': <Object>[
-        r'assets/shaders/shimmer.frag',
+        r'assets/shaders/forms/shimmer.frag',
       ],
     },
     'flutter_intl': <String, Object>{
@@ -526,5 +526,4 @@ sealed class Pubspec {
       'line_length': 120,
     },
   };
-
 }
