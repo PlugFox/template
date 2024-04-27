@@ -23,7 +23,7 @@ class _AppState extends State<App> with RouterStateMixin {
 
   @override
   Widget build(BuildContext context) => MaterialApp.router(
-        title: 'Application',
+        title: 'flutter_template_app_name',
         debugShowCheckedModeBanner: !Config.environment.isProduction,
 
         // Router
