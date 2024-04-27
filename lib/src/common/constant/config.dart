@@ -12,8 +12,8 @@ abstract final class Config {
   // --- API --- //
 
   /// Base url for api.
-  /// e.g. https://api.domain.tld
-  static const String apiBaseUrl = String.fromEnvironment('API_BASE_URL', defaultValue: 'https://api.domain.tld');
+  /// e.g. https://template.flutter.dev
+  static const String apiBaseUrl = String.fromEnvironment('API_BASE_URL', defaultValue: 'https://template.flutter.dev');
 
   /// Timeout in milliseconds for opening url.
   /// [Dio] will throw the [DioException] with [DioExceptionType.connectTimeout] type when time out.

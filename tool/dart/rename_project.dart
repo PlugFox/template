@@ -21,12 +21,16 @@ void main([List<String>? args]) {
   final appName = extractArg('--app-name');
   final org = extractArg('--organization');
   final desc = extractArg('--description');
-  if (name == null || appName == null || org == null || desc == null) _throwArguments();
+  final defaultDomain = _defaultOrganization.split('.').reversed.join('.');
+  final domain = org?.split('.').reversed.join('.');
+
+  if (name == null || appName == null || org == null || domain == null || desc == null) _throwArguments();
   _renameDirectory(_defaultName, name);
   _changeContent([
     (from: _defaultName, to: name),
     (from: _defaultAppName, to: appName),
     (from: _defaultOrganization, to: org),
+    (from: defaultDomain, to: domain),
     (from: _defaultDescription, to: desc),
   ]);
 }
