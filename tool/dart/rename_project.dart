@@ -37,8 +37,8 @@ void main([List<String>? args]) {
 
 Never _throwArguments() {
   io.stderr.writeln('Pass arguments: '
-      '--name="name" '
-      '--app_name="application name" '
+      '--project-name="name" '
+      '--app-name="application name" '
       '--organization="org.domain" '
       '--description="description"');
   io.exit(1);
