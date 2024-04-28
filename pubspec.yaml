@@ -2,7 +2,7 @@ name: flutter_template_name
 
 description: "flutter_template_description"
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 0.0.1+1
 
@@ -34,7 +34,7 @@ version: 0.0.1+1
 #    path: screenshot_1.png
 
 environment:
-  sdk: '>=3.3.0 <4.0.0'
+  sdk: ">=3.3.0 <4.0.0"
   flutter: ">=3.19.2"
 
 dependencies:
@@ -115,16 +115,19 @@ dev_dependencies:
   # dart run flutter_native_splash:create --path=flutter_native_splash.yaml
   flutter_native_splash: ^2.4.0
 
-
 flutter:
   generate: true
   uses-material-design: true
 
   shaders:
-    - assets/shaders/shimmer.frag
+    - assets/shaders/forms/shimmer.frag
 
   assets:
+    - assets/
+    - assets/images/
+    - assets/images/app/
     - assets/icons/
+    - assets/icons/app/
 
 flutter_intl:
   enabled: true
@@ -137,3 +140,9 @@ flutter_intl:
 flutter_gen:
   output: lib/src/common/constant/
   line_length: 120
+  integrations:
+    flutter_svg: true
+    flare_flutter: true
+#  colors:
+#    inputs:
+#      - assets/color/colors.xml
