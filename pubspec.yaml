@@ -79,7 +79,7 @@ dependencies:
   control: ^0.1.0
 
   # Database
-  shared_preferences: ^2.2.2
+  shared_preferences: ^2.2.3
   drift: ^2.16.0
   sqlite3_flutter_libs: ^0.5.20
 
