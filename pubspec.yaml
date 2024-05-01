@@ -65,7 +65,7 @@ dependencies:
   platform_info: ^4.0.2
   #multiline: ^3.0.0
   rxdart: ^0.28.0-dev.0
-  url_launcher: ^6.2.2
+  url_launcher: ^6.2.6
   money2: ^4.0.0
 
   # Logger
