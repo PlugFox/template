@@ -84,7 +84,7 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.20
 
   # Networking
-  dio: ^5.4.2+1
+  dio: ^5.4.3+1
   dio_smart_retry: ^6.0.0
 
   # UI and Widgets
