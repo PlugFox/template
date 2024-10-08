@@ -534,5 +534,4 @@ sealed class Pubspec {
       'line_length': 120,
     },
   };
-
 }

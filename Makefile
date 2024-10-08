@@ -12,12 +12,13 @@ endif
 
 .DEFAULT_GOAL := all
 .PHONY: all
-all: ## build pipeline
-all: generate format check test
+all: generate format check test ## build pipeline
+
+.PHONY: ci
+ci: all
 
 .PHONY: precommit
-precommit: ## validate the branch before commit
-precommit: all
+precommit: all  ## validate the branch before commit
 
 .PHONY: help
 help:

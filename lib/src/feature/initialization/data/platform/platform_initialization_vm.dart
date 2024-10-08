@@ -24,7 +24,7 @@ Future<void> _desktopInitialization() async {
     titleBarStyle: TitleBarStyle.hidden,
     /* alwaysOnTop: true, */
     fullScreen: false,
-    title: 'Vexus',
+    title: 'flutter_template_name',
   );
   await windowManager.waitUntilReadyToShow(
     windowOptions,
