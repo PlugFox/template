@@ -48,8 +48,8 @@ typedef _InitializationStep = FutureOr<void> Function(Dependencies dependencies)
 final Map<String, _InitializationStep> _initializationSteps = <String, _InitializationStep>{
   'Platform pre-initialization': (_) => $platformInitialization(),
   'Creating app metadata': (dependencies) => dependencies.metadata = AppMetadata(
-        isWeb: platform.isWeb,
-        isRelease: platform.buildMode.isRelease,
+        isWeb: platform.js,
+        isRelease: platform.buildMode.release,
         appName: Pubspec.name,
         appVersion: Pubspec.version.representation,
         appVersionMajor: Pubspec.version.major,

@@ -23,7 +23,7 @@ void main() => appZone(
               dependencies: dependencies,
               child: SettingsScope(
                 child: NoAnimationScope(
-                  noAnimation: platform.isWeb || platform.isDesktop,
+                  noAnimation: platform.js || platform.desktop,
                   child: const App(),
                 ),
               ),
