@@ -9,8 +9,7 @@ class InitializationSplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = View.of(context).platformDispatcher.platformBrightness ==
-            Brightness.dark
+    final theme = View.of(context).platformDispatcher.platformBrightness == Brightness.dark
         ? ThemeData.dark()
         : ThemeData.light();
     return Material(

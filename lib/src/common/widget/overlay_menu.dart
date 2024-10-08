@@ -39,7 +39,7 @@ class _OverlayMenuState extends State<OverlayMenu> with SingleTickerProviderStat
       ? Navigator(
           reportsRouteUpdateToEngine: false,
           pages: <Page<Object?>>[MaterialPage<void>(child: child)],
-          onPopPage: (route, result) => route.didPop(result),
+          onDidRemovePage: (page) {},
         )
       : child;
 

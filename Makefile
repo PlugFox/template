@@ -105,7 +105,7 @@ coverage: get ## Generate the coverage report
 .PHONY: analyze
 analyze: get ## Analyze the code
 	@dart format --set-exit-if-changed -l 120 -o none lib/ test/
-	@dart analyze --fatal-infos --fatal-warnings lib/ test/
+	@flutter analyze --fatal-infos --fatal-warnings lib/ test/
 
 .PHONY: check
 check: analyze publish-check ## Check the code

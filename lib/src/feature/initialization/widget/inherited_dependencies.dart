@@ -17,10 +17,9 @@ class InheritedDependencies extends InheritedWidget {
   /// The state from the closest instance of this class
   /// that encloses the given context, if any.
   /// e.g. `InheritedDependencies.maybeOf(context)`.
-  static Dependencies? maybeOf(BuildContext context) => (context
-          .getElementForInheritedWidgetOfExactType<InheritedDependencies>()
-          ?.widget as InheritedDependencies?)
-      ?.dependencies;
+  static Dependencies? maybeOf(BuildContext context) =>
+      (context.getElementForInheritedWidgetOfExactType<InheritedDependencies>()?.widget as InheritedDependencies?)
+          ?.dependencies;
 
   static Never _notFoundInheritedWidgetOfExactType() => throw ArgumentError(
         'Out of scope, not found inherited widget '
@@ -31,8 +30,7 @@ class InheritedDependencies extends InheritedWidget {
   /// The state from the closest instance of this class
   /// that encloses the given context.
   /// e.g. `InheritedDependencies.of(context)`
-  static Dependencies of(BuildContext context) =>
-      maybeOf(context) ?? _notFoundInheritedWidgetOfExactType();
+  static Dependencies of(BuildContext context) => maybeOf(context) ?? _notFoundInheritedWidgetOfExactType();
 
   @override
   bool updateShouldNotify(InheritedDependencies oldWidget) => false;

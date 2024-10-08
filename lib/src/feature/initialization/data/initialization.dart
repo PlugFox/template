@@ -26,15 +26,12 @@ Future<Dependencies> $initializeApp({
             DeviceOrientation.portraitDown,
           ]); */
         await _catchExceptions();
-        final dependencies =
-            await $initializeDependencies(onProgress: onProgress)
-                .timeout(const Duration(minutes: 7));
+        final dependencies = await $initializeDependencies(onProgress: onProgress).timeout(const Duration(minutes: 7));
         await onSuccess?.call(dependencies);
         return dependencies;
       } on Object catch (error, stackTrace) {
         onError?.call(error, stackTrace);
-        ErrorUtil.logError(error, stackTrace, hint: 'Failed to initialize app')
-            .ignore();
+        ErrorUtil.logError(error, stackTrace, hint: 'Failed to initialize app').ignore();
         rethrow;
       } finally {
         stopwatch.stop();

@@ -1,6 +1,4 @@
-// ignore_for_file: no-magic-number, unused_element, unused_field
-// ignore_for_file: unused_local_variable, avoid-unused-parameters
-// ignore_for_file: no-empty-block, constant_identifier_names
+// ignore_for_file: constant_identifier_names
 
 /// Virtual Key codes table
 /// Symbolic constant name = decimal value 1..255

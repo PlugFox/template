@@ -64,10 +64,8 @@ class Shimmer extends StatefulWidget {
 
 class _ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
   /// Init shader.
-  static final Future<ui.FragmentShader?> _shaderFuture =
-      ui.FragmentProgram.fromAsset('assets/shaders/shimmer.frag')
-          .then<ui.FragmentShader?>((program) => program.fragmentShader(),
-              onError: (_, __) => null);
+  static final Future<ui.FragmentShader?> _shaderFuture = ui.FragmentProgram.fromAsset('assets/shaders/shimmer.frag')
+      .then<ui.FragmentShader?>((program) => program.fragmentShader(), onError: (_, __) => null);
 
   /// Seed value notifier for shader mutation.
   late final ValueNotifier<double> _seed;
@@ -75,8 +73,7 @@ class _ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
   /// Animated ticker.
   late final Ticker _ticker;
 
-  void _updateSeed(Duration elapsed) =>
-      _seed.value = elapsed.inMilliseconds * widget.speed / 8000;
+  void _updateSeed(Duration elapsed) => _seed.value = elapsed.inMilliseconds * widget.speed / 8000;
 
   @override
   void initState() {
@@ -109,8 +106,7 @@ class _ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
                   /* ?? Colors.grey */
                   color: widget.color ?? Theme.of(context).colorScheme.primary,
                   /* ?? Theme.of(context).colorScheme.surface */
-                  backgroundColor: widget.backgroundColor ??
-                      Theme.of(context).colorScheme.background,
+                  backgroundColor: widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
                   cornerRadius: widget.cornerRadius,
                   stripeWidth: widget.stripeWidth,
                 ),
@@ -141,8 +137,7 @@ class _ShimmerPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final rect = Offset.zero & size;
-    if (shader == null)
-      return canvas.drawRect(rect, Paint()..color = backgroundColor);
+    if (shader == null) return canvas.drawRect(rect, Paint()..color = backgroundColor);
     final paint = Paint()
       ..shader = (shader!
         ..setFloat(0, size.width)

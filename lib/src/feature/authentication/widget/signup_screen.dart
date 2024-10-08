@@ -29,10 +29,7 @@ class SignUpScreen extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineLarge
-                            ?.copyWith(height: 1),
+                        style: Theme.of(context).textTheme.headlineLarge?.copyWith(height: 1),
                       ),
                     ),
                     const SizedBox(height: 32),

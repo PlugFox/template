@@ -31,8 +31,7 @@ class AuthenticationScope extends StatefulWidget {
       _InheritedAuthenticationScope.of(context, listen: false).signIn(data);
 
   /// Sign-Out
-  static void signOut(BuildContext context) =>
-      _InheritedAuthenticationScope.of(context, listen: false).signOut();
+  static void signOut(BuildContext context) => _InheritedAuthenticationScope.of(context, listen: false).signOut();
 
   @override
   State<AuthenticationScope> createState() => _AuthenticationScopeState();
@@ -79,14 +78,10 @@ class _InheritedAuthenticationScope extends InheritedWidget {
   final AuthenticationController controller;
   final AuthenticationState state;
 
-  static AuthenticationController? maybeOf(BuildContext context,
-          {bool listen = true}) =>
-      (listen
-              ? context.dependOnInheritedWidgetOfExactType<
-                  _InheritedAuthenticationScope>()
-              : context.getInheritedWidgetOfExactType<
-                  _InheritedAuthenticationScope>())
-          ?.controller;
+  static AuthenticationController? maybeOf(BuildContext context, {bool listen = true}) => (listen
+          ? context.dependOnInheritedWidgetOfExactType<_InheritedAuthenticationScope>()
+          : context.getInheritedWidgetOfExactType<_InheritedAuthenticationScope>())
+      ?.controller;
 
   static Never _notFoundInheritedWidgetOfExactType() => throw ArgumentError(
         'Out of scope, not found inherited widget '
@@ -94,11 +89,9 @@ class _InheritedAuthenticationScope extends InheritedWidget {
         'out_of_scope',
       );
 
-  static AuthenticationController of(BuildContext context,
-          {bool listen = true}) =>
+  static AuthenticationController of(BuildContext context, {bool listen = true}) =>
       maybeOf(context, listen: listen) ?? _notFoundInheritedWidgetOfExactType();
 
   @override
-  bool updateShouldNotify(covariant _InheritedAuthenticationScope oldWidget) =>
-      !identical(oldWidget.state, state);
+  bool updateShouldNotify(covariant _InheritedAuthenticationScope oldWidget) => !identical(oldWidget.state, state);
 }

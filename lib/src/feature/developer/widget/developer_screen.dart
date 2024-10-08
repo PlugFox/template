@@ -432,6 +432,7 @@ class _ClearDatabaseTile extends StatelessWidget {
             ),
             onTap: () {
               final db = Dependencies.of(context).database;
+              final messenger = ScaffoldMessenger.maybeOf(context);
               Future<void>(() async {
                 await db.customStatement('PRAGMA foreign_keys = OFF');
                 try {
@@ -443,17 +444,24 @@ class _ClearDatabaseTile extends StatelessWidget {
                   await db.customStatement('PRAGMA foreign_keys = ON');
                 }
               }).then<void>(
-                (_) => ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Database cleared'), duration: Duration(seconds: 3)),
-                ),
-                // ignore: inference_failure_on_untyped_parameter
-                onError: (error) => ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Database clear failed: $error'),
-                    backgroundColor: Colors.red,
-                    duration: const Duration(seconds: 3),
+                (_) => messenger
+                  ?..clearSnackBars()
+                  ..showSnackBar(
+                    const SnackBar(
+                      content: Text('Database cleared'),
+                      duration: Duration(seconds: 3),
+                    ),
                   ),
-                ),
+                // ignore: inference_failure_on_untyped_parameter
+                onError: (error) => messenger
+                  ?..clearSnackBars()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Text('Database clear failed: $error'),
+                      backgroundColor: Colors.red,
+                      duration: const Duration(seconds: 3),
+                    ),
+                  ),
               );
             },
           ),

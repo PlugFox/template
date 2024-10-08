@@ -38,19 +38,18 @@ extension ScreenUtilExtension on BuildContext {
   ///
   /// On the other hand, it adds an extra [orElse] required parameter,
   /// for fallback behavior.
-  ScreenSizeWhenResult
-      screenSizeMaybeWhen<ScreenSizeWhenResult extends Object?>({
+  ScreenSizeWhenResult screenSizeMaybeWhen<ScreenSizeWhenResult extends Object?>({
     required final ScreenSizeWhenResult Function() orElse,
     final ScreenSizeWhenResult Function()? phone,
     final ScreenSizeWhenResult Function()? tablet,
     final ScreenSizeWhenResult Function()? desktop,
   }) =>
-          ScreenUtil.screenSizeOf(this).maybeWhen(
-            phone: phone,
-            tablet: tablet,
-            desktop: desktop,
-            orElse: orElse,
-          );
+      ScreenUtil.screenSizeOf(this).maybeWhen(
+        phone: phone,
+        tablet: tablet,
+        desktop: desktop,
+        orElse: orElse,
+      );
 }
 
 /// {@template screen_util}
@@ -77,8 +76,7 @@ abstract final class ScreenUtil {
     return _screenSizeFromSize(size);
   }
 
-  static ScreenSize _screenSizeFromSize(final Size size) =>
-      switch (size.width) {
+  static ScreenSize _screenSizeFromSize(final Size size) => switch (size.width) {
         >= 1024 => ScreenSize.desktop,
         <= 600 => ScreenSize.phone,
         _ => ScreenSize.tablet,
@@ -88,14 +86,11 @@ abstract final class ScreenUtil {
   static Orientation orientation() {
     final view = ui.PlatformDispatcher.instance.implicitView;
     final size = view?.physicalSize;
-    return size == null || size.height > size.width
-        ? Orientation.portrait
-        : Orientation.landscape;
+    return size == null || size.height > size.width ? Orientation.portrait : Orientation.landscape;
   }
 
   /// Portrait or Landscape
-  static Orientation orientationOf(BuildContext context) =>
-      MediaQuery.of(context).orientation;
+  static Orientation orientationOf(BuildContext context) => MediaQuery.of(context).orientation;
 }
 
 /// {@macro screen_util}
@@ -191,8 +186,7 @@ final class ScreenSize$Phone extends ScreenSize {
   int get hashCode => 0;
 
   @override
-  bool operator ==(final Object other) =>
-      identical(other, this) || other is ScreenSize$Phone;
+  bool operator ==(final Object other) => identical(other, this) || other is ScreenSize$Phone;
 }
 
 /// {@macro screen_util}
@@ -222,8 +216,7 @@ final class ScreenSize$Tablet extends ScreenSize {
   int get hashCode => 1;
 
   @override
-  bool operator ==(final Object other) =>
-      identical(other, this) || other is ScreenSize$Tablet;
+  bool operator ==(final Object other) => identical(other, this) || other is ScreenSize$Tablet;
 }
 
 /// {@macro screen_util}
@@ -253,6 +246,5 @@ final class ScreenSize$Desktop extends ScreenSize {
   int get hashCode => 2;
 
   @override
-  bool operator ==(final Object other) =>
-      identical(other, this) || other is ScreenSize$Desktop;
+  bool operator ==(final Object other) => identical(other, this) || other is ScreenSize$Desktop;
 }
