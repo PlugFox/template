@@ -89,9 +89,8 @@ dependencies:
 
   # UI and Widgets
   cupertino_icons: ^1.0.5
-  #google_fonts: ^6.1.0
+  #google_fonts: ^6.2.1
   #font_awesome_flutter: ^10.6.0
-  drift_db_viewer: ^2.0.0
 
 dev_dependencies:
   # Unit & Widget tests for Flutter

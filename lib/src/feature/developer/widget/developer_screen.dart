@@ -1,4 +1,3 @@
-import 'package:drift_db_viewer/drift_db_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_template_name/src/common/constant/pubspec.yaml.g.dart';
@@ -62,7 +61,7 @@ class DeveloperScreen extends StatelessWidget {
             // --- Database --- //
 
             _GroupSeparator(title: Localization.of(context).database),
-            const _ViewDatabaseTile(),
+            /* const _ViewDatabaseTile(), */
             const _ClearDatabaseTile(),
 
             // --- Useful links --- //
@@ -392,7 +391,7 @@ class _ResetNavigationTile extends StatelessWidget {
       );
 }
 
-class _ViewDatabaseTile extends StatelessWidget {
+/* class _ViewDatabaseTile extends StatelessWidget {
   const _ViewDatabaseTile();
 
   @override
@@ -414,7 +413,7 @@ class _ViewDatabaseTile extends StatelessWidget {
           ),
         ),
       );
-}
+} */
 
 class _ClearDatabaseTile extends StatelessWidget {
   const _ClearDatabaseTile();
