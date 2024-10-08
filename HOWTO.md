@@ -15,3 +15,31 @@ flutterfire configure \
 	-e email@gmail.com \
 	-o lib/src/common/constant/firebase_options.g.dart
 ```
+
+## Drop the Flutter cache
+
+Clear the dart cache and flutter cache.
+
+```bash
+nohup bash -c 'rm -rf ~/.pub-cache $PUB_CACHE \
+  && cd $(dirname -- $(which flutter)) \
+  && git clean -fdx' > /dev/null 2>&1 &
+```
+
+macOS:
+
+```zsh
+rm -rf ~/.pub-cache ~/.dart ~/.dartServer $PUB_CACHE
+```
+
+Windows:
+
+```cmd
+del C:\Users\<user>\AppData\Local\.dartServer
+```
+
+And set up it again.
+
+```bash
+yes | flutter doctor --android-licenses
+```

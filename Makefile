@@ -1,24 +1,18 @@
-ifeq ($(OS),Windows_NT)
-	SHELL = cmd
-    RM = del /Q
-    MKDIR = mkdir
-    PWD = $(shell $(PWD))
-else
-	SHELL = /bin/bash -e -o pipefail
-    RM = rm -f
-    MKDIR = mkdir -p
-    PWD = pwd
-endif
+SHELL :=/bin/bash -e -o pipefail
+PWD   := $(shell pwd)
 
 .DEFAULT_GOAL := all
 .PHONY: all
-all: generate format check test ## build pipeline
+all: ## build pipeline
+all: generate format check test
 
 .PHONY: ci
+ci: ## CI build pipeline
 ci: all
 
 .PHONY: precommit
-precommit: all  ## validate the branch before commit
+precommit: ## validate the branch before commit
+precommit: all
 
 .PHONY: help
 help:
@@ -154,6 +148,8 @@ generate-splash: ## Generate splash screen for the app
 
 .PHONY: clean
 clean: ## Clean the project and remove all generated files
+	@rm -f coverage.*
+	@rm -rf dist bin out build
 	@rm -rf coverage .dart_tool .packages pubspec.lock
 
 .PHONY: diff
