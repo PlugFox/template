@@ -47,5 +47,5 @@ yes | flutter doctor --android-licenses
 ## Update platform code
 
 ```bash
-flutter create -t app --project-name "flutter_template_name" --org "dev.flutter.template" --description "flutter_template_description" --platform=android,ios,macos,windows,linux,web --override .
+flutter create -t app --project-name "flutter_template_name" --org "dev.flutter.template" --description "flutter_template_description" --platform=android,ios,macos,windows,linux,web --overwrite .
 ```
