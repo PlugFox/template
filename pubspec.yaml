@@ -34,8 +34,8 @@ version: 0.0.1+1
 #    path: screenshot_1.png
 
 environment:
-  sdk: '>=3.3.0 <4.0.0'
-  flutter: ">=3.19.2"
+  sdk: '>=3.5.0 <4.0.0'
+  flutter: ">=3.24.3"
 
 dependencies:
   flutter:
@@ -103,6 +103,9 @@ dev_dependencies:
 
   # Linting
   flutter_lints: ^3.0.2
+
+  # Testing
+  test: any
 
   # Code generation
   build_runner: ^2.4.6
