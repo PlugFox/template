@@ -67,7 +67,16 @@ dependencies: get ## Check outdated dependencies
 
 .PHONY: test
 test: get ## Run the tests
-	@dart test --debug --coverage=coverage --platform vm,chrome test/unit_test.dart
+	@flutter test --coverage test/unit_test.dart test/widget_test.dart
+
+.PHONY: integration
+integration: get ## Run the integration tests
+	@flutter test \
+		--coverage \
+		integration_test/app_test.dart
+
+.PHONY: e2e
+e2e: integration
 
 #.PHONY: publish-check
 #publish-check: ## Check the package before publishing
