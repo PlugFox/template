@@ -113,7 +113,7 @@ final Map<String, _InitializationStep> _initializationSteps = <String, _Initiali
           ..limit(LogBuffer.bufferLimit))
         .get()
         .then<List<LogMessage>>((logs) => logs
-            .map((l) => l.stack != null
+            .map<LogMessage>((l) => l.stack != null
                 ? LogMessageError(
                     timestamp: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
                     level: LogLevel.fromValue(l.level),
@@ -124,9 +124,12 @@ final Map<String, _InitializationStep> _initializationSteps = <String, _Initiali
                     level: LogLevel.fromValue(l.level),
                     message: l.message,
                   ))
-            .toList())
+            .toList(growable: false))
         .then<void>(LogBuffer.instance.addAll);
-    l.bufferTime(const Duration(seconds: 1)).where((logs) => logs.isNotEmpty).listen(LogBuffer.instance.addAll);
+    l.bufferTime(const Duration(seconds: 1)).where((logs) => logs.isNotEmpty).listen(
+          LogBuffer.instance.addAll,
+          cancelOnError: false,
+        );
     l
         .map<LogTblCompanion>((log) => LogTblCompanion.insert(
               level: log.level.level,
