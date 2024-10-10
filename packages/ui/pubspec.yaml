@@ -1,0 +1,23 @@
+name: ui
+description: Shared UI Components, Widgets, Fonts, Colors and Theme
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+  flutter: ">=3.24.3"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  intl: any
+  collection: any
+  #google_fonts: ^6.2.1
+
+dev_dependencies:
+  # Test
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

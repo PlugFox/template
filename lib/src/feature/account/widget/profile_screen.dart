@@ -1,11 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_template_name/src/common/router/routes.dart';
-import 'package:flutter_template_name/src/common/widget/form_placeholder.dart';
 import 'package:flutter_template_name/src/common/widget/scaffold_padding.dart';
-import 'package:flutter_template_name/src/common/widget/shimmer.dart';
-import 'package:flutter_template_name/src/common/widget/text_placeholder.dart';
 import 'package:flutter_template_name/src/feature/authentication/widget/log_out_button.dart';
 import 'package:octopus/octopus.dart';
+import 'package:ui/ui.dart';
 
 /// {@template profile_screen}
 /// ProfileScreen widget.
@@ -40,30 +37,30 @@ class ProfileScreen extends StatelessWidget {
                           cornerRadius: 42,
                         ),
                         const SizedBox(width: 16),
-                        Column(
+                        const Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             TextPlaceholder(height: 16, width: 64),
-                            const SizedBox(height: 12),
+                            SizedBox(height: 12),
                             Padding(
-                              padding: const EdgeInsets.only(left: 8),
+                              padding: EdgeInsets.only(left: 8),
                               child: TextPlaceholder(height: 14, width: 100),
                             ),
-                            const SizedBox(height: 8),
+                            SizedBox(height: 8),
                             Padding(
-                              padding: const EdgeInsets.only(left: 8),
+                              padding: EdgeInsets.only(left: 8),
                               child: TextPlaceholder(height: 14, width: 128),
                             ),
-                            const SizedBox(height: 8),
+                            SizedBox(height: 8),
                             Padding(
-                              padding: const EdgeInsets.only(left: 8),
+                              padding: EdgeInsets.only(left: 8),
                               child: TextPlaceholder(height: 14, width: 72),
                             ),
-                            const SizedBox(height: 8),
+                            SizedBox(height: 8),
                             Padding(
-                              padding: const EdgeInsets.only(left: 8),
+                              padding: EdgeInsets.only(left: 8),
                               child: TextPlaceholder(height: 14, width: 92),
                             ),
                           ],

@@ -124,13 +124,13 @@ sealed class Pubspec {
   /// Build date and time (UTC)
   static final DateTime timestamp = DateTime.utc(
     2024,
-    1,
-    3,
     10,
-    33,
-    41,
-    865,
-    500,
+    8,
+    9,
+    8,
+    49,
+    803,
+    983,
   );
 
   /// Name
@@ -348,8 +348,8 @@ sealed class Pubspec {
 
   /// Environment
   static const Map<String, String> environment = <String, String>{
-    'sdk': '>=3.2.3 <4.0.0',
-    'flutter': '>=3.2.3 <4.0.0',
+    'sdk': '>=3.3.0 <4.0.0',
+    'flutter': '>=3.3.0 <4.0.0',
   };
 
   /// Platforms
@@ -416,23 +416,27 @@ sealed class Pubspec {
       'sdk': r'flutter',
     },
     'intl': r'any',
-    'octopus': r'^0.0.0',
+    'octopus': r'^0.0.8',
     'meta': r'any',
+    'json_annotation': r'^4.8.1',
     'collection': r'any',
     'async': r'any',
     'path': r'any',
     'convert': r'any',
-    'path_provider': r'^2.1.1',
+    'path_provider': r'^2.1.2',
     'platform_info': r'^4.0.2',
     'rxdart': r'^0.28.0-dev.0',
     'url_launcher': r'^6.2.2',
-    'l': r'^4.1.0-pre.1',
-    'win32': r'^5.1.1',
-    'window_manager': r'^0.3.4',
-    'control': r'^0.0.1-pre.0',
+    'money2': r'^4.0.0',
+    'l': r'^5.0.0-pre.2',
+    'win32': r'^5.4.0',
+    'window_manager': r'^0.3.8',
+    'control': r'^0.1.0',
     'shared_preferences': r'^2.2.2',
-    'drift': r'^2.14.1',
-    'sqlite3_flutter_libs': r'^0.5.18',
+    'drift': r'^2.16.0',
+    'sqlite3_flutter_libs': r'^0.5.20',
+    'dio': r'^5.4.2+1',
+    'dio_smart_retry': r'^6.0.0',
     'cupertino_icons': r'^1.0.5',
     'drift_db_viewer': r'^2.0.0',
   };
@@ -445,13 +449,14 @@ sealed class Pubspec {
     'integration_test': <String, Object>{
       'sdk': r'flutter',
     },
-    'flutter_lints': r'^2.0.1',
+    'flutter_lints': r'^3.0.2',
     'build_runner': r'^2.4.6',
-    'drift_dev': r'^2.14.1',
+    'drift_dev': r'^2.16.0',
     'pubspec_generator': r'^4.1.0-pre.1',
     'flutter_gen_runner': r'^5.3.2',
+    'json_serializable': r'^6.7.1',
     'flutter_launcher_icons': r'^0.13.1',
-    'flutter_native_splash': r'^2.3.8',
+    'flutter_native_splash': r'^2.4.0',
   };
 
   /// Dependency overrides
@@ -512,6 +517,9 @@ sealed class Pubspec {
       'shaders': <Object>[
         r'assets/shaders/shimmer.frag',
       ],
+      'assets': <Object>[
+        r'assets/icons/',
+      ],
     },
     'flutter_intl': <String, Object>{
       'enabled': true,
@@ -526,5 +534,4 @@ sealed class Pubspec {
       'line_length': 120,
     },
   };
-
 }

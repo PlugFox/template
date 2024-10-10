@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template_name/src/common/widget/shimmer.dart';
-import 'package:flutter_template_name/src/common/widget/text_placeholder.dart';
+import 'package:ui/src/components/placeholders/shimmer.dart';
+import 'package:ui/src/components/placeholders/text_placeholder.dart';
 
 /// {@template form_placeholder}
 /// FormPlaceholder widget.
@@ -28,21 +28,21 @@ class FormPlaceholder extends StatelessWidget {
               ),
             ),
           const SizedBox(height: 16),
-          TextPlaceholder(width: 152),
+          const TextPlaceholder(width: 152),
           const SizedBox(height: 16),
-          TextPlaceholder(width: 256),
+          const TextPlaceholder(width: 256),
           const SizedBox(height: 16),
-          TextPlaceholder(width: 128),
+          const TextPlaceholder(width: 128),
           const SizedBox(height: 16),
-          TextPlaceholder(width: 64),
+          const TextPlaceholder(width: 64),
           const SizedBox(height: 16),
-          TextPlaceholder(width: 256),
+          const TextPlaceholder(width: 256),
           const SizedBox(height: 16),
-          TextPlaceholder(width: 512),
+          const TextPlaceholder(width: 512),
           const SizedBox(height: 16),
-          TextPlaceholder(width: 256),
+          const TextPlaceholder(width: 256),
           const SizedBox(height: 16),
-          TextPlaceholder(width: 128),
+          const TextPlaceholder(width: 128),
         ],
       );
 }

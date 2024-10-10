@@ -1,0 +1,64 @@
+name: Setup
+description: Sets up the Flutter environment
+
+inputs:
+  flutter-version:
+    description: 'The version of Flutter to use'
+    required: false
+    default: '3.24.3'
+  pub-cache:
+    description: 'The name of the pub cache variable'
+    required: false
+    default: app
+
+runs:
+  using: composite
+  steps:
+    - name: 📦 Checkout the repo
+      uses: actions/checkout@v4
+
+    - name: 🔢 Set up version from tags
+      id: set-version
+      if: startsWith(github.ref, 'refs/tags')
+      run: |
+        BASE_VERSION="${GITHUB_REF#refs/tags/v}"
+        UNIXTIME=$(date +%s)
+        VERSION="${BASE_VERSION}+${UNIXTIME}"
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        sed -i "s/^version: .*/version: ${VERSION}/" pubspec.yaml
+        echo "Version set to $VERSION"
+
+    - name: 🚂 Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '${{ inputs.flutter-version }}'
+        channel: "stable"
+
+    - name: 📤 Restore Pub modules
+      id: cache-pub-restore
+      uses: actions/cache/restore@v4
+      with:
+        path: |
+          /home/runner/.pub-cache
+        key: ${{ runner.os }}-pub-${{ inputs.pub-cache }}-${{ hashFiles('pubspec.lock') }}
+
+    - name: 👷 Install Dependencies
+      shell: bash
+      run: |
+        echo /home/runner/.pub-cache/bin >> $GITHUB_PATH
+        flutter config --no-cli-animations --no-analytics
+        flutter pub get
+
+    - name: ⏲️ Run build runner
+      shell: bash
+      run: |
+        dart run build_runner build --delete-conflicting-outputs --release
+
+    - name: 📥 Save Pub modules
+      id: cache-pub-save
+      if: steps.cache-pub-restore.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v4
+      with:
+        path: |
+          /home/runner/.pub-cache
+        key: ${{ steps.cache-pub-restore.outputs.cache-primary-key }}

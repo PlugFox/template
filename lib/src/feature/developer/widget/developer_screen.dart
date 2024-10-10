@@ -1,4 +1,3 @@
-import 'package:drift_db_viewer/drift_db_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_template_name/src/common/constant/pubspec.yaml.g.dart';
@@ -62,7 +61,7 @@ class DeveloperScreen extends StatelessWidget {
             // --- Database --- //
 
             _GroupSeparator(title: Localization.of(context).database),
-            const _ViewDatabaseTile(),
+            /* const _ViewDatabaseTile(), */
             const _ClearDatabaseTile(),
 
             // --- Useful links --- //
@@ -392,7 +391,7 @@ class _ResetNavigationTile extends StatelessWidget {
       );
 }
 
-class _ViewDatabaseTile extends StatelessWidget {
+/* class _ViewDatabaseTile extends StatelessWidget {
   const _ViewDatabaseTile();
 
   @override
@@ -414,7 +413,7 @@ class _ViewDatabaseTile extends StatelessWidget {
           ),
         ),
       );
-}
+} */
 
 class _ClearDatabaseTile extends StatelessWidget {
   const _ClearDatabaseTile();
@@ -432,6 +431,7 @@ class _ClearDatabaseTile extends StatelessWidget {
             ),
             onTap: () {
               final db = Dependencies.of(context).database;
+              final messenger = ScaffoldMessenger.maybeOf(context);
               Future<void>(() async {
                 await db.customStatement('PRAGMA foreign_keys = OFF');
                 try {
@@ -443,17 +443,24 @@ class _ClearDatabaseTile extends StatelessWidget {
                   await db.customStatement('PRAGMA foreign_keys = ON');
                 }
               }).then<void>(
-                (_) => ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Database cleared'), duration: Duration(seconds: 3)),
-                ),
-                // ignore: inference_failure_on_untyped_parameter
-                onError: (error) => ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Database clear failed: $error'),
-                    backgroundColor: Colors.red,
-                    duration: const Duration(seconds: 3),
+                (_) => messenger
+                  ?..clearSnackBars()
+                  ..showSnackBar(
+                    const SnackBar(
+                      content: Text('Database cleared'),
+                      duration: Duration(seconds: 3),
+                    ),
                   ),
-                ),
+                // ignore: inference_failure_on_untyped_parameter
+                onError: (error) => messenger
+                  ?..clearSnackBars()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Text('Database clear failed: $error'),
+                      backgroundColor: Colors.red,
+                      duration: const Duration(seconds: 3),
+                    ),
+                  ),
               );
             },
           ),

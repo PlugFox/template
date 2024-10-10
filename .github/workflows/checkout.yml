@@ -2,18 +2,28 @@ name: Checkout
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - "master"
-      - "develop"
-      - "feature/**"
-      - "bugfix/**"
-      - "hotfix/**"
-      - "support/**"
-    paths:
-      - "lib/**.dart"
-      - "test/**.dart"
-      - "pubspec.yaml"
+  #push:
+  #  branches:
+  #    - "master"
+  #    - "develop"
+  #    - "feature/**"
+  #    - "bugfix/**"
+  #    - "hotfix/**"
+  #    - "support/**"
+  #  paths:
+  #    - "pubspec.yaml"
+  #    - "pubspec.lock"
+  #    - ".github/**.yaml"
+  #    - ".github/**.yml"
+  #    - "lib/**.dart"
+  #    - "test/**.dart"
+  #    - "packages/**"
+  #    - "web/**"
+  #    - "android/**"
+  #    - "ios/**"
+  #    - "windows/**"
+  #    - "linux/**"
+  #    - "macos/**"
   pull_request:
     branches:
       - "master"
@@ -23,57 +33,75 @@ on:
       - "hotfix/**"
       - "support/**"
     paths:
+      - "pubspec.yaml"
+      - "pubspec.lock"
+      - ".github/**.yaml"
+      - ".github/**.yml"
       - "lib/**.dart"
       - "test/**.dart"
-      - "pubspec.yaml"
+      - "packages/**"
+      - "web/**"
+      - "android/**"
+      - "ios/**"
+      - "windows/**"
+      - "linux/**"
+      - "macos/**"
 
 jobs:
   checkout:
-    name: "Checkout"
+    name: "🧪 Check code with analysis, format, and tests"
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     defaults:
       run:
         working-directory: ./
-    container:
-      image: plugfox/flutter:stable
-    timeout-minutes: 10
     steps:
-      - name: 🚂 Get latest code
-        uses: actions/checkout@v3
-
-      - name: 🚃 Cache pub modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-octopus-package
+      - name: 📦 Get the .github actions
+        uses: actions/checkout@v4
         with:
-          path: |
-            $PWD/.pub_cache/
-          key: ${{ runner.os }}-pub-${{ env.cache-name }}-${{ hashFiles('**/pubspec.yaml') }}
+          sparse-checkout: |
+            .github
 
-      - name: 🗄️ Export pub cache directory
-        run: export PUB_CACHE=$PWD/.pub_cache/
+      - name: 🚂 Setup Flutter and dependencies
+        uses: ./.github/actions/setup
+        with:
+          flutter-version: 3.24.3
 
       - name: 👷 Install Dependencies
         timeout-minutes: 1
         run: |
           flutter pub get
 
-      #- name: 🔎 Check format
-      #  timeout-minutes: 1
-      #  run: dart format --set-exit-if-changed -l 120 -o none lib/
-
-      - name: 📈 Check analyzer
+      - name: 🚦 Check code format
+        id: check-format
         timeout-minutes: 1
-        run: flutter analyze --fatal-infos --fatal-warnings lib/
+        run: |
+          find lib test -name "*.dart" ! -name "*.*.dart" -print0 | xargs -0 dart format --set-exit-if-changed --line-length 120 -o none
 
-      #- name: 🧪 Run tests
-      #  timeout-minutes: 2
-      #  run: |
-      #    dart run coverage:test_with_coverage -fb -o coverage -- \
-      #      --concurrency=6 --platform vm --coverage=./coverage --reporter=expanded test/ws_test.dart
+      - name: 📈 Check for Warnings
+        id: check-analyzer
+        timeout-minutes: 1
+        run: |
+          flutter analyze --fatal-infos --fatal-warnings lib/ test/
 
-      #- name: 📥 Upload coverage to Codecov
-      #  timeout-minutes: 1
-      #  uses: codecov/codecov-action@v3
+      - name: 🧪 Unit & Widget tests
+        timeout-minutes: 20
+        run: |
+          flutter test --coverage --machine --concurrency=40 unit_test.dart widget_test.dart > tests.json
+
+      #- name: 📥 Upload coverage report
+      #  timeout-minutes: 5
+      #  if: ${{ github.actor != 'dependabot[bot]' }}
+      #  uses: codecov/codecov-action@v2
       #  with:
-      #    token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+      #    token: ${{ secrets.CODECOV_TOKEN }}
+      #    files: ./coverage/lcov.info
+
+      #- name: 🚛 Test report
+      #  if: always() && ${{ github.actor != 'dependabot[bot]' }} && exists('tests.json')
+      #  uses: dorny/test-reporter@v1
+      #  with:
+      #    name: 🚛 Test Report
+      #    path: tests.json
+      #    reporter: flutter-json
+      #    fail-on-error: true

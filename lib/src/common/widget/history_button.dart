@@ -110,8 +110,7 @@ class _HistorySearchWidgetState extends State<_HistorySearchWidget> {
   void _select(OctopusHistoryEntry entry) {
     final router = context.octopus;
     _pop();
-    Future<void>.delayed(const Duration(milliseconds: 250),
-        () => router.setState((_) => entry.state));
+    Future<void>.delayed(const Duration(milliseconds: 250), () => router.setState((_) => entry.state));
   }
 
   void _pop() {
@@ -126,8 +125,7 @@ class _HistorySearchWidgetState extends State<_HistorySearchWidget> {
       _filtered = _entries
           .where((e) {
             final title = e.$1;
-            if (title != null && title.toLowerCase().contains(text))
-              return true;
+            if (title != null && title.toLowerCase().contains(text)) return true;
             final location = e.$2.state.location;
             if (location.toLowerCase().contains(text)) return true;
             return false;

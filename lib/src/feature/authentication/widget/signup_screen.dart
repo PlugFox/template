@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
-import 'package:flutter_template_name/src/common/widget/form_placeholder.dart';
+import 'package:ui/ui.dart';
 
 /// {@template signup_screen}
 /// SignUpScreen widget.
@@ -29,10 +28,7 @@ class SignUpScreen extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineLarge
-                            ?.copyWith(height: 1),
+                        style: Theme.of(context).textTheme.headlineLarge?.copyWith(height: 1),
                       ),
                     ),
                     const SizedBox(height: 32),

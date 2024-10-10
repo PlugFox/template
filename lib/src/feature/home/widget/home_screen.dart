@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_template_name/src/common/widget/common_actions.dart';
+import 'package:ui/ui.dart';
 
 /// {@template home_screen}
 /// HomeScreen widget.
@@ -10,25 +10,26 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-          body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            pinned: true,
-            title: const Text('Home'),
-            leading: const SizedBox.shrink(),
-            actions: CommonActions(),
-          ),
-          const SliverFillRemaining(
-            hasScrollBody: false,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Home'),
-                ],
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              pinned: true,
+              title: const Text('Home'),
+              leading: const SizedBox.shrink(),
+              actions: CommonActions(),
+            ),
+            const SliverFillRemaining(
+              hasScrollBody: false,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Home'),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
-      ));
+          ],
+        ),
+      );
 }

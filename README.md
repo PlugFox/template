@@ -1,10 +1,4 @@
-# Flutter template
-
-Created with
-
-```bash
-flutter create -t app --project-name "flutter_template_name" --org "dev.flutter.template" --description "flutter_template_description" --platform=android,ios,macos,windows,linux,web flutter_template
-```
+# Flutter template by Plague Fox
 
 ## Get started
 

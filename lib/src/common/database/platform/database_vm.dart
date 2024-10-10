@@ -39,7 +39,7 @@ Future<QueryExecutor> $createQueryExecutor({
   if (path == null) {
     try {
       var dbFolder = await pp.getApplicationDocumentsDirectory();
-      if (platform.isDesktop) {
+      if (platform.desktop) {
         dbFolder = io.Directory(p.join(dbFolder.path, Pubspec.name));
         if (!dbFolder.existsSync()) await dbFolder.create(recursive: true);
       }

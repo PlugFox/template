@@ -134,7 +134,7 @@ class _WindowTitleState extends State<_WindowTitle> with WindowListener {
                     );
                   },
                 ),
-                if (platform.isWindows)
+                if (platform.windows)
                   _WindowButtons$Windows(
                     isFullScreen: _isFullScreen,
                     isAlwaysOnTop: _isAlwaysOnTop,
