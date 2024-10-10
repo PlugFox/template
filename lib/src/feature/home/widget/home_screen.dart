@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_template_name/src/common/widget/common_actions.dart';
+import 'package:ui/ui.dart';
 
 /// {@template home_screen}
 /// HomeScreen widget.
@@ -17,6 +17,12 @@ class HomeScreen extends StatelessWidget {
             title: const Text('Home'),
             leading: const SizedBox.shrink(),
             actions: CommonActions(),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 200,
+              child: TextPlaceholder(),
+            ),
           ),
           const SliverFillRemaining(
             hasScrollBody: false,

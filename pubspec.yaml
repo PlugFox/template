@@ -91,6 +91,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   #google_fonts: ^6.2.1
   #font_awesome_flutter: ^10.7.0
+  ui:
+    path: ./packages/ui
 
 dev_dependencies:
   # Unit & Widget tests for Flutter
@@ -123,7 +125,7 @@ flutter:
   uses-material-design: true
 
   shaders:
-    - assets/shaders/shimmer.frag
+    - packages/ui/shaders/shimmer.frag
 
   assets:
     - assets/icons/

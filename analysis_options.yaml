@@ -82,6 +82,7 @@ linter:
     prefer_final_locals: false
     avoid_escaping_inner_quotes: false
     curly_braces_in_flow_control_structures: false
+    one_member_abstracts: false
 
     # Enabled
     use_named_constants: true
@@ -220,7 +221,6 @@ linter:
     avoid_catches_without_on_clauses: true
     avoid_catching_errors: true
     use_to_and_as_if_applicable: true
-    one_member_abstracts: true
     avoid_classes_with_only_static_members: true
     prefer_mixin: true
     use_setters_to_change_properties: true

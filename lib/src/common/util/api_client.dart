@@ -87,7 +87,7 @@ class ApiClient /* with http_package.BaseClient implements http_package.Client *
     http_package.Client? client,
     Iterable<ApiClientMiddleware>? middlewares,
   })  : _baseUrl = Uri.parse(baseUrl.endsWith('/') ? baseUrl.substring(0, baseUrl.length - 1) : baseUrl),
-        assert(baseUrl.endsWith('//'), 'Invalid base URL.') {
+        assert(!baseUrl.endsWith('//'), 'Invalid base URL.') {
     // Create the HTTP client.
     final internalClient = client ?? http_package.Client();
 
