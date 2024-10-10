@@ -87,7 +87,7 @@ jobs:
       - name: 🧪 Unit & Widget tests
         timeout-minutes: 20
         run: |
-          flutter test --coverage --machine --concurrency=40 unit_test.dart widget_test.dart > tests.json
+          flutter test --coverage --machine --concurrency=40 test/unit_test.dart test/widget_test.dart > tests.json
 
       #- name: 📥 Upload coverage report
       #  timeout-minutes: 5
