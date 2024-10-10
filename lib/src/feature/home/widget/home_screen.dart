@@ -10,31 +10,26 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-          body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            pinned: true,
-            title: const Text('Home'),
-            leading: const SizedBox.shrink(),
-            actions: CommonActions(),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 200,
-              child: TextPlaceholder(),
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              pinned: true,
+              title: const Text('Home'),
+              leading: const SizedBox.shrink(),
+              actions: CommonActions(),
             ),
-          ),
-          const SliverFillRemaining(
-            hasScrollBody: false,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Home'),
-                ],
+            const SliverFillRemaining(
+              hasScrollBody: false,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Home'),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
-      ));
+          ],
+        ),
+      );
 }

@@ -6,7 +6,6 @@ import 'package:flutter_template_name/src/common/util/error_util.dart';
 import 'package:flutter_template_name/src/common/widget/app.dart';
 import 'package:flutter_template_name/src/common/widget/app_error.dart';
 import 'package:flutter_template_name/src/feature/initialization/data/initialization.dart';
-import 'package:flutter_template_name/src/feature/initialization/widget/inherited_dependencies.dart';
 import 'package:flutter_template_name/src/feature/settings/widget/settings_scope.dart';
 import 'package:octopus/octopus.dart';
 import 'package:platform_info/platform_info.dart';
@@ -19,8 +18,7 @@ void main() => appZone(
         $initializeApp(
           onProgress: (progress, message) => initializationProgress.value = (progress: progress, message: message),
           onSuccess: (dependencies) => runApp(
-            InheritedDependencies(
-              dependencies: dependencies,
+            dependencies.inject(
               child: SettingsScope(
                 child: NoAnimationScope(
                   noAnimation: platform.js || platform.desktop,
