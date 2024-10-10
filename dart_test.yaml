@@ -1,0 +1,18 @@
+timeout: 1x
+
+platforms:
+  - vm
+
+file_reporters:
+  json: reports/tests.json
+
+tags:
+  model:
+    timeout: 1x
+  data:
+    timeout: 1x
+  controller:
+    timeout: 1x
+  widget:
+    timeout: 1x
+

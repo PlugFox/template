@@ -47,6 +47,11 @@ on:
       - "linux/**"
       - "macos/**"
 
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
 jobs:
   checkout:
     name: "🧪 Check code with analysis, format, and tests"
@@ -87,7 +92,7 @@ jobs:
       - name: 🧪 Unit & Widget tests
         timeout-minutes: 20
         run: |
-          flutter test --coverage --machine --concurrency=40 test/unit_test.dart test/widget_test.dart > tests.json
+          flutter test --coverage --concurrency=40 test/unit_test.dart test/widget_test.dart
 
       #- name: 📥 Upload coverage report
       #  timeout-minutes: 5
@@ -97,11 +102,9 @@ jobs:
       #    token: ${{ secrets.CODECOV_TOKEN }}
       #    files: ./coverage/lcov.info
 
-      #- name: 🚛 Test report
-      #  if: always() && ${{ github.actor != 'dependabot[bot]' }} && exists('tests.json')
-      #  uses: dorny/test-reporter@v1
-      #  with:
-      #    name: 🚛 Test Report
-      #    path: tests.json
-      #    reporter: flutter-json
-      #    fail-on-error: true
+      - name: 📥 Upload test report
+        uses: actions/upload-artifact@v4
+        if: (success() || failure()) && ${{ github.actor != 'dependabot[bot]' }}
+        with:
+          name: test-results
+          path: reports/tests.json
