@@ -2,9 +2,9 @@ name: Checkout
 
 on:
   workflow_dispatch:
-  #push:
-  #  branches:
-  #    - "master"
+  push:
+    branches:
+      - "master"
   #    - "develop"
   #    - "feature/**"
   #    - "bugfix/**"
