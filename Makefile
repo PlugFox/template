@@ -41,7 +41,7 @@ fix: format ## Fix the code
 
 .PHONY: get
 get: ## Get the dependencies
-	@dart pub get
+	@flutter pub get
 
 .PHONY: upgrade
 upgrade: get ## Upgrade dependencies
@@ -53,7 +53,7 @@ upgrade-major: get ## Upgrade to major versions
 
 .PHONY: outdated
 outdated: get ## Check for outdated dependencies
-	@dart pub outdated --show-all --dev-dependencies --dependency-overrides --transitive --no-prereleases
+	@flutter pub outdated --show-all --dev-dependencies --dependency-overrides --transitive --no-prereleases
 
 .PHONY: dependencies
 dependencies: get ## Check outdated dependencies

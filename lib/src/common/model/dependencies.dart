@@ -1,7 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart' show BuildContext;
 import 'package:flutter_template_name/src/common/database/database.dart';
 import 'package:flutter_template_name/src/common/model/app_metadata.dart';
+import 'package:flutter_template_name/src/common/util/api_client.dart';
 import 'package:flutter_template_name/src/feature/authentication/controller/authentication_controller.dart';
 import 'package:flutter_template_name/src/feature/initialization/widget/inherited_dependencies.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,7 +23,7 @@ class Dependencies {
   late final Database database;
 
   /// API Client
-  late final Dio dio;
+  late final ApiClient apiClient;
 
   /// Authentication controller
   late final AuthenticationController authenticationController;
