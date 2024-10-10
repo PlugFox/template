@@ -97,11 +97,11 @@ jobs:
       #    token: ${{ secrets.CODECOV_TOKEN }}
       #    files: ./coverage/lcov.info
 
-      - name: 🚛 Test report
-        if: always() && ${{ github.actor != 'dependabot[bot]' }} && exists('tests.json')
-        uses: dorny/test-reporter@v1
-        with:
-          name: 🚛 Test Report
-          path: tests.json
-          reporter: flutter-json
-          fail-on-error: true
+      #- name: 🚛 Test report
+      #  if: always() && ${{ github.actor != 'dependabot[bot]' }} && exists('tests.json')
+      #  uses: dorny/test-reporter@v1
+      #  with:
+      #    name: 🚛 Test Report
+      #    path: tests.json
+      #    reporter: flutter-json
+      #    fail-on-error: true
