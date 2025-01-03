@@ -93,7 +93,7 @@ BEGIN
             VALUE "FileDescription", "flutter_template_name" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "flutter_template_name" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 dev.flutter.template. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2025 dev.flutter.template. All rights reserved." "\0"
             VALUE "OriginalFilename", "flutter_template_name.exe" "\0"
             VALUE "ProductName", "flutter_template_name" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
