@@ -43,11 +43,11 @@ class PieChartItem implements Comparable<PieChartItem> {
   int compareTo(PieChartItem other) => value.compareTo(other.value);
 
   @override
-  int get hashCode => value.hashCode ^ color.value.hashCode;
+  int get hashCode => value.hashCode ^ color.hashCode;
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is PieChartItem && value == other.value && color.value == other.color.value;
+      identical(this, other) || other is PieChartItem && value == other.value && color.hashCode == other.color.hashCode;
 
   @override
   String toString() => 'PieChartItem{id: $id, value: $value}';
@@ -63,10 +63,10 @@ final class _PieChartController with ChangeNotifier {
   static double _lerpDouble(double a, double b, double t) => a * (1.0 - t) + b * t;
 
   /// Linearly interpolate between two integers.
-  static double _lerpInt(int a, int b, double t) => a + (b - a) * t;
+  /* static double _lerpInt(int a, int b, double t) => a + (b - a) * t; */
 
   /// Same as [num.clamp] but specialized for non-null [int].
-  static int _clampInt(int value, int min, int max) {
+  /* static int _clampInt(int value, int min, int max) {
     if (value < min) {
       return min;
     } else if (value > max) {
@@ -74,14 +74,14 @@ final class _PieChartController with ChangeNotifier {
     } else {
       return value;
     }
-  }
+  } */
 
   /// Linearly interpolate between two colors.
   static Color _lerpColor(Color a, Color b, double t) => Color.fromARGB(
-        _clampInt(_lerpInt(a.alpha, b.alpha, t).toInt(), 0, 255),
-        _clampInt(_lerpInt(a.red, b.red, t).toInt(), 0, 255),
-        _clampInt(_lerpInt(a.green, b.green, t).toInt(), 0, 255),
-        _clampInt(_lerpInt(a.blue, b.blue, t).toInt(), 0, 255),
+        (_lerpDouble(a.a, b.a, t) * 255).clamp(0, 255).toInt(),
+        (_lerpDouble(a.r, b.r, t) * 255).clamp(0, 255).toInt(),
+        (_lerpDouble(a.g, b.g, t) * 255).clamp(0, 255).toInt(),
+        (_lerpDouble(a.b, b.b, t) * 255).clamp(0, 255).toInt(),
       );
 
   final Map<String, PieChartItem> _from = <String, PieChartItem>{};
@@ -386,9 +386,11 @@ class _PieChartPainter extends CustomPainter {
   final Path _innerCircle = Path();
 
   /// Calculate the contrasting text color for the given background color.
+  // ignore: prefer_expression_function_bodies
   static Color contrastingTextColor(Color color) {
-    final brightness = (299 * color.red + 587 * color.green + 114 * color.blue) / 1000;
-    return brightness > 128 ? Colors.black : Colors.white;
+    /* final brightness = (299 * color.red + 587 * color.green + 114 * color.blue) / 1000;
+    return brightness > 128 ? Colors.black : Colors.white; */
+    return color.computeLuminance() > .5 ? Colors.black : Colors.white;
   }
 
   @override

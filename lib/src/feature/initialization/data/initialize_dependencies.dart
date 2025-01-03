@@ -62,7 +62,7 @@ final Map<String, _InitializationStep> _initializationSteps = <String, _Initiali
         deviceVersion: platform.version,
         deviceScreenSize: ScreenUtil.screenSize().representation,
       ),
-  'Observer state managment': (_) => Controller.observer = ControllerObserver(),
+  'Observer state managment': (_) => Controller.observer = const ControllerObserver(),
   'Initializing analytics': (_) {},
   'Log app open': (_) {},
   'Get remote config': (_) {},
