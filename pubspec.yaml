@@ -34,8 +34,8 @@ version: 0.0.1+1
 #    path: screenshot_1.png
 
 environment:
-  sdk: '>=3.5.0 <4.0.0'
-  flutter: ">=3.24.3"
+  sdk: '>=3.6.0 <4.0.0'
+  flutter: ">=3.27.1"
 
 dependencies:
   flutter:
@@ -68,19 +68,19 @@ dependencies:
   url_launcher: ^6.3.1
 
   # Logger
-  l: ^5.0.0-pre.2
+  l: ^5.0.0
 
   # Desktop
-  win32: ^5.5.5
-  window_manager: ^0.4.2
+  win32: ^5.10.0
+  window_manager: ^0.4.3
 
   # State management
   control: ^0.2.0
 
   # Database
-  shared_preferences: ^2.3.2
-  drift: ^2.20.3
-  sqlite3_flutter_libs: ^0.5.24
+  shared_preferences: ^2.3.5
+  drift: ^2.23.0
+  sqlite3_flutter_libs: ^0.5.28
 
   # Networking
   http: ^1.2.2
@@ -110,7 +110,7 @@ dev_dependencies:
 
   # Code generation
   build_runner: ^2.4.13
-  drift_dev: ^2.20.3
+  drift_dev: ^2.23.0
   pubspec_generator: ^4.1.0-pre.1
   flutter_gen_runner: ^5.8.0
   json_serializable: ^6.8.0
