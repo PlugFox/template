@@ -112,31 +112,38 @@ final Map<String, _InitializationStep> _initializationSteps = <String, _Initiali
           ..orderBy([(tbl) => OrderingTerm(expression: tbl.time, mode: OrderingMode.desc)])
           ..limit(LogBuffer.bufferLimit))
         .get()
-        .then<List<LogMessage>>((logs) => logs
-            .map<LogMessage>((l) => l.stack != null
-                ? LogMessageError(
-                    timestamp: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
-                    level: LogLevel.fromValue(l.level),
-                    message: l.message,
-                    stackTrace: StackTrace.fromString(l.stack!))
-                : LogMessageVerbose(
-                    timestamp: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
-                    level: LogLevel.fromValue(l.level),
-                    message: l.message,
-                  ))
-            .toList(growable: false))
+        .then<List<LogMessage>>(
+          (logs) => logs
+              .map<LogMessage>(
+                (l) => l.stack != null
+                    ? LogMessageError(
+                        timestamp: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
+                        level: LogLevel.fromValue(l.level),
+                        message: l.message,
+                        stackTrace: StackTrace.fromString(l.stack!),
+                      )
+                    : LogMessageVerbose(
+                        timestamp: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
+                        level: LogLevel.fromValue(l.level),
+                        message: l.message,
+                      ),
+              )
+              .toList(growable: false),
+        )
         .then<void>(LogBuffer.instance.addAll);
     l.bufferTime(const Duration(seconds: 1)).where((logs) => logs.isNotEmpty).listen(
           LogBuffer.instance.addAll,
           cancelOnError: false,
         );
     l
-        .map<LogTblCompanion>((log) => LogTblCompanion.insert(
-              level: log.level.level,
-              message: log.message.toString(),
-              time: Value<int>(log.timestamp.millisecondsSinceEpoch ~/ 1000),
-              stack: Value<String?>(switch (log) { LogMessageError l => l.stackTrace.toString(), _ => null }),
-            ))
+        .map<LogTblCompanion>(
+          (log) => LogTblCompanion.insert(
+            level: log.level.level,
+            message: log.message.toString(),
+            time: Value<int>(log.timestamp.millisecondsSinceEpoch ~/ 1000),
+            stack: Value<String?>(switch (log) { LogMessageError l => l.stackTrace.toString(), _ => null }),
+          ),
+        )
         .bufferTime(const Duration(seconds: 5))
         .where((logs) => logs.isNotEmpty)
         .listen(
