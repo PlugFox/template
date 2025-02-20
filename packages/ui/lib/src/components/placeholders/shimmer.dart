@@ -93,12 +93,7 @@ final class _ShimmerShaderLoader with ChangeNotifier implements ValueListenable<
     } on Object catch (error, stackTrace) {
       if (kReleaseMode) return; // Dont log errors in release mode.
       if (error is UnsupportedError) return; // Thats fine for HTML Renderer and unsupported platforms.
-      developer.log(
-        'Failed to load shader: $error',
-        error: error,
-        stackTrace: stackTrace,
-        name: 'Shimmer',
-      );
+      developer.log('Failed to load shader: $error', error: error, stackTrace: stackTrace, name: 'Shimmer');
     }
     _inProgress = false;
     notifyListeners();
@@ -184,16 +179,12 @@ class _ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) => Align(
-        alignment: widget.alignment,
-        child: SizedBox.fromSize(
-          size: widget.size,
-          child: CustomPaint(
-            size: widget.size,
-            painter: _painter,
-            willChange: true,
-          ),
-        ),
-      );
+    alignment: widget.alignment,
+    child: SizedBox.fromSize(
+      size: widget.size,
+      child: CustomPaint(size: widget.size, painter: _painter, willChange: true),
+    ),
+  );
 }
 
 class _ShimmerPainter extends CustomPainter {
@@ -202,16 +193,7 @@ class _ShimmerPainter extends CustomPainter {
     required this.widgetListenable,
     required this.themeListenable,
     required this.shaderListenable,
-  }) : super(
-          repaint: Listenable.merge(
-            [
-              elapsedListenable,
-              widgetListenable,
-              themeListenable,
-              shaderListenable,
-            ],
-          ),
-        );
+  }) : super(repaint: Listenable.merge([elapsedListenable, widgetListenable, themeListenable, shaderListenable]));
 
   final ValueListenable<Duration> elapsedListenable;
   final ValueListenable<Shimmer> widgetListenable;
@@ -231,19 +213,20 @@ class _ShimmerPainter extends CustomPainter {
       final color = widget.color ?? theme.colorScheme.primary;
       final seed = widget.initialSeed + elapsed.inMicroseconds * widget.speed;
       final backgroundColor = widget.backgroundColor ?? theme.colorScheme.surface;
-      paint.shader = shader
-        ..setFloat(0, size.width)
-        ..setFloat(1, size.height)
-        ..setFloat(2, seed)
-        ..setFloat(3, color.r / 255)
-        ..setFloat(4, color.g / 255)
-        ..setFloat(5, color.b / 255)
-        ..setFloat(6, color.a / 255)
-        ..setFloat(7, backgroundColor.r / 255)
-        ..setFloat(8, backgroundColor.g / 255)
-        ..setFloat(9, backgroundColor.b / 255)
-        ..setFloat(10, backgroundColor.a / 255)
-        ..setFloat(11, widget.stripeWidth);
+      paint.shader =
+          shader
+            ..setFloat(0, size.width)
+            ..setFloat(1, size.height)
+            ..setFloat(2, seed)
+            ..setFloat(3, color.r)
+            ..setFloat(4, color.g)
+            ..setFloat(5, color.b)
+            ..setFloat(6, color.a)
+            ..setFloat(7, backgroundColor.r)
+            ..setFloat(8, backgroundColor.g)
+            ..setFloat(9, backgroundColor.b)
+            ..setFloat(10, backgroundColor.a)
+            ..setFloat(11, widget.stripeWidth);
       canvas
         ..clipRRect(RRect.fromRectAndRadius(rect, Radius.circular(widget.cornerRadius)))
         ..drawRect(rect, paint);
