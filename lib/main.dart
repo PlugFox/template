@@ -16,23 +16,25 @@ void main() => appZone(
         final initializationProgress = ValueNotifier<({int progress, String message})>((progress: 0, message: ''));
         /* runApp(SplashScreen(progress: initializationProgress)); */
         await initialization.loadLibrary();
-        initialization.$initializeApp(
-          onProgress: (progress, message) => initializationProgress.value = (progress: progress, message: message),
-          onSuccess: (dependencies) => runApp(
-            dependencies.inject(
-              child: SettingsScope(
-                child: NoAnimationScope(
-                  noAnimation: platform.js || platform.desktop,
-                  child: const App(),
+        initialization
+            .$initializeApp(
+              onProgress: (progress, message) => initializationProgress.value = (progress: progress, message: message),
+              onSuccess: (dependencies) => runApp(
+                dependencies.inject(
+                  child: SettingsScope(
+                    child: NoAnimationScope(
+                      noAnimation: platform.js || platform.desktop,
+                      child: const App(),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          onError: (error, stackTrace) async {
-            await app_error.loadLibrary();
-            runApp(app_error.AppError(error: error));
-            ErrorUtil.logError(error, stackTrace).ignore();
-          },
-        ).ignore();
+              onError: (error, stackTrace) async {
+                await app_error.loadLibrary();
+                runApp(app_error.AppError(error: error));
+                ErrorUtil.logError(error, stackTrace).ignore();
+              },
+            )
+            .ignore();
       },
     );

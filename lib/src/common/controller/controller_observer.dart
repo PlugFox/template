@@ -56,27 +56,27 @@ final class ControllerObserver implements IControllerObserver {
   }
 }
 
-  // Example of any event
-  // Future<void> event({
-  //   Map<String, Object?>? meta,
-  //   void Function(HandlerContext context)? out,
-  // }) =>
-  //     handle(
-  //       () async {
-  //         final stopwatch = Stopwatch()..start();
-  //         try {
-  //           setState(false);
-  //           await Future<void>.delayed(Duration.zero);
-  //           out?.call(Controller.context!);
-  //           setState(true);
-  //           Controller.context?.meta['duration'] = stopwatch.elapsed;
-  //         } finally {
-  //           stopwatch.stop();
-  //         }
-  //       },
-  //       name: 'event',
-  //       meta: {
-  //         ...?meta,
-  //         'started_at': DateTime.now(),
-  //       },
-  //     );
+// Example of any event
+// Future<void> event({
+//   Map<String, Object?>? meta,
+//   void Function(HandlerContext context)? out,
+// }) =>
+//     handle(
+//       () async {
+//         final stopwatch = Stopwatch()..start();
+//         try {
+//           setState(false);
+//           await Future<void>.delayed(Duration.zero);
+//           out?.call(Controller.context!);
+//           setState(true);
+//           Controller.context?.meta['duration'] = stopwatch.elapsed;
+//         } finally {
+//           stopwatch.stop();
+//         }
+//       },
+//       name: 'event',
+//       meta: {
+//         ...?meta,
+//         'started_at': DateTime.now(),
+//       },
+//     );
