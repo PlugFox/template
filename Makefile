@@ -22,51 +22,51 @@ help:
 
 .PHONY: version
 version: ## Check flutter version
-	@fvm flutter --version
+	@flutter --version
 
 .PHONY: doctor
 doctor: ## Check flutter doctor
-	@fvm flutter doctor
+	@flutter doctor
 
 .PHONY: format
 format: ## Format the code
-	@fvm dart format -l 120 --fix lib/ test/
+	@dart format -l 120 --fix lib/ test/
 
 .PHONY: fmt
 fmt: format
 
 .PHONY: fix
 fix: format ## Fix the code
-	@fvm dart fix --apply lib
+	@dart fix --apply lib
 
 .PHONY: get
 get: ## Get the dependencies
-	@fvm flutter pub get
+	@flutter pub get
 
 .PHONY: upgrade
 upgrade: get ## Upgrade dependencies
-	@fvm flutter pub upgrade
+	@flutter pub upgrade
 
 .PHONY: upgrade-major
 upgrade-major: get ## Upgrade to major versions
-	@fvm flutter pub upgrade --major-versions
+	@flutter pub upgrade --major-versions
 
 .PHONY: outdated
 outdated: get ## Check for outdated dependencies
-	@fvm flutter pub outdated --show-all --dev-dependencies --dependency-overrides --transitive --no-prereleases
+	@flutter pub outdated --show-all --dev-dependencies --dependency-overrides --transitive --no-prereleases
 
 .PHONY: dependencies
 dependencies: get ## Check outdated dependencies
-	@fvm flutter pub outdated --dependency-overrides \
+	@flutter pub outdated --dependency-overrides \
 		--dev-dependencies --prereleases --show-all --transitive
 
 .PHONY: test
 test: get ## Run the tests
-	@fvm flutter test --coverage test/unit_test.dart test/widget_test.dart
+	@flutter test --coverage test/unit_test.dart test/widget_test.dart
 
 .PHONY: integration
 integration: get ## Run the integration tests
-	@fvm flutter test \
+	@flutter test \
 		--coverage \
 		integration_test/app_test.dart
 
@@ -75,7 +75,7 @@ e2e: integration
 
 #.PHONY: publish-check
 #publish-check: ## Check the package before publishing
-#	@fvm dart pub publish --dry-run
+#	@dart pub publish --dry-run
 
 #.PHONY: publish
 #publish: generate ## Publish the package
@@ -83,14 +83,14 @@ e2e: integration
 
 .PHONY: coverage
 coverage: get ## Generate the coverage report
-	@fvm dart pub global activate coverage
-	@fvm dart pub global run coverage:test_with_coverage -fb -o coverage -- \
+	@dart pub global activate coverage
+	@dart pub global run coverage:test_with_coverage -fb -o coverage -- \
 		--platform vm --compiler=kernel --coverage=coverage \
 		--reporter=expanded --file-reporter=json:coverage/tests.json \
 		--timeout=10m --concurrency=12 --color \
 			test/unit_test.dart test/smoke_test.dart
-#	@fvm dart test --concurrency=6 --platform vm --coverage=coverage test/
-#	@fvm dart run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --report-on=lib
+#	@dart test --concurrency=6 --platform vm --coverage=coverage test/
+#	@dart run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --report-on=lib
 	@mv coverage/lcov.info coverage/lcov.base.info
 	@lcov -r coverage/lcov.base.info -o coverage/lcov.base.info "lib/src/common/model/pb/schema.*.dart" "lib/**/*.g.dart"
 	@mv coverage/lcov.base.info coverage/lcov.info
@@ -99,12 +99,12 @@ coverage: get ## Generate the coverage report
 
 .PHONY: analyze
 analyze: get ## Analyze the code
-	@fvm dart format --set-exit-if-changed -l 120 -o none lib/ test/
-	@fvm flutter analyze --fatal-infos --fatal-warnings lib/ test/
+	@dart format --set-exit-if-changed -l 120 -o none lib/ test/
+	@flutter analyze --fatal-infos --fatal-warnings lib/ test/
 
 .PHONY: check
 check: analyze publish-check ## Check the code
-#	@fvm dart pub global activate pana
+#	@dart pub global activate pana
 #	@pana --json --no-warning --line-length 120 > log.pana.json
 
 #.PHONY: pana
@@ -112,23 +112,23 @@ check: analyze publish-check ## Check the code
 
 .PHONY: l10n
 l10n: ## Generate localization
-	@fvm dart pub global activate intl_utils
-	@fvm dart pub global run intl_utils:generate
-	@fvm flutter gen-l10n --arb-dir lib/src/common/localization --output-dir lib/src/common/localization/generated --template-arb-file intl_en.arb
+	@dart pub global activate intl_utils
+	@dart pub global run intl_utils:generate
+	@flutter gen-l10n --arb-dir lib/src/common/localization --output-dir lib/src/common/localization/generated --template-arb-file intl_en.arb
 
 .PHONY: fluttergen
 fluttergen: ## Generate assets
-	@fvm dart pub global activate flutter_gen
-	@fvm fluttergen -c pubspec.yaml
+	@dart pub global activate flutter_gen
+	@fluttergen -c pubspec.yaml
 
 .PHONY: protobuf
 protobuf: ## Generate protobuf
-	@fvm dart pub global activate protoc_plugin
+	@dart pub global activate protoc_plugin
 	@protoc --proto_path=lib/src/common/model/pb --dart_out=lib/src/common/model/pb lib/src/common/model/pb/schema.proto
 
 .PHONY: generate
 generate: get l10n format fluttergen ## Generate the code
-	@fvm dart run build_runner build --delete-conflicting-outputs --release
+	@dart run build_runner build --delete-conflicting-outputs --release
 
 .PHONY: gen
 gen: generate
@@ -139,12 +139,12 @@ codegen: generate
 # https://pub.dev/packages/flutter_launcher_icons
 .PHONY: generate-icons
 generate-icons: ## Generate icons for the app
-	@fvm dart run flutter_launcher_icons -f flutter_launcher_icons.yaml
+	@dart run flutter_launcher_icons -f flutter_launcher_icons.yaml
 
 # https://pub.dev/packages/flutter_native_splash
 .PHONY: generate-splash
 generate-splash: ## Generate splash screen for the app
-	@fvm dart run flutter_native_splash:create --path=flutter_native_splash.yaml
+	@dart run flutter_native_splash:create --path=flutter_native_splash.yaml
 
 .PHONY: clean
 clean: ## Clean the project and remove all generated files
@@ -160,34 +160,34 @@ diff: ## git diff
 
 .PHONY: build-android
 build-android: ## Build the android app
-	@fvm flutter build apk --release --dart-define-from-file=config/development.json
+	@flutter build apk --release --dart-define-from-file=config/development.json
 
 .PHONY: build-windows
 build-windows: ## Build the windows app
-	@fvm flutter build windows --release --dart-define-from-file=config/development.json
+	@flutter build windows --release --dart-define-from-file=config/development.json
 
 .PHONY: build-web
 build-web: ## Build the web app
-	@fvm flutter build web --release --dart-define-from-file=config/development.json --no-source-maps --pwa-strategy offline-first --web-renderer canvaskit --web-resources-cdn --base-href /
+	@flutter build web --release --dart-define-from-file=config/development.json --no-source-maps --pwa-strategy offline-first --web-renderer canvaskit --web-resources-cdn --base-href /
 
 .PHONY: build-ios
 build-ios: ## Build the ios app
-	@fvm flutter build ios --release --dart-define-from-file=config/development.json
+	@flutter build ios --release --dart-define-from-file=config/development.json
 
 .PHONY: build-macos
 build-macos: ## Build the macos app
-	@fvm flutter build macos --release --dart-define-from-file=config/development.json
+	@flutter build macos --release --dart-define-from-file=config/development.json
 
 .PHONY: build-linux
 build-linux: ## Build the linux app
-	@fvm flutter build linux --release --dart-define-from-file=config/development.json
+	@flutter build linux --release --dart-define-from-file=config/development.json
 
 init-firebase:
 	@npm install -g firebase-tools
 	@firebase login
 	@firebase init
-#	@fvm dart pub global activate flutterfire_cli
-#	@fvm flutterfire configure \
+#	@dart pub global activate flutterfire_cli
+#	@flutterfire configure \
 #		-i tld.domain.app \
 #		-m tld.domain.app \
 #		-a tld.domain.app \
