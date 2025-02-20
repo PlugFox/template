@@ -49,3 +49,6 @@ app.*.map.json
 **/coverage/
 lcov.info
 reports/
+
+# FVM Version Cache
+.fvm/

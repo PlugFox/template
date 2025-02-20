@@ -346,33 +346,31 @@ class _ClearDatabaseTile extends StatelessWidget {
           final db = Dependencies.of(context).database;
           final messenger = ScaffoldMessenger.maybeOf(context);
           Future<void>(() async {
-            await db.customStatement('PRAGMA foreign_keys = OFF');
             try {
-              await db.batch((batch) {
-                // ignore: prefer_foreach
-                for (final table in db.allTables) batch.deleteAll(table);
-              });
-            } finally {
-              await db.customStatement('PRAGMA foreign_keys = ON');
+              await db.customStatement('PRAGMA foreign_keys = OFF');
+              try {
+                await db.batch((batch) {
+                  // ignore: prefer_foreach
+                  for (final table in db.allTables) batch.deleteAll(table);
+                });
+              } finally {
+                await db.customStatement('PRAGMA foreign_keys = ON');
+              }
+              messenger
+                ?..clearSnackBars()
+                ..showSnackBar(const SnackBar(content: Text('Database cleared'), duration: Duration(seconds: 3)));
+            } on Object catch (error) {
+              messenger
+                ?..clearSnackBars()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Text('Database clear failed: $error'),
+                    backgroundColor: Colors.red,
+                    duration: const Duration(seconds: 3),
+                  ),
+                );
             }
-          }).then<void>(
-            (_) =>
-                messenger
-                  ?..clearSnackBars()
-                  ..showSnackBar(const SnackBar(content: Text('Database cleared'), duration: Duration(seconds: 3))),
-            // ignore: inference_failure_on_untyped_parameter
-            onError:
-                (error) =>
-                    messenger
-                      ?..clearSnackBars()
-                      ..showSnackBar(
-                        SnackBar(
-                          content: Text('Database clear failed: $error'),
-                          backgroundColor: Colors.red,
-                          duration: const Duration(seconds: 3),
-                        ),
-                      ),
-          );
+          });
         },
       ),
     ),
