@@ -70,7 +70,7 @@ jobs:
       - name: 🚂 Setup Flutter and dependencies
         uses: ./.github/actions/setup
         with:
-          flutter-version: 3.24.3
+          flutter-version: 3.29.0
 
       - name: 👷 Install Dependencies
         timeout-minutes: 1

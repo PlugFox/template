@@ -7,7 +7,7 @@ class SettingsScope extends StatefulWidget {
   /// {@macro settings_scope}
   const SettingsScope({
     required this.child,
-    super.key, // ignore: unused_element
+    super.key, // ignore: unused_element_parameter
   });
 
   static ThemeData themeOf(BuildContext context, {bool listen = true}) =>

@@ -21,7 +21,7 @@ class OutputTextField<T> extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.order,
-    super.key, // ignore: unused_element
+    super.key, // ignore: unused_element_parameter
   });
 
   final ValueListenable<T> controller;

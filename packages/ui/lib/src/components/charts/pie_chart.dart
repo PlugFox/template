@@ -12,11 +12,7 @@ typedef PieChartItems = List<PieChartItem>;
 @immutable
 class PieChartItem implements Comparable<PieChartItem> {
   /// Creates a pie chart item.
-  const PieChartItem({
-    required this.id,
-    required this.value,
-    required this.color,
-  });
+  const PieChartItem({required this.id, required this.value, required this.color});
 
   /// Unique identifier of the pie chart section.
   final String id;
@@ -28,26 +24,19 @@ class PieChartItem implements Comparable<PieChartItem> {
   final Color color;
 
   /// Creates a copy of this pie chart item with the given fields replaced by the new values.
-  PieChartItem copyWith({
-    String? id,
-    double? value,
-    Color? color,
-  }) =>
-      PieChartItem(
-        id: id ?? this.id,
-        value: value ?? this.value,
-        color: color ?? this.color,
-      );
+  PieChartItem copyWith({String? id, double? value, Color? color}) =>
+      PieChartItem(id: id ?? this.id, value: value ?? this.value, color: color ?? this.color);
 
   @override
   int compareTo(PieChartItem other) => value.compareTo(other.value);
 
   @override
-  int get hashCode => value.hashCode ^ color.hashCode;
+  int get hashCode => value.hashCode ^ color.toARGB32().hashCode;
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is PieChartItem && value == other.value && color.hashCode == other.color.hashCode;
+      identical(this, other) ||
+      other is PieChartItem && value == other.value && color.toARGB32() == other.color.toARGB32();
 
   @override
   String toString() => 'PieChartItem{id: $id, value: $value}';
@@ -78,11 +67,11 @@ final class _PieChartController with ChangeNotifier {
 
   /// Linearly interpolate between two colors.
   static Color _lerpColor(Color a, Color b, double t) => Color.fromARGB(
-        (_lerpDouble(a.a, b.a, t) * 255).clamp(0, 255).toInt(),
-        (_lerpDouble(a.r, b.r, t) * 255).clamp(0, 255).toInt(),
-        (_lerpDouble(a.g, b.g, t) * 255).clamp(0, 255).toInt(),
-        (_lerpDouble(a.b, b.b, t) * 255).clamp(0, 255).toInt(),
-      );
+    (_lerpDouble(a.a, b.a, t) * 255).clamp(0, 255).toInt(),
+    (_lerpDouble(a.r, b.r, t) * 255).clamp(0, 255).toInt(),
+    (_lerpDouble(a.g, b.g, t) * 255).clamp(0, 255).toInt(),
+    (_lerpDouble(a.b, b.b, t) * 255).clamp(0, 255).toInt(),
+  );
 
   final Map<String, PieChartItem> _from = <String, PieChartItem>{};
   final Map<String, PieChartItem> _to = <String, PieChartItem>{};
@@ -108,11 +97,7 @@ final class _PieChartController with ChangeNotifier {
   /// The `delta` - progress of the beginning of the animation (0.0) to the end (1.0).
   void Function(double delta) apply(PieChartItems items) {
     final to = <String, PieChartItem>{for (final item in items) item.id: item};
-    final ids = <String>{
-      ..._from.keys,
-      ..._to.keys,
-      ...to.keys,
-    }.toList();
+    final ids = <String>{..._from.keys, ..._to.keys, ...to.keys}.toList();
 
     // Get the value of the pie chart item by its identifier.
     double valueOf(String id) => _lerpDouble(_from[id]?.value ?? .0, _to[id]?.value ?? .0, _progress);
@@ -325,19 +310,12 @@ class _PieChartState extends State<PieChart> with SingleTickerProviderStateMixin
   }
 
   /// Fit the child into a square box.
-  static Widget _fit({
-    required Widget child,
-    required double diameter,
-  }) =>
-      FittedBox(
-        alignment: Alignment.center,
-        fit: BoxFit.contain,
-        clipBehavior: Clip.none,
-        child: SizedBox.square(
-          dimension: diameter,
-          child: child,
-        ),
-      );
+  static Widget _fit({required Widget child, required double diameter}) => FittedBox(
+    alignment: Alignment.center,
+    fit: BoxFit.contain,
+    clipBehavior: Clip.none,
+    child: SizedBox.square(dimension: diameter, child: child),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -351,10 +329,7 @@ class _PieChartState extends State<PieChart> with SingleTickerProviderStateMixin
             final section = _painter.hitSection(details.localPosition);
             if (section != null) onTap(section);
           },
-          child: CustomPaint(
-            painter: _painter,
-            child: widget.child,
-          ),
+          child: CustomPaint(painter: _painter, child: widget.child),
         ),
       ),
     );
@@ -364,11 +339,8 @@ class _PieChartState extends State<PieChart> with SingleTickerProviderStateMixin
 }
 
 class _PieChartPainter extends CustomPainter {
-  _PieChartPainter({
-    required this.controller,
-    required this.configuration,
-    required this.theme,
-  }) : super(repaint: Listenable.merge([controller, configuration, theme]));
+  _PieChartPainter({required this.controller, required this.configuration, required this.theme})
+    : super(repaint: Listenable.merge([controller, configuration, theme]));
 
   /// Controller for the pie chart state and animation.
   final _PieChartController controller;
@@ -386,11 +358,13 @@ class _PieChartPainter extends CustomPainter {
   final Path _innerCircle = Path();
 
   /// Calculate the contrasting text color for the given background color.
-  // ignore: prefer_expression_function_bodies
   static Color contrastingTextColor(Color color) {
-    /* final brightness = (299 * color.red + 587 * color.green + 114 * color.blue) / 1000;
-    return brightness > 128 ? Colors.black : Colors.white; */
-    return color.computeLuminance() > .5 ? Colors.black : Colors.white;
+    final r = (color.toARGB32() >> 16) & 0xFF;
+    final g = (color.toARGB32() >> 8) & 0xFF;
+    final b = color.toARGB32() & 0xFF;
+
+    final brightness = (299 * r + 587 * g + 114 * b) / 1000;
+    return brightness > 128 ? Colors.black : Colors.white;
   }
 
   @override
@@ -434,7 +408,12 @@ class _PieChartPainter extends CustomPainter {
         ..color = item.color;
 
       canvas.drawArc(
-          Rect.fromCircle(center: center, radius: innerRadius + strokeWidth / 2), 0, 2 * math.pi, false, paint);
+        Rect.fromCircle(center: center, radius: innerRadius + strokeWidth / 2),
+        0,
+        2 * math.pi,
+        false,
+        paint,
+      );
 
       final outerCircle = Path()..addOval(Rect.fromCircle(center: center, radius: innerRadius + strokeWidth));
       final innerCircle = Path()..addOval(Rect.fromCircle(center: center, radius: innerRadius));
@@ -445,10 +424,7 @@ class _PieChartPainter extends CustomPainter {
       final textPainter = TextPainter(
         text: TextSpan(
           text: text,
-          style: themeData.textTheme.labelMedium?.copyWith(
-            height: 1,
-            color: contrastingTextColor(item.color),
-          ),
+          style: themeData.textTheme.labelMedium?.copyWith(height: 1, color: contrastingTextColor(item.color)),
         ),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
@@ -456,10 +432,7 @@ class _PieChartPainter extends CustomPainter {
       )..layout();
       final textRadius = innerRadius + strokeWidth / 2; // Midpoint of the section
       final sectionCenter = center + Offset(math.cos(startAngle) * textRadius, math.sin(startAngle) * textRadius);
-      textPainter.paint(
-        canvas,
-        sectionCenter - Offset(textPainter.width / 2, textPainter.height / 2),
-      );
+      textPainter.paint(canvas, sectionCenter - Offset(textPainter.width / 2, textPainter.height / 2));
       return;
     }
 
@@ -469,31 +442,31 @@ class _PieChartPainter extends CustomPainter {
       if (sweepAngle <= 0) continue;
 
       paint
-        ..style = PaintingStyle.fill // Fill the section
+        ..style =
+            PaintingStyle
+                .fill // Fill the section
         ..color = item.color; // Set the color of the section
 
       // Draw the pie chart section
-      var sectionPath = Path()
-        ..addArc(
-          Rect.fromCircle(center: center, radius: innerRadius),
-          startAngle + gap / 2, // Move the start angle by half the gap size
-          sweepAngle,
-        )
-        ..lineTo(
-          center.dx + math.cos(startAngle + sweepAngle) * radius,
-          center.dy + math.sin(startAngle + sweepAngle) * radius,
-        )
-        ..arcTo(
-          Rect.fromCircle(center: center, radius: radius),
-          startAngle + sweepAngle - gap / 2, // Move the start angle by half the gap size
-          -sweepAngle,
-          false,
-        )
-        ..lineTo(
-          center.dx + math.cos(startAngle) * innerRadius,
-          center.dy + math.sin(startAngle) * innerRadius,
-        )
-        ..close();
+      var sectionPath =
+          Path()
+            ..addArc(
+              Rect.fromCircle(center: center, radius: innerRadius),
+              startAngle + gap / 2, // Move the start angle by half the gap size
+              sweepAngle,
+            )
+            ..lineTo(
+              center.dx + math.cos(startAngle + sweepAngle) * radius,
+              center.dy + math.sin(startAngle + sweepAngle) * radius,
+            )
+            ..arcTo(
+              Rect.fromCircle(center: center, radius: radius),
+              startAngle + sweepAngle - gap / 2, // Move the start angle by half the gap size
+              -sweepAngle,
+              false,
+            )
+            ..lineTo(center.dx + math.cos(startAngle) * innerRadius, center.dy + math.sin(startAngle) * innerRadius)
+            ..close();
 
       canvas.drawPath(sectionPath, paint);
       _sections.add((path: sectionPath, item: item));
@@ -502,7 +475,8 @@ class _PieChartPainter extends CustomPainter {
 
       //final sectionCenter = sectionPath.getBounds().center;
       final textRadius = innerRadius + strokeWidth / 2; // Midpoint of the section
-      final sectionCenter = center +
+      final sectionCenter =
+          center +
           Offset(
             math.cos(startAngle + sweepAngle / 2) * textRadius,
             math.sin(startAngle + sweepAngle / 2) * textRadius,
@@ -514,10 +488,7 @@ class _PieChartPainter extends CustomPainter {
         final textPainter = TextPainter(
           text: TextSpan(
             text: text,
-            style: themeData.textTheme.labelMedium?.copyWith(
-              height: 1,
-              color: contrastingTextColor(item.color),
-            ),
+            style: themeData.textTheme.labelMedium?.copyWith(height: 1, color: contrastingTextColor(item.color)),
           ),
           textDirection: TextDirection.ltr,
           textAlign: TextAlign.center,
@@ -529,10 +500,7 @@ class _PieChartPainter extends CustomPainter {
 
         // If the text width is less than the available space, draw it
         if (textPainter.width <= arcLength) {
-          textPainter.paint(
-            canvas,
-            sectionCenter - Offset(textPainter.width / 2, textPainter.height / 2),
-          );
+          textPainter.paint(canvas, sectionCenter - Offset(textPainter.width / 2, textPainter.height / 2));
         }
       }
 

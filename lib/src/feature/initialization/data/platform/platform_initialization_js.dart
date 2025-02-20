@@ -1,35 +1,27 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
-import 'dart:html' as html;
-
-//import 'package:flutter_web_plugins/url_strategy.dart';
-//import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:web/web.dart';
 
 Future<void> $platformInitialization() async {
-  //setUrlStrategy(const HashUrlStrategy());
+  // setUrlStrategy(const HashUrlStrategy());
 
   // Remove splash screen
-  Future<void>.delayed(
-    const Duration(seconds: 1),
-    () {
-      // Before running your app:
-      //setUrlStrategy(null); // const HashUrlStrategy();
-      //setUrlStrategy(NoHistoryUrlStrategy());
+  Future<void>.delayed(const Duration(seconds: 1), () {
+    // Before running your app:
+    // setUrlStrategy(null); // const HashUrlStrategy();
+    // setUrlStrategy(NoHistoryUrlStrategy());
 
-      html.document.getElementById('splash')?.remove();
-      html.document.getElementById('splash-branding')?.remove();
-      html.document.body?.style.background = 'transparent';
-      html.document
-          .getElementsByClassName('splash-loading')
-          .toList(growable: false)
-          .forEach((element) => element.remove());
-    },
-  );
+    document.getElementById('splash')?.remove();
+    document.getElementById('splash-branding')?.remove();
+    document.body?.style.background = 'transparent';
+
+    final elements = document.getElementsByClassName('splash-loading');
+    for (var i = elements.length - 1; i >= 0; i--) elements.item(i)?.remove();
+  });
 }
 
 /* class NoHistoryUrlStrategy extends PathUrlStrategy {
   @override
-  void pushState(Object? state, String title, String url) =>
-      replaceState(state, title, url);
+  void pushState(Object? state, String title, String url) => replaceState(state, title, url);
 }
 */
