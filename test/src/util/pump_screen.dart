@@ -92,51 +92,38 @@ extension PumpScreenX on WidgetTester {
     final navigatorObserver = NavigatorObserver();
     final rootWidget = ListenableBuilder(
       listenable: rebuild,
-      builder: (context, _) => View(
-        view: platformDispatcher.implicitView!,
-        child: MediaQuery(
-          data: MediaQueryData.fromView(
-            flutterView,
-            platformData: (platformData ?? const MediaQueryData()).copyWith(size: size.value),
-          ),
-          // Thats a legacy theme provider, we should exclude it
-          child: MaterialApp(
-            title: title ?? 'Test',
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: const <LocalizationsDelegate<Object?>>[
-              DefaultMaterialLocalizations.delegate,
-              DefaultCupertinoLocalizations.delegate,
-              DefaultWidgetsLocalizations.delegate,
-            ],
-            themeMode: theme.value,
-            theme: ThemeData.light(),
-            darkTheme: ThemeData.dark(),
-            home: KeyedSubtree(
-              key: ValueKey<Type>(W),
-              child: screen,
+      builder:
+          (context, _) => View(
+            view: platformDispatcher.implicitView!,
+            child: MediaQuery(
+              data: MediaQueryData.fromView(
+                flutterView,
+                platformData: (platformData ?? const MediaQueryData()).copyWith(size: size.value),
+              ),
+              // Thats a legacy theme provider, we should exclude it
+              child: MaterialApp(
+                title: title ?? 'Test',
+                debugShowCheckedModeBanner: false,
+                localizationsDelegates: const <LocalizationsDelegate<Object?>>[
+                  DefaultMaterialLocalizations.delegate,
+                  DefaultCupertinoLocalizations.delegate,
+                  DefaultWidgetsLocalizations.delegate,
+                ],
+                themeMode: theme.value,
+                theme: ThemeData.light(),
+                darkTheme: ThemeData.dark(),
+                home: KeyedSubtree(key: ValueKey<Type>(W), child: screen),
+                builder:
+                    (context, navigator) => switch (builder) {
+                      null => navigator!,
+                      _ => builder(context, navigator!),
+                    },
+                navigatorObservers: [navigatorObserver],
+              ),
             ),
-            builder: (context, navigator) => switch (builder) {
-              null => navigator!,
-              _ => builder(context, navigator!),
-            },
-            navigatorObservers: [navigatorObserver],
           ),
-        ),
-      ),
     );
-    await pumpWidget(
-      rootWidget,
-      duration: duration,
-      phase: phase,
-      wrapWithView: false,
-    );
-    return TestScreenController._(
-      screen,
-      this,
-      flutterView,
-      theme,
-      size,
-      navigatorObserver,
-    );
+    await pumpWidget(rootWidget, duration: duration, phase: phase, wrapWithView: false);
+    return TestScreenController._(screen, this, flutterView, theme, size, navigatorObserver);
   }
 }

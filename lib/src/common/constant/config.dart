@@ -6,8 +6,9 @@ abstract final class Config {
 
   /// Environment flavor.
   /// e.g. development, staging, production
-  static final EnvironmentFlavor environment =
-      EnvironmentFlavor.from(const String.fromEnvironment('ENVIRONMENT', defaultValue: 'development'));
+  static final EnvironmentFlavor environment = EnvironmentFlavor.from(
+    const String.fromEnvironment('ENVIRONMENT', defaultValue: 'development'),
+  );
 
   // --- API --- //
 
@@ -18,14 +19,16 @@ abstract final class Config {
   /// Timeout in milliseconds for opening url.
   /// [Dio] will throw the [DioException] with [DioExceptionType.connectTimeout] type when time out.
   /// e.g. 15000
-  static const Duration apiConnectTimeout =
-      Duration(milliseconds: int.fromEnvironment('API_CONNECT_TIMEOUT', defaultValue: 15000));
+  static const Duration apiConnectTimeout = Duration(
+    milliseconds: int.fromEnvironment('API_CONNECT_TIMEOUT', defaultValue: 15000),
+  );
 
   /// Timeout in milliseconds for receiving data from url.
   /// [Dio] will throw the [DioException] with [DioExceptionType.receiveTimeout] type when time out.
   /// e.g. 10000
-  static const Duration apiReceiveTimeout =
-      Duration(milliseconds: int.fromEnvironment('API_RECEIVE_TIMEOUT', defaultValue: 10000));
+  static const Duration apiReceiveTimeout = Duration(
+    milliseconds: int.fromEnvironment('API_RECEIVE_TIMEOUT', defaultValue: 10000),
+  );
 
   /// Cache lifetime.
   /// Refetch data from url when cache is expired.
@@ -92,11 +95,11 @@ enum EnvironmentFlavor {
 
   /// Create environment flavor from string.
   factory EnvironmentFlavor.from(String? value) => switch (value?.trim().toLowerCase()) {
-        'development' || 'debug' || 'develop' || 'dev' => development,
-        'staging' || 'profile' || 'stage' || 'stg' => staging,
-        'production' || 'release' || 'prod' || 'prd' => production,
-        _ => const bool.fromEnvironment('dart.vm.product') ? production : development,
-      };
+    'development' || 'debug' || 'develop' || 'dev' => development,
+    'staging' || 'profile' || 'stage' || 'stg' => staging,
+    'production' || 'release' || 'prod' || 'prd' => production,
+    _ => const bool.fromEnvironment('dart.vm.product') ? production : development,
+  };
 
   /// development, staging, production
   final String value;

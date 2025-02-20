@@ -18,11 +18,7 @@ class Dependencies {
   factory Dependencies.of(BuildContext context) => InheritedDependencies.of(context);
 
   /// Injest dependencies to the widget tree.
-  Widget inject({
-    required Widget child,
-    Key? key,
-  }) =>
-      InheritedDependencies(dependencies: this, key: key, child: child);
+  Widget inject({required Widget child, Key? key}) => InheritedDependencies(dependencies: this, key: key, child: child);
 
   /// App metadata
   late final AppMetadata metadata;
@@ -60,11 +56,7 @@ class FakeDependencies extends Dependencies {
 /// {@endtemplate}
 class InheritedDependencies extends InheritedWidget {
   /// {@macro inherited_dependencies}
-  const InheritedDependencies({
-    required this.dependencies,
-    required super.child,
-    super.key,
-  });
+  const InheritedDependencies({required this.dependencies, required super.child, super.key});
 
   final Dependencies dependencies;
 
@@ -74,7 +66,8 @@ class InheritedDependencies extends InheritedWidget {
       (context.getElementForInheritedWidgetOfExactType<InheritedDependencies>()?.widget as InheritedDependencies?)
           ?.dependencies;
 
-  static Never _notFoundInheritedWidgetOfExactType() => throw ArgumentError(
+  static Never _notFoundInheritedWidgetOfExactType() =>
+      throw ArgumentError(
         'Out of scope, not found inherited widget '
             'a InheritedDependencies of the exact type',
         'out_of_scope',

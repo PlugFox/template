@@ -46,41 +46,41 @@ class OutputTextField<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => focusOrder(
-        child: SizedBox(
-          height: 56,
-          child: Center(
-            child: ValueListenableBuilder<T>(
-              valueListenable: controller,
-              builder: (context, value, child) {
-                final text = output(value);
-                return InputDecorator(
-                  expands: multiline && expands,
-                  isEmpty: text.isEmpty,
-                  baseStyle: Theme.of(context).textTheme.bodyMedium,
-                  decoration: InputDecoration(
-                    isCollapsed: false,
-                    isDense: false,
-                    filled: true,
-                    floatingLabelBehavior: floatingLabelBehavior,
-                    contentPadding: const EdgeInsets.fromLTRB(16, 8, 4, 8),
-                    //hoverColor: colorScheme.surface,
-                    labelText: label,
-                    hintText: hint,
-                    helperText: null,
-                    prefixIcon: prefixIcon,
-                    prefixIconConstraints: const BoxConstraints.expand(width: 48, height: 48),
-                    suffixIcon: suffixIcon,
-                    suffixIconConstraints: const BoxConstraints.expand(width: 48, height: 48),
-                    counter: const SizedBox.shrink(),
-                    errorText: null,
-                    helperMaxLines: 0,
-                    errorMaxLines: 0,
-                  ),
-                  child: Text(text, maxLines: 1, overflow: TextOverflow.ellipsis),
-                );
-              },
-            ),
-          ),
+    child: SizedBox(
+      height: 56,
+      child: Center(
+        child: ValueListenableBuilder<T>(
+          valueListenable: controller,
+          builder: (context, value, child) {
+            final text = output(value);
+            return InputDecorator(
+              expands: multiline && expands,
+              isEmpty: text.isEmpty,
+              baseStyle: Theme.of(context).textTheme.bodyMedium,
+              decoration: InputDecoration(
+                isCollapsed: false,
+                isDense: false,
+                filled: true,
+                floatingLabelBehavior: floatingLabelBehavior,
+                contentPadding: const EdgeInsets.fromLTRB(16, 8, 4, 8),
+                //hoverColor: colorScheme.surface,
+                labelText: label,
+                hintText: hint,
+                helperText: null,
+                prefixIcon: prefixIcon,
+                prefixIconConstraints: const BoxConstraints.expand(width: 48, height: 48),
+                suffixIcon: suffixIcon,
+                suffixIconConstraints: const BoxConstraints.expand(width: 48, height: 48),
+                counter: const SizedBox.shrink(),
+                errorText: null,
+                helperMaxLines: 0,
+                errorMaxLines: 0,
+              ),
+              child: Text(text, maxLines: 1, overflow: TextOverflow.ellipsis),
+            );
+          },
         ),
-      );
+      ),
+    ),
+  );
 }

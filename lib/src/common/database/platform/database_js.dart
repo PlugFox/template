@@ -48,8 +48,10 @@ Future<QueryExecutor> $createQueryExecutor({
     // Depending how central local persistence is to your app, you may want
     // to show a warning to the user if only unrealiable implemetentations
     // are available.
-    l.w('Using ${result.chosenImplementation} due to missing browser '
-        'features: ${result.missingFeatures}');
+    l.w(
+      'Using ${result.chosenImplementation} due to missing browser '
+      'features: ${result.missingFeatures}',
+    );
   }
 
   return result.resolvedExecutor;

@@ -10,18 +10,12 @@ sealed class AuthenticationState extends _$AuthenticationStateBase {
 
   /// Idling state
   /// {@macro authentication_state}
-  const factory AuthenticationState.idle({
-    required User user,
-    String message,
-    String? error,
-  }) = AuthenticationState$Idle;
+  const factory AuthenticationState.idle({required User user, String message, String? error}) =
+      AuthenticationState$Idle;
 
   /// Processing
   /// {@macro authentication_state}
-  const factory AuthenticationState.processing({
-    required User user,
-    String message,
-  }) = AuthenticationState$Processing;
+  const factory AuthenticationState.processing({required User user, String message}) = AuthenticationState$Processing;
 }
 
 /// Idling state
@@ -73,33 +67,24 @@ abstract base class _$AuthenticationStateBase {
   R map<R>({
     required AuthenticationStateMatch<R, AuthenticationState$Idle> idle,
     required AuthenticationStateMatch<R, AuthenticationState$Processing> processing,
-  }) =>
-      switch (this) {
-        AuthenticationState$Idle s => idle(s),
-        AuthenticationState$Processing s => processing(s),
-        _ => throw AssertionError(),
-      };
+  }) => switch (this) {
+    AuthenticationState$Idle s => idle(s),
+    AuthenticationState$Processing s => processing(s),
+    _ => throw AssertionError(),
+  };
 
   /// Pattern matching for [AuthenticationState].
   R maybeMap<R>({
     required R Function() orElse,
     AuthenticationStateMatch<R, AuthenticationState$Idle>? idle,
     AuthenticationStateMatch<R, AuthenticationState$Processing>? processing,
-  }) =>
-      map<R>(
-        idle: idle ?? (_) => orElse(),
-        processing: processing ?? (_) => orElse(),
-      );
+  }) => map<R>(idle: idle ?? (_) => orElse(), processing: processing ?? (_) => orElse());
 
   /// Pattern matching for [AuthenticationState].
   R? mapOrNull<R>({
     AuthenticationStateMatch<R, AuthenticationState$Idle>? idle,
     AuthenticationStateMatch<R, AuthenticationState$Processing>? processing,
-  }) =>
-      map<R?>(
-        idle: idle ?? (_) => null,
-        processing: processing ?? (_) => null,
-      );
+  }) => map<R?>(idle: idle ?? (_) => null, processing: processing ?? (_) => null);
 
   @override
   int get hashCode => user.hashCode;
@@ -109,9 +94,10 @@ abstract base class _$AuthenticationStateBase {
 
   @override
   String toString() {
-    final buffer = StringBuffer()
-      ..write('AuthenticationState{')
-      ..write('user: $user, ');
+    final buffer =
+        StringBuffer()
+          ..write('AuthenticationState{')
+          ..write('user: $user, ');
     if (error != null) buffer.write('error: $error, ');
     buffer
       ..write('message: $message')

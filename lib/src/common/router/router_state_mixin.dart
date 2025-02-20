@@ -27,10 +27,7 @@ mixin RouterStateMixin<T extends StatefulWidget> on State<T> {
           // Get current user from authentication controller.
           getUser: () => dependencies.authenticationController.state.user,
           // Available routes for non authenticated user.
-          routes: <String>{
-            Routes.signin.name,
-            Routes.signup.name,
-          },
+          routes: <String>{Routes.signin.name, Routes.signup.name},
           // Default route for non authenticated user.
           signinNavigation: OctopusState.single(Routes.signin.node()),
           // Default route for authenticated user.
@@ -41,10 +38,12 @@ mixin RouterStateMixin<T extends StatefulWidget> on State<T> {
         // Home route should be always on top.
         HomeGuard(),
       ],
-      onError: (error, stackTrace) => errorsObserver.value = <({Object error, StackTrace stackTrace})>[
-        (error: error, stackTrace: stackTrace),
-        ...errorsObserver.value,
-      ],
+      onError:
+          (error, stackTrace) =>
+              errorsObserver.value = <({Object error, StackTrace stackTrace})>[
+                (error: error, stackTrace: stackTrace),
+                ...errorsObserver.value,
+              ],
       /* observers: <NavigatorObserver>[
         HeroController(),
       ], */

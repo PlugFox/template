@@ -67,19 +67,19 @@ class AppMetadata {
 
   /// Convert to headers
   Map<String, String> toHeaders() => <String, String>{
-        'X-Meta-Is-Web': isWeb ? 'true' : 'false',
-        'X-Meta-Is-Release': isRelease ? 'true' : 'false',
-        'X-Meta-App-Version': appVersion,
-        'X-Meta-App-Version-Major': appVersionMajor.toString(),
-        'X-Meta-App-Version-Minor': appVersionMinor.toString(),
-        'X-Meta-App-Version-Patch': appVersionPatch.toString(),
-        'X-Meta-App-Build-Timestamp': appBuildTimestamp.toString(),
-        'X-Meta-App-Name': appName,
-        'X-Meta-Operating-System': operatingSystem,
-        'X-Meta-Processors-Count': processorsCount.toString(),
-        'X-Meta-Locale': locale,
-        'X-Meta-Device-Version': deviceVersion,
-        'X-Meta-Device-Screen-Size': deviceScreenSize,
-        'X-Meta-App-Launched-Timestamp': appLaunchedTimestamp.millisecondsSinceEpoch.toString(),
-      };
+    'X-Meta-Is-Web': isWeb ? 'true' : 'false',
+    'X-Meta-Is-Release': isRelease ? 'true' : 'false',
+    'X-Meta-App-Version': appVersion,
+    'X-Meta-App-Version-Major': appVersionMajor.toString(),
+    'X-Meta-App-Version-Minor': appVersionMinor.toString(),
+    'X-Meta-App-Version-Patch': appVersionPatch.toString(),
+    'X-Meta-App-Build-Timestamp': appBuildTimestamp.toString(),
+    'X-Meta-App-Name': appName,
+    'X-Meta-Operating-System': operatingSystem,
+    'X-Meta-Processors-Count': processorsCount.toString(),
+    'X-Meta-Locale': locale,
+    'X-Meta-Device-Version': deviceVersion,
+    'X-Meta-Device-Screen-Size': deviceScreenSize,
+    'X-Meta-App-Launched-Timestamp': appLaunchedTimestamp.millisecondsSinceEpoch.toString(),
+  };
 }

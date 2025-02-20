@@ -12,9 +12,7 @@ class SliverCommonHeader extends SliverAppBar {
     super.surfaceTintColor = Colors.transparent,
     List<Widget>? actions,
     super.key,
-  }) : super(
-          actions: actions ?? CommonActions(),
-        );
+  }) : super(actions: actions ?? CommonActions());
 }
 
 class CommonHeader extends AppBar {
@@ -25,7 +23,5 @@ class CommonHeader extends AppBar {
     super.surfaceTintColor = Colors.transparent,
     List<Widget>? actions,
     super.key,
-  }) : super(
-          actions: actions ?? CommonActions(),
-        );
+  }) : super(actions: actions ?? CommonActions());
 }

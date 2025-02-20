@@ -22,17 +22,15 @@ class TextPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: padding,
-        child: LayoutBuilder(
-          builder: (context, constraints) => Shimmer(
+    padding: padding,
+    child: LayoutBuilder(
+      builder:
+          (context, constraints) => Shimmer(
             alignment: Alignment.centerLeft,
-            size: Size(
-              math.min(width, constraints.maxWidth),
-              height,
-            ),
+            size: Size(math.min(width, constraints.maxWidth), height),
             color: Colors.grey[400],
             backgroundColor: Colors.grey[100],
           ),
-        ),
-      );
+    ),
+  );
 }

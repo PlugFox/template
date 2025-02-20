@@ -15,9 +15,7 @@ abstract interface class IAuthenticationRepository {
 }
 
 class AuthenticationRepositoryImpl implements IAuthenticationRepository {
-  AuthenticationRepositoryImpl({
-    required SharedPreferences sharedPreferences,
-  }) : _sharedPreferences = sharedPreferences;
+  AuthenticationRepositoryImpl({required SharedPreferences sharedPreferences}) : _sharedPreferences = sharedPreferences;
 
   static const String _sessionKey = 'authentication.session';
   final SharedPreferences _sharedPreferences;
@@ -31,15 +29,12 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
   Stream<User> userChanges() => _userController.stream;
 
   @override
-  Future<User> signIn(SignInData data) => Future<User>.delayed(
-        const Duration(seconds: 1),
-        () {
-          final user = User.authenticated(id: data.username);
-          _sharedPreferences.setString(_sessionKey, jsonEncode(user.toJson())).ignore();
-          _userController.add(_user = user);
-          return user;
-        },
-      );
+  Future<User> signIn(SignInData data) => Future<User>.delayed(const Duration(seconds: 1), () {
+    final user = User.authenticated(id: data.username);
+    _sharedPreferences.setString(_sessionKey, jsonEncode(user.toJson())).ignore();
+    _userController.add(_user = user);
+    return user;
+  });
 
   @override
   Future<User?> restore() async {
@@ -54,21 +49,16 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
   }
 
   @override
-  Future<void> signOut() => Future<void>.delayed(
-        Duration.zero,
-        () {
-          const user = User.unauthenticated();
-          _sharedPreferences.remove(_sessionKey).ignore();
-          _userController.add(_user = user);
-        },
-      );
+  Future<void> signOut() => Future<void>.delayed(Duration.zero, () {
+    const user = User.unauthenticated();
+    _sharedPreferences.remove(_sessionKey).ignore();
+    _userController.add(_user = user);
+  });
 }
 
 @visibleForTesting
 class AuthenticationRepositoryFake implements IAuthenticationRepository {
-  AuthenticationRepositoryFake({
-    Map<String, Object?>? store,
-  }) : _store = store ?? <String, Object?>{};
+  AuthenticationRepositoryFake({Map<String, Object?>? store}) : _store = store ?? <String, Object?>{};
 
   static const String _sessionKey = 'authentication.session';
   final Map<String, Object?> _store;
@@ -82,15 +72,12 @@ class AuthenticationRepositoryFake implements IAuthenticationRepository {
   Stream<User> userChanges() => _userController.stream;
 
   @override
-  Future<User> signIn(SignInData data) => Future<User>.delayed(
-        const Duration(seconds: 1),
-        () {
-          final user = User.authenticated(id: data.username);
-          _store[_sessionKey] = jsonEncode(user.toJson());
-          _userController.add(_user = user);
-          return user;
-        },
-      );
+  Future<User> signIn(SignInData data) => Future<User>.delayed(const Duration(seconds: 1), () {
+    final user = User.authenticated(id: data.username);
+    _store[_sessionKey] = jsonEncode(user.toJson());
+    _userController.add(_user = user);
+    return user;
+  });
 
   @override
   Future<User?> restore() async {
@@ -105,12 +92,9 @@ class AuthenticationRepositoryFake implements IAuthenticationRepository {
   }
 
   @override
-  Future<void> signOut() => Future<void>.delayed(
-        Duration.zero,
-        () {
-          const user = User.unauthenticated();
-          _store.remove(_sessionKey);
-          _userController.add(_user = user);
-        },
-      );
+  Future<void> signOut() => Future<void>.delayed(Duration.zero, () {
+    const user = User.unauthenticated();
+    _store.remove(_sessionKey);
+    _userController.add(_user = user);
+  });
 }

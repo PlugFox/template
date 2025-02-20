@@ -16,15 +16,13 @@ sealed class User with _UserPatternMatching, _UserShortcuts {
   const factory User.unauthenticated() = UnauthenticatedUser;
 
   /// {@macro user}
-  const factory User.authenticated({
-    required UserId id,
-  }) = AuthenticatedUser;
+  const factory User.authenticated({required UserId id}) = AuthenticatedUser;
 
   /// {@macro user}
   factory User.fromJson(Map<String, Object?> json) => switch (json['id']) {
-        UserId id => AuthenticatedUser(id: id),
-        _ => const UnauthenticatedUser(),
-      };
+    UserId id => AuthenticatedUser(id: id),
+    _ => const UnauthenticatedUser(),
+  };
 
   /// The user's id.
   abstract final UserId? id;
@@ -51,24 +49,20 @@ class UnauthenticatedUser extends User {
 
   @override
   Map<String, Object?> toJson() => <String, Object?>{
-        'type': 'user',
-        'status': 'unauthenticated',
-        'authenticated': false,
-        'id': null,
-      };
+    'type': 'user',
+    'status': 'unauthenticated',
+    'authenticated': false,
+    'id': null,
+  };
 
   @override
   T map<T>({
     required T Function(UnauthenticatedUser user) unauthenticated,
     required T Function(AuthenticatedUser user) authenticated,
-  }) =>
-      unauthenticated(this);
+  }) => unauthenticated(this);
 
   @override
-  User copyWith({
-    UserId? id,
-  }) =>
-      id != null ? AuthenticatedUser(id: id) : const UnauthenticatedUser();
+  User copyWith({UserId? id}) => id != null ? AuthenticatedUser(id: id) : const UnauthenticatedUser();
 
   @override
   int get hashCode => -1;
@@ -83,17 +77,12 @@ class UnauthenticatedUser extends User {
 /// {@macro user}
 final class AuthenticatedUser extends User {
   /// {@macro user}
-  const AuthenticatedUser({
-    required this.id,
-  }) : super._();
+  const AuthenticatedUser({required this.id}) : super._();
 
   /// {@macro user}
   factory AuthenticatedUser.fromJson(Map<String, Object?> json) {
     if (json.isEmpty) throw FormatException('Json is empty', json);
-    if (json
-        case <String, Object?>{
-          'id': UserId id,
-        }) return AuthenticatedUser(id: id);
+    if (json case <String, Object?>{'id': UserId id}) return AuthenticatedUser(id: id);
     throw FormatException('Invalid json format', json);
   }
 
@@ -107,26 +96,20 @@ final class AuthenticatedUser extends User {
 
   @override
   Map<String, Object?> toJson() => <String, Object?>{
-        'type': 'user',
-        'status': 'authenticated',
-        'authenticated': true,
-        'id': id,
-      };
+    'type': 'user',
+    'status': 'authenticated',
+    'authenticated': true,
+    'id': id,
+  };
 
   @override
   T map<T>({
     required T Function(UnauthenticatedUser user) unauthenticated,
     required T Function(AuthenticatedUser user) authenticated,
-  }) =>
-      authenticated(this);
+  }) => authenticated(this);
 
   @override
-  AuthenticatedUser copyWith({
-    UserId? id,
-  }) =>
-      AuthenticatedUser(
-        id: id ?? this.id,
-      );
+  AuthenticatedUser copyWith({UserId? id}) => AuthenticatedUser(id: id ?? this.id);
 
   @override
   int get hashCode => id.hashCode;
@@ -150,21 +133,19 @@ mixin _UserPatternMatching {
     required T Function() orElse,
     T Function(UnauthenticatedUser user)? unauthenticated,
     T Function(AuthenticatedUser user)? authenticated,
-  }) =>
-      map<T>(
-        unauthenticated: (user) => unauthenticated?.call(user) ?? orElse(),
-        authenticated: (user) => authenticated?.call(user) ?? orElse(),
-      );
+  }) => map<T>(
+    unauthenticated: (user) => unauthenticated?.call(user) ?? orElse(),
+    authenticated: (user) => authenticated?.call(user) ?? orElse(),
+  );
 
   /// Pattern matching on [User] subclasses.
   T? mapOrNull<T>({
     T Function(UnauthenticatedUser user)? unauthenticated,
     T Function(AuthenticatedUser user)? authenticated,
-  }) =>
-      map<T?>(
-        unauthenticated: (user) => unauthenticated?.call(user),
-        authenticated: (user) => authenticated?.call(user),
-      );
+  }) => map<T?>(
+    unauthenticated: (user) => unauthenticated?.call(user),
+    authenticated: (user) => authenticated?.call(user),
+  );
 }
 
 mixin _UserShortcuts on _UserPatternMatching {
@@ -175,7 +156,5 @@ mixin _UserShortcuts on _UserPatternMatching {
   bool get isNotAuthenticated => !isAuthenticated;
 
   /// Copy with new values.
-  User copyWith({
-    UserId? id,
-  });
+  User copyWith({UserId? id});
 }

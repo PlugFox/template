@@ -8,10 +8,10 @@ import 'package:flutter_template_name/src/feature/authentication/model/sign_in_d
 import 'package:flutter_template_name/src/feature/authentication/model/user.dart';
 
 final class AuthenticationController extends StateController<AuthenticationState> with DroppableControllerHandler {
-  AuthenticationController(
-      {required IAuthenticationRepository repository,
-      super.initialState = const AuthenticationState.idle(user: User.unauthenticated())})
-      : _repository = repository {
+  AuthenticationController({
+    required IAuthenticationRepository repository,
+    super.initialState = const AuthenticationState.idle(user: User.unauthenticated()),
+  }) : _repository = repository {
     _userSubscription = repository
         .userChanges()
         .where((user) => !identical(user, state.user))
@@ -24,82 +24,55 @@ final class AuthenticationController extends StateController<AuthenticationState
 
   /// Restore the session from the cache.
   void restore() => handle(
-        () async {
-          setState(
-            AuthenticationState.processing(
-              user: state.user,
-              message: 'Restoring session...',
-            ),
-          );
-          final user = await _repository.restore();
-          setState(AuthenticationState.idle(user: user ?? const User.unauthenticated()));
-        },
-        error: (error, _) async {
-          setState(
-            AuthenticationState.idle(
-              user: state.user,
-              // ErrorUtil.formatMessage(error)
-              error: kDebugMode ? 'Restore Error: $error' : 'Restore Error',
-            ),
-          );
-        },
+    () async {
+      setState(AuthenticationState.processing(user: state.user, message: 'Restoring session...'));
+      final user = await _repository.restore();
+      setState(AuthenticationState.idle(user: user ?? const User.unauthenticated()));
+    },
+    error: (error, _) async {
+      setState(
+        AuthenticationState.idle(
+          user: state.user,
+          // ErrorUtil.formatMessage(error)
+          error: kDebugMode ? 'Restore Error: $error' : 'Restore Error',
+        ),
       );
+    },
+  );
 
   /// Sign in with the given [data].
   void signIn(SignInData data) => handle(
-        () async {
-          if (state.user.isAuthenticated) {
-            AuthenticationState.processing(
-              user: state.user,
-              message: 'Logging out...',
-            );
-            await _repository.signOut().onError((_, __) {/* Ignore */});
-            const AuthenticationState.processing(
-              user: User.unauthenticated(),
-              message: 'Successfully logged out.',
-            );
-          }
-          setState(
-            AuthenticationState.processing(
-              user: state.user,
-              message: 'Logging in...',
-            ),
-          );
-          final user = await _repository.signIn(data);
-          setState(
-            AuthenticationState.idle(
-              user: user,
-              message: 'Successfully logged in.',
-            ),
-          );
-        },
-        error: (error, _) async {
-          setState(
-            AuthenticationState.idle(
-                user: state.user,
-                // ErrorUtil.formatMessage(error)
-                error: kDebugMode ? 'Sign In Error: $error' : 'Sign In Error'),
-          );
-        },
+    () async {
+      if (state.user.isAuthenticated) {
+        AuthenticationState.processing(user: state.user, message: 'Logging out...');
+        await _repository.signOut().onError((_, __) {
+          /* Ignore */
+        });
+        const AuthenticationState.processing(user: User.unauthenticated(), message: 'Successfully logged out.');
+      }
+      setState(AuthenticationState.processing(user: state.user, message: 'Logging in...'));
+      final user = await _repository.signIn(data);
+      setState(AuthenticationState.idle(user: user, message: 'Successfully logged in.'));
+    },
+    error: (error, _) async {
+      setState(
+        AuthenticationState.idle(
+          user: state.user,
+          // ErrorUtil.formatMessage(error)
+          error: kDebugMode ? 'Sign In Error: $error' : 'Sign In Error',
+        ),
       );
+    },
+  );
 
   /// Sign out.
   void signOut() {
     handle(
       () async {
         //if (state.user.isNotAuthenticated) return; // Already signed out.
-        setState(
-          AuthenticationState.processing(
-            user: state.user,
-            message: 'Logging out...',
-          ),
-        );
+        setState(AuthenticationState.processing(user: state.user, message: 'Logging out...'));
         await _repository.signOut();
-        setState(
-          const AuthenticationState.idle(
-            user: User.unauthenticated(),
-          ),
-        );
+        setState(const AuthenticationState.idle(user: User.unauthenticated()));
       },
       error: (error, _) async {
         setState(

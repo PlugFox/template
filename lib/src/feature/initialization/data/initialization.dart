@@ -55,11 +55,7 @@ Future<void> $disposeApp(Dependencies dependencies) async {}
 Future<void> _catchExceptions() async {
   try {
     PlatformDispatcher.instance.onError = (error, stackTrace) {
-      ErrorUtil.logError(
-        error,
-        stackTrace,
-        hint: 'ROOT ERROR\r\n${Error.safeToString(error)}',
-      ).ignore();
+      ErrorUtil.logError(error, stackTrace, hint: 'ROOT ERROR\r\n${Error.safeToString(error)}').ignore();
       return true;
     };
 

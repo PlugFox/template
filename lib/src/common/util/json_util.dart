@@ -20,10 +20,10 @@ sealed class JsonUtil {
   /// [String] - [DateTime] format: `yyyy-MM-ddTHH:mm:ss.SSSZ`
   /// [int] - [DateTime] format: seconds since epoch
   static DateTime? extractDateTimeOrNull(Map<String, Object?> json, String key) => switch (json[key]) {
-        String value => DateTime.tryParse(value),
-        int value => DateTime.fromMillisecondsSinceEpoch(value * 1000),
-        _ => null,
-      };
+    String value => DateTime.tryParse(value),
+    int value => DateTime.fromMillisecondsSinceEpoch(value * 1000),
+    _ => null,
+  };
 }
 
 extension JsonUtilX on Map<String, Object?> {

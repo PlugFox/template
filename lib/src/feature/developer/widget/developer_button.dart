@@ -12,8 +12,8 @@ class DeveloperButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => IconButton(
-        icon: const Icon(Icons.developer_mode),
-        tooltip: Localization.of(context).developer,
-        onPressed: () => Octopus.of(context).push(Routes.developer),
-      );
+    icon: const Icon(Icons.developer_mode),
+    tooltip: Localization.of(context).developer,
+    onPressed: () => Octopus.of(context).push(Routes.developer),
+  );
 }

@@ -12,7 +12,8 @@ class TryAgainWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
-        builder: (context, constraints) => Center(
+    builder:
+        (context, constraints) => Center(
           child: IconButton.filledTonal(
             onPressed: () => tryAgain(context),
             iconSize: switch (constraints.biggest.shortestSide) {
@@ -34,5 +35,5 @@ class TryAgainWidget extends StatelessWidget {
             icon: const Icon(Icons.refresh),
           ),
         ),
-      );
+  );
 }

@@ -540,9 +540,7 @@ enum VK {
   factory VK.fromCode(int code) => _map[code] ?? (throw ArgumentError('Invalid code: $code'));
 
   /// The map of virtual keys.
-  static final Map<int, VK> _map = <int, VK>{
-    for (final vk in VK.values) vk.code: vk,
-  };
+  static final Map<int, VK> _map = <int, VK>{for (final vk in VK.values) vk.code: vk};
 
   /// The virtual key code.
   final int code;

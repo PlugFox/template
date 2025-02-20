@@ -21,48 +21,41 @@ class _HistoryButtonState extends State<HistoryButton> {
 
   @override
   Widget build(BuildContext context) => OverlayPortal.targetsRootOverlay(
-        controller: controller,
-        overlayChildBuilder: overlayChildBuilder,
-        child: IconButton(
-          icon: const Icon(Icons.history),
-          onPressed: controller.show,
-        ),
-      );
+    controller: controller,
+    overlayChildBuilder: overlayChildBuilder,
+    child: IconButton(icon: const Icon(Icons.history), onPressed: controller.show),
+  );
 
   Widget overlayChildBuilder(BuildContext context) => Stack(
-        children: <Widget>[
-          // Barrier
-          Positioned.fill(
-            child: ModalBarrier(
-              color: Colors.black26,
-              dismissible: true,
-              semanticsLabel: 'History',
-              barrierSemanticsDismissible: true,
-              onDismiss: controller.hide,
-            ),
-          ),
+    children: <Widget>[
+      // Barrier
+      Positioned.fill(
+        child: ModalBarrier(
+          color: Colors.black26,
+          dismissible: true,
+          semanticsLabel: 'History',
+          barrierSemanticsDismissible: true,
+          onDismiss: controller.hide,
+        ),
+      ),
 
-          // Content
-          Positioned(
-            right: 24,
-            top: 52,
-            width: math.min(300, MediaQuery.of(context).size.width - 104),
-            height: math.min(500, MediaQuery.of(context).size.height - 128),
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Card(
-                elevation: 8,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                child: _HistorySearchWidget(
-                  controller: controller,
-                ),
-              ),
-            ),
+      // Content
+      Positioned(
+        right: 24,
+        top: 52,
+        width: math.min(300, MediaQuery.of(context).size.width - 104),
+        height: math.min(500, MediaQuery.of(context).size.height - 128),
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Card(
+            elevation: 8,
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
+            child: _HistorySearchWidget(controller: controller),
           ),
-        ],
-      );
+        ),
+      ),
+    ],
+  );
 }
 
 class _HistorySearchWidget extends StatefulWidget {
@@ -91,10 +84,13 @@ class _HistorySearchWidgetState extends State<_HistorySearchWidget> {
     final octopus = context.octopus;
     final routes = octopus.config.routerDelegate.routes;
     _observer = octopus.observer;
-    _entries = _observer.history.reversed.skip(1).map((e) {
-      final route = routes[e.state.children.lastOrNull?.name];
-      return (route?.title, e);
-    }).toList(growable: false);
+    _entries = _observer.history.reversed
+        .skip(1)
+        .map((e) {
+          final route = routes[e.state.children.lastOrNull?.name];
+          return (route?.title, e);
+        })
+        .toList(growable: false);
     _controller.addListener(_search);
     _search();
   }
@@ -138,75 +134,63 @@ class _HistorySearchWidgetState extends State<_HistorySearchWidget> {
 
   @override
   Widget build(BuildContext context) => Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          SizedBox(
-            height: 64,
-            child: Material(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(16),
-              ),
-              elevation: 4,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
-                child: Center(
-                  child: TextField(
-                    expands: false,
-                    maxLines: 1,
-                    controller: _controller,
-                    minLines: 1,
-                    decoration: const InputDecoration(
-                      hintText: 'Search...',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                      ),
-                    ),
-                  ),
+    mainAxisSize: MainAxisSize.min,
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: <Widget>[
+      SizedBox(
+        height: 64,
+        child: Material(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+          elevation: 4,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
+            child: Center(
+              child: TextField(
+                expands: false,
+                maxLines: 1,
+                controller: _controller,
+                minLines: 1,
+                decoration: const InputDecoration(
+                  hintText: 'Search...',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
                 ),
               ),
             ),
           ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: ListView(
-                shrinkWrap: true,
-                padding: const EdgeInsets.fromLTRB(8, 16, 8, 16),
-                itemExtent: 78,
-                children: <Widget>[
-                  for (final entry in _filtered)
-                    ListTile(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                      ),
-                      title: Text(
-                        entry.$1 ?? 'Octopus',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: Text(
-                        entry.$2.state.location,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 10,
-                          height: 1.5,
-                        ),
-                      ),
-                      isThreeLine: true,
-                      onTap: () => _select(entry.$2),
-                    ),
-                ],
-              ),
-            ),
+        ),
+      ),
+      Expanded(
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.fromLTRB(8, 16, 8, 16),
+            itemExtent: 78,
+            children: <Widget>[
+              for (final entry in _filtered)
+                ListTile(
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
+                  title: Text(
+                    entry.$1 ?? 'Octopus',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(
+                    entry.$2.state.location,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 10, height: 1.5),
+                  ),
+                  isThreeLine: true,
+                  onTap: () => _select(entry.$2),
+                ),
+            ],
           ),
-        ],
-      );
+        ),
+      ),
+    ],
+  );
 }

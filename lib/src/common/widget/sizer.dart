@@ -4,12 +4,7 @@ import 'package:flutter/widgets.dart';
 
 /// Measure and call callback after child size changed.
 class Sizer extends SingleChildRenderObjectWidget {
-  const Sizer({
-    required super.child,
-    this.onSizeChanged,
-    this.dispatchNotification = false,
-    super.key,
-  });
+  const Sizer({required super.child, this.onSizeChanged, this.dispatchNotification = false, super.key});
 
   /// Callback when child size changed and after layout rebuild.
   final void Function(Size size)? onSizeChanged;
@@ -19,14 +14,14 @@ class Sizer extends SingleChildRenderObjectWidget {
 
   @override
   RenderObject createRenderObject(BuildContext context) => _SizerRenderObject((size) {
-        final fn = onSizeChanged;
-        if (fn != null) {
-          SchedulerBinding.instance.addPostFrameCallback((_) => fn(size));
-        }
-        if (dispatchNotification) {
-          SizeChangedNotification(size).dispatch(context);
-        }
-      });
+    final fn = onSizeChanged;
+    if (fn != null) {
+      SchedulerBinding.instance.addPostFrameCallback((_) => fn(size));
+    }
+    if (dispatchNotification) {
+      SizeChangedNotification(size).dispatch(context);
+    }
+  });
 }
 
 /// Render object for [Sizer].
@@ -34,9 +29,8 @@ class _SizerRenderObject extends RenderProxyBox {
   _SizerRenderObject(this.onLayoutChangedCallback);
 
   @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) => super.debugFillProperties(
-        properties..add(StringProperty('oldSize', size.toString())),
-      );
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) =>
+      super.debugFillProperties(properties..add(StringProperty('oldSize', size.toString())));
 
   /// Callback when child size changed and after layout rebuild.
   final void Function(Size size) onLayoutChangedCallback;

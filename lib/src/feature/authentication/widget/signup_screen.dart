@@ -11,13 +11,12 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: LayoutBuilder(
-              builder: (context, constraints) => SingleChildScrollView(
-                padding: EdgeInsets.symmetric(
-                  horizontal: math.max(16, (constraints.maxWidth - 620) / 2),
-                ),
+    body: SafeArea(
+      child: Center(
+        child: LayoutBuilder(
+          builder:
+              (context, constraints) => SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: math.max(16, (constraints.maxWidth - 620) / 2)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -36,18 +35,15 @@ class SignUpScreen extends StatelessWidget {
                     const SizedBox(height: 32),
                     SizedBox(
                       height: 48,
-                      child: _SignUpScreen$Buttons(
-                        cancel: () => Navigator.pop(context),
-                        signUp: null,
-                      ),
+                      child: _SignUpScreen$Buttons(cancel: () => Navigator.pop(context), signUp: null),
                     ),
                   ],
                 ),
               ),
-            ),
-          ),
         ),
-      );
+      ),
+    ),
+  );
 }
 
 class _SignUpScreen$Buttons extends StatelessWidget {
@@ -62,34 +58,26 @@ class _SignUpScreen$Buttons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Row(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: ElevatedButton.icon(
-              onPressed: signUp,
-              icon: const Icon(Icons.person_add),
-              label: const Text(
-                'Sign-Up',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            flex: 1,
-            child: FilledButton.tonalIcon(
-              onPressed: cancel,
-              icon: const Icon(Icons.cancel),
-              label: const Text(
-                'Cancel',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
-        ],
-      );
+    mainAxisSize: MainAxisSize.max,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: <Widget>[
+      Expanded(
+        flex: 2,
+        child: ElevatedButton.icon(
+          onPressed: signUp,
+          icon: const Icon(Icons.person_add),
+          label: const Text('Sign-Up', maxLines: 1, overflow: TextOverflow.ellipsis),
+        ),
+      ),
+      const SizedBox(width: 16),
+      Expanded(
+        flex: 1,
+        child: FilledButton.tonalIcon(
+          onPressed: cancel,
+          icon: const Icon(Icons.cancel),
+          label: const Text('Cancel', maxLines: 1, overflow: TextOverflow.ellipsis),
+        ),
+      ),
+    ],
+  );
 }

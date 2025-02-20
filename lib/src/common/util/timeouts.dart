@@ -8,12 +8,6 @@ extension TimeoutsExtension<T extends Object?> on Future<T> {
   ///
   /// The [onTimeout] function must return a [Future] which will be used as the
   /// result of the returned [Future], and must not throw.
-  Future<T> logicTimeout({
-    double coefficient = 1,
-    FutureOr<T> Function()? onTimeout,
-  }) =>
-      timeout(
-        const Duration(milliseconds: 20000) * coefficient,
-        onTimeout: onTimeout,
-      );
+  Future<T> logicTimeout({double coefficient = 1, FutureOr<T> Function()? onTimeout}) =>
+      timeout(const Duration(milliseconds: 20000) * coefficient, onTimeout: onTimeout);
 }

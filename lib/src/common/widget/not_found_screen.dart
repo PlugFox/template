@@ -13,18 +13,14 @@ class NotFoundScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(
-            title ?? 'Not found',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          actions: CommonActions(),
-          bottom: const PreferredSize(
-            preferredSize: Size.fromHeight(48),
-            child: SizedBox(
-              height: 48,
-              /* child: Breadcrumbs(
+    appBar: AppBar(
+      title: Text(title ?? 'Not found', maxLines: 1, overflow: TextOverflow.ellipsis),
+      actions: CommonActions(),
+      bottom: const PreferredSize(
+        preferredSize: Size.fromHeight(48),
+        child: SizedBox(
+          height: 48,
+          /* child: Breadcrumbs(
               breadcrumbs: <Widget, VoidCallback?>{
                 const Text('Shop'): () => AppRouter.of(context).navTab(
                       (state) => [],
@@ -43,13 +39,9 @@ class NotFoundScreen extends StatelessWidget {
                 const Text('Not found'): null,
               },
             ), */
-            ),
-          ),
         ),
-        body: SafeArea(
-          child: Center(
-            child: Text(message ?? 'Content not found'),
-          ),
-        ),
-      );
+      ),
+    ),
+    body: SafeArea(child: Center(child: Text(message ?? 'Content not found'))),
+  );
 }

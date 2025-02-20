@@ -29,18 +29,17 @@ void main([List<String>? args]) {
 }
 
 Never _throwArguments() {
-  io.stderr.writeln('Pass arguments: '
-      '--name="name" '
-      '--organization="org.domain" '
-      '--description="description"');
+  io.stderr.writeln(
+    'Pass arguments: '
+    '--name="name" '
+    '--organization="org.domain" '
+    '--description="description"',
+  );
   io.exit(1);
 }
 
 Iterable<io.FileSystemEntity> _recursiveDirectories(io.Directory directory) sync* {
-  const excludeFiles = <String>{
-    'README.md',
-    'rename_project.dart',
-  };
+  const excludeFiles = <String>{'README.md', 'rename_project.dart'};
   const includeExtensions = <String>{
     '.dart',
     '.yaml',

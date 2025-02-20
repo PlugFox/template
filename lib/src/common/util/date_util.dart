@@ -24,12 +24,12 @@ DateTime fromJsonDateTime(Object json) =>
 
 /// Restore the [DateTime] from a JSON value or return `null` if the value is `null`.
 DateTime? fromJsonDateTimeOrNull(Object? json) => switch (json) {
-      String s => DateTime.tryParse(s),
-      null => null,
-      int ms => DateTime.fromMillisecondsSinceEpoch(ms),
-      DateTime dt => dt,
-      _ => throw ArgumentError.value(json, 'json', 'Invalid DateTime value'),
-    };
+  String s => DateTime.tryParse(s),
+  null => null,
+  int ms => DateTime.fromMillisecondsSinceEpoch(ms),
+  DateTime dt => dt,
+  _ => throw ArgumentError.value(json, 'json', 'Invalid DateTime value'),
+};
 
 /// A [Converter] that converts between a [DateTime] and a [String] in the
 /// ISO 8601 format.
@@ -97,12 +97,13 @@ extension DateTimeExtension on DateTime {
     final dateTime = toLocal();
     final tz = dateTime.timeZoneOffset;
 
-    final buffer = StringBuffer()
-      ..write(_isoFormat.format(dateTime))
-      ..write(tz.isNegative ? '-' : '+')
-      ..write(tz.inHours.abs().toString().padLeft(2, '0'))
-      ..write(':')
-      ..write((tz.inMinutes.abs() % 60).toString().padLeft(2, '0'));
+    final buffer =
+        StringBuffer()
+          ..write(_isoFormat.format(dateTime))
+          ..write(tz.isNegative ? '-' : '+')
+          ..write(tz.inHours.abs().toString().padLeft(2, '0'))
+          ..write(':')
+          ..write((tz.inMinutes.abs() % 60).toString().padLeft(2, '0'));
 
     return buffer.toString();
   }

@@ -24,16 +24,12 @@ class AppColors implements ThemeExtension<AppColors> {
   /// The default light theme colors.
   ///
   /// {@macro app_colors}
-  static const AppColors light = AppColors(
-    scheme: ColorScheme.light(),
-  );
+  static const AppColors light = AppColors(scheme: ColorScheme.light());
 
   /// The default dark theme colors.
   ///
   /// {@macro app_colors}
-  static const AppColors dark = AppColors(
-    scheme: ColorScheme.dark(),
-  );
+  static const AppColors dark = AppColors(scheme: ColorScheme.dark());
 
   /// The color scheme of the [AppColors].
   final ColorScheme scheme;
@@ -59,26 +55,15 @@ class AppColors implements ThemeExtension<AppColors> {
   }
 
   /// Pattern matching on the brightness of the [AppColors].
-  T map<T>({
-    required T Function() light,
-    required T Function() dark,
-  }) =>
-      isLight ? light() : dark();
+  T map<T>({required T Function() light, required T Function() dark}) => isLight ? light() : dark();
 
   @override
-  ThemeExtension<AppColors> copyWith({
-    ColorScheme? scheme,
-  }) =>
-      AppColors(
-        scheme: scheme ?? this.scheme,
-      );
+  ThemeExtension<AppColors> copyWith({ColorScheme? scheme}) => AppColors(scheme: scheme ?? this.scheme);
 
   @override
   ThemeExtension<AppColors> lerp(covariant ThemeExtension<AppColors>? other, double t) {
     if (other is! AppColors) return this;
-    return AppColors(
-      scheme: ColorScheme.lerp(scheme, other.scheme, t),
-    );
+    return AppColors(scheme: ColorScheme.lerp(scheme, other.scheme, t));
   }
 
   @override

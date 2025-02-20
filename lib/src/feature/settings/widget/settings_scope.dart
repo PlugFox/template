@@ -47,20 +47,12 @@ class _SettingsScopeState extends State<SettingsScope> {
   /* #endregion */
 
   @override
-  Widget build(BuildContext context) => _InheritedSettingsScope(
-        scope: this,
-        theme: _theme,
-        child: widget.child,
-      );
+  Widget build(BuildContext context) => _InheritedSettingsScope(scope: this, theme: _theme, child: widget.child);
 }
 
 /// Inherited widget for quick access in the element tree.
 class _InheritedSettingsScope extends InheritedWidget {
-  const _InheritedSettingsScope({
-    required this.scope,
-    required this.theme,
-    required super.child,
-  });
+  const _InheritedSettingsScope({required this.scope, required this.theme, required super.child});
 
   final _SettingsScopeState scope;
   final ThemeData theme;
@@ -68,11 +60,13 @@ class _InheritedSettingsScope extends InheritedWidget {
   /// The state from the closest instance of this class
   /// that encloses the given context, if any.
   /// For example: `SettingsScope.maybeOf(context)`.
-  static _InheritedSettingsScope? maybeOf(BuildContext context, {bool listen = true}) => listen
-      ? context.dependOnInheritedWidgetOfExactType<_InheritedSettingsScope>()
-      : context.getInheritedWidgetOfExactType<_InheritedSettingsScope>();
+  static _InheritedSettingsScope? maybeOf(BuildContext context, {bool listen = true}) =>
+      listen
+          ? context.dependOnInheritedWidgetOfExactType<_InheritedSettingsScope>()
+          : context.getInheritedWidgetOfExactType<_InheritedSettingsScope>();
 
-  static Never _notFoundInheritedWidgetOfExactType() => throw ArgumentError(
+  static Never _notFoundInheritedWidgetOfExactType() =>
+      throw ArgumentError(
         'Out of scope, not found inherited widget '
             'a _InheritedSettingsScope of the exact type',
         'out_of_scope',
@@ -103,39 +97,26 @@ ThemeData _$buildTheme(ThemeData theme) {
       floatingLabelAlignment: FloatingLabelAlignment.start,
       floatingLabelBehavior: FloatingLabelBehavior.always,
       contentPadding: const EdgeInsets.fromLTRB(16, 8, 4, 8),
-      border: const OutlineInputBorder(
-        borderRadius: radius,
-        borderSide: borderSide,
-      ),
+      border: const OutlineInputBorder(borderRadius: radius, borderSide: borderSide),
       focusedBorder: OutlineInputBorder(
         borderRadius: radius,
-        borderSide: borderSide.copyWith(
-          color: theme.colorScheme.primary,
-        ),
+        borderSide: borderSide.copyWith(color: theme.colorScheme.primary),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: radius,
-        borderSide: borderSide.copyWith(
-          color: theme.colorScheme.error,
-        ),
+        borderSide: borderSide.copyWith(color: theme.colorScheme.error),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: radius,
-        borderSide: borderSide.copyWith(
-          color: theme.colorScheme.error,
-        ),
+        borderSide: borderSide.copyWith(color: theme.colorScheme.error),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: radius,
-        borderSide: borderSide.copyWith(
-          color: const Color.fromRGBO(0, 0, 0, 0.24),
-        ),
+        borderSide: borderSide.copyWith(color: const Color.fromRGBO(0, 0, 0, 0.24)),
       ),
       disabledBorder: OutlineInputBorder(
         borderRadius: radius,
-        borderSide: borderSide.copyWith(
-          color: const Color.fromRGBO(0, 0, 0, 0.24),
-        ),
+        borderSide: borderSide.copyWith(color: const Color.fromRGBO(0, 0, 0, 0.24)),
       ),
       outlineBorder: borderSide,
     ),

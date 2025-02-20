@@ -49,11 +49,7 @@ class EnhancedCompositedTransformTarget extends SingleChildRenderObjectWidget {
   ///
   /// The [link] property must not be currently used by any other
   /// [EnhancedCompositedTransformTarget] object that is in the tree.
-  const EnhancedCompositedTransformTarget({
-    required this.link,
-    super.key,
-    super.child,
-  });
+  const EnhancedCompositedTransformTarget({required this.link, super.key, super.child});
 
   /// The link object that connects this [EnhancedCompositedTransformTarget] with one or
   /// more [CompositedTransformFollower]s.
@@ -79,11 +75,7 @@ class EnhancedCompositedTransformTarget extends SingleChildRenderObjectWidget {
 ///  * [LeaderLayer], the layer that this render object creates.
 class EnhancedRenderLeaderLayer extends RenderProxyBox {
   /// Creates a render object that uses a [LeaderLayer].
-  EnhancedRenderLeaderLayer({
-    required EnhancedLayerLink link,
-    RenderBox? child,
-  })  : _link = link,
-        super(child);
+  EnhancedRenderLeaderLayer({required EnhancedLayerLink link, RenderBox? child}) : _link = link, super(child);
 
   /// The link object that connects this [EnhancedRenderLeaderLayer] with one or more
   /// [RenderFollowerLayer]s.
@@ -128,9 +120,10 @@ class EnhancedRenderLeaderLayer extends RenderProxyBox {
     final ContainerLayer childLayer;
     switch (layer) {
       case LeaderLayer leaderLayer:
-        childLayer = leaderLayer
-          ..link = link
-          ..offset = offset;
+        childLayer =
+            leaderLayer
+              ..link = link
+              ..offset = offset;
       case ContainerLayer containerLayer:
         assert(false, 'This should never happen');
         childLayer = containerLayer;
@@ -138,13 +131,10 @@ class EnhancedRenderLeaderLayer extends RenderProxyBox {
         childLayer = layer = LeaderLayer(link: link, offset: offset);
     }
     context.pushLayer(childLayer, super.paint, Offset.zero);
-    assert(
-      () {
-        childLayer.debugCreator = debugCreator;
-        return true;
-      }(),
-      'Set debugCreator to the LeaderLayer in the paint method of RenderLeaderLayer',
-    );
+    assert(() {
+      childLayer.debugCreator = debugCreator;
+      return true;
+    }(), 'Set debugCreator to the LeaderLayer in the paint method of RenderLeaderLayer');
   }
 
   @override
@@ -292,16 +282,16 @@ class EnhancedCompositedTransformFollower extends SingleChildRenderObjectWidget 
 
   @override
   EnhancedRenderFollowerLayer createRenderObject(BuildContext context) => EnhancedRenderFollowerLayer(
-        link: link,
-        showWhenUnlinked: showWhenUnlinked,
-        leaderAnchor: targetAnchor,
-        followerAnchor: followerAnchor,
-        enforceLeaderWidth: enforceLeaderWidth,
-        enforceLeaderHeight: enforceLeaderHeight,
-        flipWhenOverflow: flipWhenOverflow,
-        moveWhenOverflow: moveWhenOverflow,
-        displayFeatureBounds: displayFeatureBounds,
-      );
+    link: link,
+    showWhenUnlinked: showWhenUnlinked,
+    leaderAnchor: targetAnchor,
+    followerAnchor: followerAnchor,
+    enforceLeaderWidth: enforceLeaderWidth,
+    enforceLeaderHeight: enforceLeaderHeight,
+    flipWhenOverflow: flipWhenOverflow,
+    moveWhenOverflow: moveWhenOverflow,
+    displayFeatureBounds: displayFeatureBounds,
+  );
 
   @override
   void updateRenderObject(BuildContext context, EnhancedRenderFollowerLayer renderObject) {
@@ -344,16 +334,16 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
     bool enforceLeaderWidth = false,
     bool enforceLeaderHeight = false,
     RenderBox? child,
-  })  : _link = link,
-        _flipWhenOverflow = flipWhenOverflow,
-        _moveWhenOverflow = moveWhenOverflow,
-        _showWhenUnlinked = showWhenUnlinked,
-        _leaderAnchor = leaderAnchor,
-        _followerAnchor = followerAnchor,
-        _enforceLeaderWidth = enforceLeaderWidth,
-        _enforceLeaderHeight = enforceLeaderHeight,
-        _displayFeatureBounds = displayFeatureBounds,
-        super(child);
+  }) : _link = link,
+       _flipWhenOverflow = flipWhenOverflow,
+       _moveWhenOverflow = moveWhenOverflow,
+       _showWhenUnlinked = showWhenUnlinked,
+       _leaderAnchor = leaderAnchor,
+       _followerAnchor = followerAnchor,
+       _enforceLeaderWidth = enforceLeaderWidth,
+       _enforceLeaderHeight = enforceLeaderHeight,
+       _displayFeatureBounds = displayFeatureBounds,
+       super(child);
 
   /// Called when the size of the leader widget changes.
   void leaderUpdated() {
@@ -546,17 +536,11 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
 
     if (leaderSize != null) {
       if (enforceLeaderWidth) {
-        constraints = constraints.copyWith(
-          minWidth: leaderSize.width,
-          maxWidth: leaderSize.width,
-        );
+        constraints = constraints.copyWith(minWidth: leaderSize.width, maxWidth: leaderSize.width);
       }
 
       if (enforceLeaderHeight) {
-        constraints = constraints.copyWith(
-          minHeight: leaderSize.height,
-          maxHeight: leaderSize.height,
-        );
+        constraints = constraints.copyWith(minHeight: leaderSize.height, maxHeight: leaderSize.height);
       }
     }
 
@@ -573,10 +557,7 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
       final leaderSize = leaderRenderObject.size;
       final overlayRect = Offset.zero & constraints.biggest;
 
-      final subScreens = DisplayFeatureSubScreen.subScreensInBounds(
-        overlayRect,
-        displayFeatureBounds,
-      );
+      final subScreens = DisplayFeatureSubScreen.subScreensInBounds(overlayRect, displayFeatureBounds);
 
       // TODO(mlazebny): figure out how to correctly treat allowedRect
       // ignore: unused_local_variable
@@ -586,7 +567,8 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
       linkedOffset = leaderAnchor.alongSize(leaderSize) - followerAnchor.alongSize(size);
       final followerGlobalPosition = leaderGlobalPosition + linkedOffset;
 
-      linkedOffset = calculateLinkedOffset(
+      linkedOffset =
+          calculateLinkedOffset(
             followerRect: followerGlobalPosition & size,
             targetRect: leaderGlobalPosition & leaderSize,
             screenSize: constraints.biggest,
@@ -623,13 +605,10 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
       ),
     );
 
-    assert(
-      () {
-        layer!.debugCreator = debugCreator;
-        return true;
-      }(),
-      '',
-    );
+    assert(() {
+      layer!.debugCreator = debugCreator;
+      return true;
+    }(), '');
   }
 
   /// Calculate the offset of the follower widget.
@@ -749,19 +728,16 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
 
   @override
   bool hitTestChildren(BoxHitTestResult result, {required Offset position}) => result.addWithPaintTransform(
-        transform: getCurrentTransform(),
-        position: position,
-        hitTest: (result, position) => super.hitTestChildren(result, position: position),
-      );
+    transform: getCurrentTransform(),
+    position: position,
+    hitTest: (result, position) => super.hitTestChildren(result, position: position),
+  );
 }
 
 // --- Popup --- //
 
 /// A function that builds a widget with a controller.
-typedef PopupWidgetBuilder = Widget Function(
-  BuildContext context,
-  OverlayPortalController controller,
-);
+typedef PopupWidgetBuilder = Widget Function(BuildContext context, OverlayPortalController controller);
 
 /// {@template popup}
 /// A widget that shows a follower widget relative to a target widget.
@@ -879,28 +855,27 @@ class _PopupBuilderState extends State<PopupBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    final displayFeatureBounds = PopupBuilder.findDisplayFeatureBounds(
-      MediaQuery.displayFeaturesOf(context),
-    );
+    final displayFeatureBounds = PopupBuilder.findDisplayFeatureBounds(MediaQuery.displayFeaturesOf(context));
 
     return EnhancedCompositedTransformTarget(
       link: _layerLink, // link the target widget to the follower widget.
       child: OverlayPortal(
         controller: portalController,
         child: widget.targetBuilder(context, portalController),
-        overlayChildBuilder: (context) => Center(
-          child: EnhancedCompositedTransformFollower(
-            link: _layerLink, // link the follower widget to the target widget.
-            followerAnchor: widget.followerAnchor,
-            targetAnchor: widget.targetAnchor,
-            enforceLeaderWidth: widget.enforceLeaderWidth,
-            enforceLeaderHeight: widget.enforceLeaderHeight,
-            moveWhenOverflow: widget.moveWhenOverflow,
-            flipWhenOverflow: widget.flipWhenOverflow,
-            displayFeatureBounds: displayFeatureBounds,
-            child: widget.followerBuilder(context, portalController),
-          ),
-        ),
+        overlayChildBuilder:
+            (context) => Center(
+              child: EnhancedCompositedTransformFollower(
+                link: _layerLink, // link the follower widget to the target widget.
+                followerAnchor: widget.followerAnchor,
+                targetAnchor: widget.targetAnchor,
+                enforceLeaderWidth: widget.enforceLeaderWidth,
+                enforceLeaderHeight: widget.enforceLeaderHeight,
+                moveWhenOverflow: widget.moveWhenOverflow,
+                flipWhenOverflow: widget.flipWhenOverflow,
+                displayFeatureBounds: displayFeatureBounds,
+                child: widget.followerBuilder(context, portalController),
+              ),
+            ),
       ),
     );
   }
@@ -1031,42 +1006,33 @@ class _PopupFollowerState extends State<PopupFollower> with WidgetsBindingObserv
 
   @override
   Widget build(BuildContext context) => _FollowerScope(
-        controller: this,
-        parent: _parent,
-        child: Actions(
-          actions: {
-            DismissIntent: CallbackAction<DismissIntent>(
-              onInvoke: (intent) => widget.onDismiss?.call(),
-            ),
-          },
-          child: Shortcuts(
+    controller: this,
+    parent: _parent,
+    child: Actions(
+      actions: {DismissIntent: CallbackAction<DismissIntent>(onInvoke: (intent) => widget.onDismiss?.call())},
+      child: Shortcuts(
+        debugLabel: 'PopupFollower',
+        shortcuts: {LogicalKeySet(LogicalKeyboardKey.escape): const DismissIntent()},
+        child: Semantics(
+          container: true,
+          explicitChildNodes: true,
+          child: FocusScope(
             debugLabel: 'PopupFollower',
-            shortcuts: {
-              LogicalKeySet(LogicalKeyboardKey.escape): const DismissIntent(),
-            },
-            child: Semantics(
-              container: true,
-              explicitChildNodes: true,
-              child: FocusScope(
-                debugLabel: 'PopupFollower',
-                node: widget.focusScopeNode,
-                skipTraversal: widget.skipTraversal,
-                canRequestFocus: true,
-                child: TapRegion(
-                  debugLabel: 'PopupFollower',
-                  groupId: widget.tapRegionGroupId,
-                  consumeOutsideTaps: widget.consumeOutsideTaps,
-                  onTapOutside: (_) => widget.onDismiss?.call(),
-                  child: ConstrainedBox(
-                    constraints: widget.constraints,
-                    child: widget.child,
-                  ),
-                ),
-              ),
+            node: widget.focusScopeNode,
+            skipTraversal: widget.skipTraversal,
+            canRequestFocus: true,
+            child: TapRegion(
+              debugLabel: 'PopupFollower',
+              groupId: widget.tapRegionGroupId,
+              consumeOutsideTaps: widget.consumeOutsideTaps,
+              onTapOutside: (_) => widget.onDismiss?.call(),
+              child: ConstrainedBox(constraints: widget.constraints, child: widget.child),
             ),
           ),
         ),
-      );
+      ),
+    ),
+  );
 }
 
 /// Follower Scope
@@ -1086,9 +1052,10 @@ class _FollowerScope extends InheritedWidget {
   final _FollowerScope? parent;
 
   /// Returns the closest [_FollowerScope] instance.
-  static _FollowerScope? maybeOf(BuildContext context, {bool listen = false}) => listen
-      ? context.dependOnInheritedWidgetOfExactType<_FollowerScope>()
-      : context.getElementForInheritedWidgetOfExactType<_FollowerScope>()?.widget as _FollowerScope?;
+  static _FollowerScope? maybeOf(BuildContext context, {bool listen = false}) =>
+      listen
+          ? context.dependOnInheritedWidgetOfExactType<_FollowerScope>()
+          : context.getElementForInheritedWidgetOfExactType<_FollowerScope>()?.widget as _FollowerScope?;
 
   @override
   bool updateShouldNotify(_FollowerScope oldWidget) => false;

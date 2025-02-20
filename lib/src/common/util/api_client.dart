@@ -7,10 +7,7 @@ import 'package:http/http.dart' as http_package;
 
 /// A function that takes a [http_package.BaseRequest] and returns a [http_package.StreamedResponse].
 /// The [context] parameter is a map that can be used to store data that should be available to all middleware.
-typedef ApiClientHandler = Future<APIClientResponse> Function(
-  APIClientRequest request,
-  Map<String, Object?> context,
-);
+typedef ApiClientHandler = Future<APIClientResponse> Function(APIClientRequest request, Map<String, Object?> context);
 
 /// A function that takes a [ApiClientHandler] and returns a [ApiClientHandler].
 typedef ApiClientMiddleware = ApiClientHandler Function(ApiClientHandler innerHandler);
@@ -22,29 +19,26 @@ extension type ApiClientMiddlewareWrapper._(ApiClientMiddleware _fn) {
     Future<void> Function(APIClientRequest request, Map<String, Object?> context)? onRequest,
     Future<void> Function(APIClientResponse response, Map<String, Object?> context)? onResponse,
     Future<void> Function(Object error, StackTrace stackTrace, Map<String, Object?> context)? onError,
-  }) =>
-      ApiClientMiddlewareWrapper._(
-        (innerHandler) => (request, context) async {
-          await onRequest?.call(request, context);
-          try {
-            final response = await innerHandler(request, context);
-            await onResponse?.call(response, context);
-            return response;
-          } on Object catch (error, stackTrace) {
-            await onError?.call(error, stackTrace, context);
-            rethrow;
-          }
-        },
-      );
+  }) => ApiClientMiddlewareWrapper._(
+    (innerHandler) => (request, context) async {
+      await onRequest?.call(request, context);
+      try {
+        final response = await innerHandler(request, context);
+        await onResponse?.call(response, context);
+        return response;
+      } on Object catch (error, stackTrace) {
+        await onError?.call(error, stackTrace, context);
+        rethrow;
+      }
+    },
+  );
 
   /// Merges the given [middlewares] into a single [ApiClientMiddleware].
-  factory ApiClientMiddlewareWrapper.merge(List<ApiClientMiddleware> middlewares) =>
-      ApiClientMiddlewareWrapper._(middlewares.length == 1
-          ? middlewares.single
-          : (handler) => middlewares.reversed.fold(
-                handler,
-                (handler, middleware) => middleware(handler),
-              ));
+  factory ApiClientMiddlewareWrapper.merge(List<ApiClientMiddleware> middlewares) => ApiClientMiddlewareWrapper._(
+    middlewares.length == 1
+        ? middlewares.single
+        : (handler) => middlewares.reversed.fold(handler, (handler, middleware) => middleware(handler)),
+  );
 
   /// Call the wrapped [ApiClientMiddleware] with the given [innerHandler].
   ApiClientHandler call(ApiClientHandler innerHandler) => _fn(innerHandler);
@@ -82,12 +76,9 @@ final class APIClientResponse {
 /// An HTTP client that sends requests to a REST API.
 /// {@endtemplate}
 class ApiClient /* with http_package.BaseClient implements http_package.Client */ {
-  ApiClient({
-    required String baseUrl,
-    http_package.Client? client,
-    Iterable<ApiClientMiddleware>? middlewares,
-  })  : _baseUrl = Uri.parse(baseUrl.endsWith('/') ? baseUrl.substring(0, baseUrl.length - 1) : baseUrl),
-        assert(!baseUrl.endsWith('//'), 'Invalid base URL.') {
+  ApiClient({required String baseUrl, http_package.Client? client, Iterable<ApiClientMiddleware>? middlewares})
+    : _baseUrl = Uri.parse(baseUrl.endsWith('/') ? baseUrl.substring(0, baseUrl.length - 1) : baseUrl),
+      assert(!baseUrl.endsWith('//'), 'Invalid base URL.') {
     // Create the HTTP client.
     final internalClient = client ?? http_package.Client();
 
@@ -141,20 +132,16 @@ class ApiClient /* with http_package.BaseClient implements http_package.Client *
 
   /// Sends a GET request to the given [path].
   Future<APIClientResponse> get(String path, {Map<String, String>? headers}) => _sendUnstreamed(
-        handler: _handler,
-        method: 'GET',
-        url: _mergePath(_baseUrl, path),
-        headers: headers,
-        body: null,
-        context: <String, Object?>{},
-      );
+    handler: _handler,
+    method: 'GET',
+    url: _mergePath(_baseUrl, path),
+    headers: headers,
+    body: null,
+    context: <String, Object?>{},
+  );
 
   /// Sends a POST request to the given [path].
-  Future<APIClientResponse> post(
-    String path, {
-    Map<String, String>? headers,
-    Map<String, Object?>? body,
-  }) =>
+  Future<APIClientResponse> post(String path, {Map<String, String>? headers, Map<String, Object?>? body}) =>
       _sendUnstreamed(
         handler: _handler,
         method: 'POST',
@@ -195,10 +182,7 @@ ApiClientHandler _createHandler(http_package.Client internalClient, ApiClientMid
     // Handle top level errors.
     runZonedGuarded<void>(
       () async {
-        assert(
-          request.url.scheme.startsWith('http'),
-          'Invalid URL: ${request.url}',
-        );
+        assert(request.url.scheme.startsWith('http'), 'Invalid URL: ${request.url}');
 
         // Send a base request.
         final http_package.StreamedResponse streamedResponse;

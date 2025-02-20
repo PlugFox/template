@@ -10,10 +10,7 @@ import 'package:flutter_template_name/src/feature/authentication/model/user.dart
 /// {@endtemplate}
 class AuthenticationScope extends StatefulWidget {
   /// {@macro authentication_scope}
-  const AuthenticationScope({
-    required this.child,
-    super.key,
-  });
+  const AuthenticationScope({required this.child, super.key});
 
   /// The widget below this widget in the tree.
   final Widget child;
@@ -60,30 +57,25 @@ class _AuthenticationScopeState extends State<AuthenticationScope> {
   }
 
   @override
-  Widget build(BuildContext context) => _InheritedAuthenticationScope(
-        controller: controller,
-        state: controller.state,
-        child: widget.child,
-      );
+  Widget build(BuildContext context) =>
+      _InheritedAuthenticationScope(controller: controller, state: controller.state, child: widget.child);
 }
 
 /// Inherited widget for quick access in the element tree.
 class _InheritedAuthenticationScope extends InheritedWidget {
-  const _InheritedAuthenticationScope({
-    required this.controller,
-    required this.state,
-    required super.child,
-  });
+  const _InheritedAuthenticationScope({required this.controller, required this.state, required super.child});
 
   final AuthenticationController controller;
   final AuthenticationState state;
 
-  static AuthenticationController? maybeOf(BuildContext context, {bool listen = true}) => (listen
-          ? context.dependOnInheritedWidgetOfExactType<_InheritedAuthenticationScope>()
-          : context.getInheritedWidgetOfExactType<_InheritedAuthenticationScope>())
-      ?.controller;
+  static AuthenticationController? maybeOf(BuildContext context, {bool listen = true}) =>
+      (listen
+              ? context.dependOnInheritedWidgetOfExactType<_InheritedAuthenticationScope>()
+              : context.getInheritedWidgetOfExactType<_InheritedAuthenticationScope>())
+          ?.controller;
 
-  static Never _notFoundInheritedWidgetOfExactType() => throw ArgumentError(
+  static Never _notFoundInheritedWidgetOfExactType() =>
+      throw ArgumentError(
         'Out of scope, not found inherited widget '
             'a _InheritedAuthenticationScope of the exact type',
         'out_of_scope',

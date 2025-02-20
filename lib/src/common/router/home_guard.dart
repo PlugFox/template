@@ -31,7 +31,8 @@ class HomeGuard extends OctopusGuard {
   }
 
   /// Change the state of the nested navigation.
-  OctopusState _fix(OctopusState$Mutable state) => state
-    ..clear()
-    ..putIfAbsent(_homeName, () => Routes.home.node());
+  OctopusState _fix(OctopusState$Mutable state) =>
+      state
+        ..clear()
+        ..putIfAbsent(_homeName, () => Routes.home.node());
 }

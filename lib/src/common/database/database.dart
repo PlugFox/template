@@ -39,12 +39,7 @@ abstract interface class IKeyValueStorage {
 }
 
 @DriftDatabase(
-  include: <String>{
-    'ddl/kv.drift',
-    'ddl/characteristic.drift',
-    'ddl/log.drift',
-    'ddl/settings.drift',
-  },
+  include: <String>{'ddl/kv.drift', 'ddl/characteristic.drift', 'ddl/log.drift', 'ddl/settings.drift'},
   tables: <Type>[],
   daos: <Type>[],
   queries: $queries,
@@ -63,19 +58,10 @@ class Database extends _$Database
   /// the database is opened, before moor is fully ready. This can be used to
   /// add custom user-defined sql functions or to provide encryption keys in
   /// SQLCipher implementations.
-  Database.lazy({
-    String? path,
-    bool logStatements = false,
-    bool dropDatabase = Config.dropDatabase,
-  }) : super(
-          LazyDatabase(
-            () => $createQueryExecutor(
-              path: path,
-              logStatements: logStatements,
-              dropDatabase: dropDatabase,
-            ),
-          ),
-        ) {
+  Database.lazy({String? path, bool logStatements = false, bool dropDatabase = Config.dropDatabase})
+    : super(
+        LazyDatabase(() => $createQueryExecutor(path: path, logStatements: logStatements, dropDatabase: dropDatabase)),
+      ) {
     _init();
   }
 
@@ -90,24 +76,14 @@ class Database extends _$Database
   /// the database is opened, before moor is fully ready. This can be used to
   /// add custom user-defined sql functions or to provide encryption keys in
   /// SQLCipher implementations.
-  Database.memory({
-    bool logStatements = false,
-  }) : super(
-          LazyDatabase(
-            () => $createQueryExecutor(
-              logStatements: logStatements,
-              memoryDatabase: true,
-            ),
-          ),
-        );
+  Database.memory({bool logStatements = false})
+    : super(LazyDatabase(() => $createQueryExecutor(logStatements: logStatements, memoryDatabase: true)));
 
   @override
   int get schemaVersion => 1;
 
   @override
-  MigrationStrategy get migration => DatabaseMigrationStrategy(
-        database: this,
-      );
+  MigrationStrategy get migration => DatabaseMigrationStrategy(database: this);
 }
 
 /// Handles database migrations by delegating work to [OnCreate] and [OnUpgrade]
@@ -116,9 +92,7 @@ class Database extends _$Database
 class DatabaseMigrationStrategy implements MigrationStrategy {
   /// Construct a migration strategy from the provided [onCreate] and
   /// [onUpgrade] methods.
-  const DatabaseMigrationStrategy({
-    required Database database,
-  }) : _db = database;
+  const DatabaseMigrationStrategy({required Database database}) : _db = database;
 
   /// Database to use for migrations.
   final Database _db;
@@ -126,17 +100,17 @@ class DatabaseMigrationStrategy implements MigrationStrategy {
   /// Executes when the database is opened for the first time.
   @override
   OnCreate get onCreate => (m) async {
-        await m.createAll();
-      };
+    await m.createAll();
+  };
 
   /// Executes when the database has been opened previously, but the last access
   /// happened at a different [GeneratedDatabase.schemaVersion].
   /// Schema version upgrades and downgrades will both be run here.
   @override
   OnUpgrade get onUpgrade => (m, from, to) async {
-        await m.createAll();
-        return _update(_db, m, from, to);
-      };
+    await m.createAll();
+    return _update(_db, m, from, to);
+  };
 
   /// Executes after the database is ready to be used (ie. it has been opened
   /// and all migrations ran), but before any other queries will be sent. This
@@ -157,22 +131,20 @@ mixin _DatabaseKeyValueMixin on _$Database implements IKeyValueStorage {
   final Map<String, Object> _$store = <String, Object>{};
 
   static KvTblCompanion? _kvCompanionFromKeyValue(String key, Object? value) => switch (value) {
-        String vstring => KvTblCompanion.insert(k: key, vstring: Value(vstring)),
-        int vint => KvTblCompanion.insert(k: key, vint: Value(vint)),
-        double vdouble => KvTblCompanion.insert(k: key, vdouble: Value(vdouble)),
-        bool vbool => KvTblCompanion.insert(k: key, vbool: Value(vbool ? 1 : 0)),
-        _ => null,
-      };
+    String vstring => KvTblCompanion.insert(k: key, vstring: Value(vstring)),
+    int vint => KvTblCompanion.insert(k: key, vint: Value(vint)),
+    double vdouble => KvTblCompanion.insert(k: key, vdouble: Value(vdouble)),
+    bool vbool => KvTblCompanion.insert(k: key, vbool: Value(vbool ? 1 : 0)),
+    _ => null,
+  };
 
   @override
   Future<void> refresh() => select(kvTbl).get().then<void>((values) {
-        _$isInitialized = true;
-        _$store
-          ..clear()
-          ..addAll(<String, Object>{
-            for (final kv in values) kv.k: kv.vstring ?? kv.vint ?? kv.vdouble ?? kv.vbool == 1,
-          });
-      });
+    _$isInitialized = true;
+    _$store
+      ..clear()
+      ..addAll(<String, Object>{for (final kv in values) kv.k: kv.vstring ?? kv.vint ?? kv.vdouble ?? kv.vbool == 1});
+  });
 
   @override
   T? getKey<T extends Object>(String key) {
@@ -214,9 +186,9 @@ mixin _DatabaseKeyValueMixin on _$Database implements IKeyValueStorage {
     return keys == null
         ? Map<String, Object>.of(_$store)
         : <String, Object>{
-            for (final e in _$store.entries)
-              if (keys.contains(e.key)) e.key: e.value,
-          };
+          for (final e in _$store.entries)
+            if (keys.contains(e.key)) e.key: e.value,
+        };
   }
 
   @override
@@ -227,18 +199,20 @@ mixin _DatabaseKeyValueMixin on _$Database implements IKeyValueStorage {
       for (final e in data.entries) (e.key, e.value, _kvCompanionFromKeyValue(e.key, e.value)),
     ];
     final toDelete = entries.where((e) => e.$3 == null).map<String>((e) => e.$1).toSet();
-    final toInsert = entries.expand<(String, Object, KvTblCompanion)>((e) sync* {
-      final value = e.$2;
-      final companion = e.$3;
-      if (companion == null || value == null) return;
-      yield (e.$1, value, companion);
-    }).toList();
+    final toInsert =
+        entries.expand<(String, Object, KvTblCompanion)>((e) sync* {
+          final value = e.$2;
+          final companion = e.$3;
+          if (companion == null || value == null) return;
+          yield (e.$1, value, companion);
+        }).toList();
     for (final key in toDelete) _$store.remove(key);
     _$store.addAll(<String, Object>{for (final e in toInsert) e.$1: e.$2});
     batch(
-      (b) => b
-        ..deleteWhere(kvTbl, (tbl) => tbl.k.isIn(toDelete))
-        ..insertAllOnConflictUpdate(kvTbl, toInsert.map((e) => e.$3).toList(growable: false)),
+      (b) =>
+          b
+            ..deleteWhere(kvTbl, (tbl) => tbl.k.isIn(toDelete))
+            ..insertAllOnConflictUpdate(kvTbl, toInsert.map((e) => e.$3).toList(growable: false)),
     ).ignore();
   }
 

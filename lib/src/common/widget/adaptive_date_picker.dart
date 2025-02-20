@@ -37,12 +37,13 @@ class AdaptiveDatePicker extends StatelessWidget {
         height: 56,
         child: Center(
           child: GestureDetector(
-            onTap: () => showDatePicker(
-              context: context,
-              initialDate: controller.value ?? now,
-              firstDate: now.subtract(const Duration(days: 365 * 100)),
-              lastDate: now.add(const Duration(days: 365 * 100)),
-            ).then<void>((value) => controller.value = value ?? controller.value),
+            onTap:
+                () => showDatePicker(
+                  context: context,
+                  initialDate: controller.value ?? now,
+                  firstDate: now.subtract(const Duration(days: 365 * 100)),
+                  lastDate: now.add(const Duration(days: 365 * 100)),
+                ).then<void>((value) => controller.value = value ?? controller.value),
             child: InputDecorator(
               decoration: InputDecoration(
                 isCollapsed: false,
@@ -55,15 +56,17 @@ class AdaptiveDatePicker extends StatelessWidget {
                 contentPadding: const EdgeInsets.fromLTRB(16, 8, 4, 8),
                 prefixIcon: const Icon(Icons.calendar_today),
                 prefixIconConstraints: const BoxConstraints.expand(width: 48, height: 48),
-                suffixIcon: isRequired
-                    ? null
-                    : ValueListenableBuilder<DateTime?>(
-                        valueListenable: controller,
-                        builder: (context, value, child) => IconButton(
-                          icon: const Icon(Icons.clear),
-                          onPressed: value == null ? null : () => controller.value = null,
+                suffixIcon:
+                    isRequired
+                        ? null
+                        : ValueListenableBuilder<DateTime?>(
+                          valueListenable: controller,
+                          builder:
+                              (context, value, child) => IconButton(
+                                icon: const Icon(Icons.clear),
+                                onPressed: value == null ? null : () => controller.value = null,
+                              ),
                         ),
-                      ),
                 suffixIconConstraints: const BoxConstraints.expand(width: 48, height: 48),
                 counter: const SizedBox.shrink(),
                 errorText: null,
@@ -72,11 +75,12 @@ class AdaptiveDatePicker extends StatelessWidget {
               ),
               child: ValueListenableBuilder<DateTime?>(
                 valueListenable: controller,
-                builder: (context, value, child) => Text(
-                  value?.format(format: DateFormat.yMMMd()) ?? '-',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                builder:
+                    (context, value, child) => Text(
+                      value?.format(format: DateFormat.yMMMd()) ?? '-',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
               ),
             ),
           ),

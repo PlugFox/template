@@ -8,9 +8,10 @@ class InitializationSplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = View.of(context).platformDispatcher.platformBrightness == Brightness.dark
-        ? ThemeData.dark()
-        : ThemeData.light();
+    final theme =
+        View.of(context).platformDispatcher.platformBrightness == Brightness.dark
+            ? ThemeData.dark()
+            : ThemeData.light();
     return Material(
       color: theme.primaryColor,
       child: Directionality(
@@ -23,16 +24,14 @@ class InitializationSplashScreen extends StatelessWidget {
                 size: 128,
                 child: ValueListenableBuilder<({String message, int progress})>(
                   valueListenable: progress,
-                  builder: (context, value, _) => Text(
-                    '${value.progress}%',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      height: 1,
-                      fontSize: 32,
-                    ),
-                  ),
+                  builder:
+                      (context, value, _) => Text(
+                        '${value.progress}%',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.titleLarge?.copyWith(height: 1, fontSize: 32),
+                      ),
                 ),
               ),
               const SizedBox(height: 16),
@@ -40,15 +39,14 @@ class InitializationSplashScreen extends StatelessWidget {
                 opacity: .25,
                 child: ValueListenableBuilder<({String message, int progress})>(
                   valueListenable: progress,
-                  builder: (context, value, _) => Text(
-                    value.message,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      height: 1,
-                    ),
-                  ),
+                  builder:
+                      (context, value, _) => Text(
+                        value.message,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.labelSmall?.copyWith(height: 1),
+                      ),
                 ),
               ),
             ],

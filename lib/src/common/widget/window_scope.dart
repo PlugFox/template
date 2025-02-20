@@ -11,11 +11,7 @@ import 'package:window_manager/window_manager.dart';
 /// {@endtemplate}
 class WindowScope extends StatefulWidget {
   /// {@macro window_scope}
-  const WindowScope({
-    required this.title,
-    required this.child,
-    super.key,
-  });
+  const WindowScope({required this.title, required this.child, super.key});
 
   /// Title of the window.
   final String title;
@@ -29,19 +25,15 @@ class WindowScope extends StatefulWidget {
 
 class _WindowScopeState extends State<WindowScope> {
   @override
-  Widget build(BuildContext context) => kIsWeb || io.Platform.isAndroid || io.Platform.isIOS
-      ? widget.child
-      : Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            const _WindowTitle(),
-            Expanded(
-              child: widget.child,
-            ),
-          ],
-        );
+  Widget build(BuildContext context) =>
+      kIsWeb || io.Platform.isAndroid || io.Platform.isIOS
+          ? widget.child
+          : Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[const _WindowTitle(), Expanded(child: widget.child)],
+          );
 }
 
 class _WindowTitle extends StatefulWidget {
@@ -97,54 +89,52 @@ class _WindowTitleState extends State<_WindowTitle> with WindowListener {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-        height: 24,
-        child: DragToMoveArea(
-          child: Material(
-            color: Theme.of(context).primaryColor,
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                Builder(
-                  builder: (context) {
-                    final size = MediaQuery.of(context).size;
-                    return AnimatedPositioned(
-                      duration: const Duration(milliseconds: 350),
-                      left: size.width < 800 ? 8 : 78,
-                      right: 78,
-                      top: 0,
-                      bottom: 0,
-                      child: Center(
-                        child: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 250),
-                          transitionBuilder: (child, animation) => FadeTransition(
+    height: 24,
+    child: DragToMoveArea(
+      child: Material(
+        color: Theme.of(context).primaryColor,
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Builder(
+              builder: (context) {
+                final size = MediaQuery.of(context).size;
+                return AnimatedPositioned(
+                  duration: const Duration(milliseconds: 350),
+                  left: size.width < 800 ? 8 : 78,
+                  right: 78,
+                  top: 0,
+                  bottom: 0,
+                  child: Center(
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 250),
+                      transitionBuilder:
+                          (child, animation) => FadeTransition(
                             opacity: animation,
-                            child: ScaleTransition(
-                              scale: animation,
-                              child: child,
-                            ),
+                            child: ScaleTransition(scale: animation, child: child),
                           ),
-                          child: Text(
-                            context.findAncestorWidgetOfExactType<WindowScope>()?.title ?? Localization.of(context).app,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.labelLarge?.copyWith(height: 1),
-                          ),
-                        ),
+                      child: Text(
+                        context.findAncestorWidgetOfExactType<WindowScope>()?.title ?? Localization.of(context).app,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(height: 1),
                       ),
-                    );
-                  },
-                ),
-                if (platform.windows)
-                  _WindowButtons$Windows(
-                    isFullScreen: _isFullScreen,
-                    isAlwaysOnTop: _isAlwaysOnTop,
-                    setAlwaysOnTop: setAlwaysOnTop,
+                    ),
                   ),
-              ],
+                );
+              },
             ),
-          ),
+            if (platform.windows)
+              _WindowButtons$Windows(
+                isFullScreen: _isFullScreen,
+                isAlwaysOnTop: _isAlwaysOnTop,
+                setAlwaysOnTop: setAlwaysOnTop,
+              ),
+          ],
         ),
-      );
+      ),
+    ),
+  );
 }
 
 class _WindowButtons$Windows extends StatelessWidget {
@@ -152,8 +142,8 @@ class _WindowButtons$Windows extends StatelessWidget {
     required ValueListenable<bool> isFullScreen,
     required ValueListenable<bool> isAlwaysOnTop,
     required this.setAlwaysOnTop,
-  })  : _isFullScreen = isFullScreen,
-        _isAlwaysOnTop = isAlwaysOnTop;
+  }) : _isFullScreen = isFullScreen,
+       _isAlwaysOnTop = isAlwaysOnTop;
 
   // ignore: unused_field
   final ValueListenable<bool> _isFullScreen;
@@ -163,67 +153,60 @@ class _WindowButtons$Windows extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Align(
-        alignment: Alignment.centerRight,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Is always on top
-            ValueListenableBuilder<bool>(
-              valueListenable: _isAlwaysOnTop,
-              builder: (context, isAlwaysOnTop, _) => _WindowButton(
+    alignment: Alignment.centerRight,
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        // Is always on top
+        ValueListenableBuilder<bool>(
+          valueListenable: _isAlwaysOnTop,
+          builder:
+              (context, isAlwaysOnTop, _) => _WindowButton(
                 onPressed: () => setAlwaysOnTop(!isAlwaysOnTop),
                 icon: isAlwaysOnTop ? Icons.push_pin : Icons.push_pin_outlined,
               ),
-            ),
+        ),
 
-            // Minimize
-            _WindowButton(
-              onPressed: windowManager.minimize,
-              icon: Icons.minimize,
-            ),
+        // Minimize
+        _WindowButton(onPressed: windowManager.minimize, icon: Icons.minimize),
 
-            // Set full screen
-            ValueListenableBuilder<bool>(
-              valueListenable: _isFullScreen,
-              builder: (context, isFullScreen, _) => _WindowButton(
+        // Set full screen
+        ValueListenableBuilder<bool>(
+          valueListenable: _isFullScreen,
+          builder:
+              (context, isFullScreen, _) => _WindowButton(
                 onPressed: () => windowManager.setFullScreen(!isFullScreen),
                 icon: isFullScreen ? Icons.fullscreen_exit : Icons.fullscreen,
               ),
-            ),
-
-            // Close
-            _WindowButton(
-              onPressed: windowManager.close,
-              icon: Icons.close,
-            ),
-            const SizedBox(width: 4),
-          ],
         ),
-      );
+
+        // Close
+        _WindowButton(onPressed: windowManager.close, icon: Icons.close),
+        const SizedBox(width: 4),
+      ],
+    ),
+  );
 }
 
 class _WindowButton extends StatelessWidget {
-  const _WindowButton({
-    required this.onPressed,
-    required this.icon,
-  });
+  const _WindowButton({required this.onPressed, required this.icon});
 
   final VoidCallback onPressed;
   final IconData icon;
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-        child: IconButton(
-          onPressed: onPressed,
-          icon: Icon(icon),
-          iconSize: 16,
-          alignment: Alignment.center,
-          padding: EdgeInsets.zero,
-          splashRadius: 12,
-          constraints: const BoxConstraints.tightFor(width: 24, height: 24),
-        ),
-      );
+    padding: const EdgeInsets.symmetric(horizontal: 4),
+    child: IconButton(
+      onPressed: onPressed,
+      icon: Icon(icon),
+      iconSize: 16,
+      alignment: Alignment.center,
+      padding: EdgeInsets.zero,
+      splashRadius: 12,
+      constraints: const BoxConstraints.tightFor(width: 24, height: 24),
+    ),
+  );
 }

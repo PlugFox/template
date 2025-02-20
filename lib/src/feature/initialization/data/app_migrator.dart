@@ -21,7 +21,9 @@ sealed class AppMigrator {
       } else if (Pubspec.version.major != prevMajor ||
           Pubspec.version.minor != prevMinor ||
           Pubspec.version.patch != prevPatch) {
-        l.i('Migrating from $prevMajor.$prevMinor.$prevPatch to ${Pubspec.version.major}.${Pubspec.version.minor}.${Pubspec.version.patch}');
+        l.i(
+          'Migrating from $prevMajor.$prevMinor.$prevPatch to ${Pubspec.version.major}.${Pubspec.version.minor}.${Pubspec.version.patch}',
+        );
         /* ... */
       } else {
         l.i('App is up-to-date');

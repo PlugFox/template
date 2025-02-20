@@ -9,13 +9,13 @@ import 'package:flutter_template_name/src/feature/developer/widget/developer_but
 
 class CommonActions extends ListBase<Widget> {
   CommonActions([List<Widget>? actions])
-      : _actions = <Widget>[
-          ...?actions,
-          if (kDebugMode) const DeveloperButton(),
-          const HistoryButton(),
-          const ProfileIconButton(),
-          const LogOutButton(),
-        ];
+    : _actions = <Widget>[
+        ...?actions,
+        if (kDebugMode) const DeveloperButton(),
+        const HistoryButton(),
+        const ProfileIconButton(),
+        const LogOutButton(),
+      ];
 
   final List<Widget> _actions;
 

@@ -9,9 +9,7 @@ import 'package:meta/meta.dart';
 /// {@macro stream.relieve_stream_transformer}
 extension StreamExtension<Input> on Stream<Input> {
   /// {@macro stream.relieve_stream_transformer}
-  Stream<Input> relieve([
-    Duration duration = const Duration(milliseconds: 4),
-  ]) =>
+  Stream<Input> relieve([Duration duration = const Duration(milliseconds: 4)]) =>
       transform<Input>(_RelieveStreamTransformer<Input>(duration));
 }
 
@@ -36,9 +34,7 @@ extension ChunkerExtension on Stream<List<int>> {
 @immutable
 class _RelieveStreamTransformer<T> extends StreamTransformerBase<T, T> {
   /// {@macro stream.relieve_stream_transformer}
-  const _RelieveStreamTransformer([
-    this.duration = const Duration(milliseconds: 4),
-  ]);
+  const _RelieveStreamTransformer([this.duration = const Duration(milliseconds: 4)]);
 
   /// Elapsed time of iterations before releasing
   /// the event queue and microtasks.
@@ -50,10 +46,7 @@ class _RelieveStreamTransformer<T> extends StreamTransformerBase<T, T> {
     return (controller..onListen = () => _onListen(stream, controller)).stream;
   }
 
-  void _onListen(
-    Stream<T> stream,
-    StreamController<T> controller,
-  ) {
+  void _onListen(Stream<T> stream, StreamController<T> controller) {
     final stopwatch = Stopwatch()..start();
     final sink = controller.sink;
     final subscription = stream.listen(null, cancelOnError: false);
@@ -77,27 +70,26 @@ class _RelieveStreamTransformer<T> extends StreamTransformerBase<T, T> {
     StreamSink<T> sink,
     void Function([Future<void>? resumeSignal]) pause,
     void Function() resume,
-  ) =>
-      (stopwatch, data) {
-        if (stopwatch.elapsed > duration) {
-          pause();
-          Timer.run(() {
-            try {
-              sink.add(data);
-              stopwatch.reset();
-              resume();
-            } on Object catch (error, stackTrace) {
-              sink.addError(error, stackTrace);
-            }
-          });
-        } else {
-          try {
-            sink.add(data);
-          } on Object catch (error, stackTrace) {
-            sink.addError(error, stackTrace);
-          }
+  ) => (stopwatch, data) {
+    if (stopwatch.elapsed > duration) {
+      pause();
+      Timer.run(() {
+        try {
+          sink.add(data);
+          stopwatch.reset();
+          resume();
+        } on Object catch (error, stackTrace) {
+          sink.addError(error, stackTrace);
         }
-      };
+      });
+    } else {
+      try {
+        sink.add(data);
+      } on Object catch (error, stackTrace) {
+        sink.addError(error, stackTrace);
+      }
+    }
+  };
 }
 
 /// {@template stream.chunker}
@@ -118,16 +110,14 @@ class Chunker extends StreamTransformerBase<List<int>, td.Uint8List> {
 
   @override
   Stream<td.Uint8List> bind(Stream<List<int>> stream) {
-    final controller = stream.isBroadcast
-        ? StreamController<td.Uint8List>.broadcast(sync: true)
-        : StreamController<td.Uint8List>(sync: true);
+    final controller =
+        stream.isBroadcast
+            ? StreamController<td.Uint8List>.broadcast(sync: true)
+            : StreamController<td.Uint8List>(sync: true);
     return (controller..onListen = () => _onListen(stream, controller)).stream;
   }
 
-  void _onListen(
-    Stream<List<int>> stream,
-    StreamController<td.Uint8List> controller,
-  ) {
+  void _onListen(Stream<List<int>> stream, StreamController<td.Uint8List> controller) {
     final sink = controller.sink;
     final subscription = stream.listen(null, cancelOnError: false);
     controller.onCancel = subscription.cancel;
@@ -147,27 +137,23 @@ class Chunker extends StreamTransformerBase<List<int>, td.Uint8List> {
       });
   }
 
-  void Function(List<int> data) _$onData(
-    td.BytesBuilder bytes,
-    StreamSink<td.Uint8List> sink,
-  ) =>
-      (data) {
-        try {
-          final dataLength = data.length;
-          for (var offset = 0; offset < data.length; offset += chunkSize) {
-            final end = math.min<int>(offset + chunkSize, dataLength);
-            final to = math.min<int>(end, offset + chunkSize - bytes.length);
-            bytes.add(data.sublist(offset, to));
-            if (to != end) {
-              sink.add(bytes.takeBytes());
-              bytes.add(data.sublist(to, end));
-            }
-            if (bytes.length == chunkSize) {
-              sink.add(bytes.takeBytes());
-            }
-          }
-        } on Object catch (error, stackTrace) {
-          sink.addError(error, stackTrace);
+  void Function(List<int> data) _$onData(td.BytesBuilder bytes, StreamSink<td.Uint8List> sink) => (data) {
+    try {
+      final dataLength = data.length;
+      for (var offset = 0; offset < data.length; offset += chunkSize) {
+        final end = math.min<int>(offset + chunkSize, dataLength);
+        final to = math.min<int>(end, offset + chunkSize - bytes.length);
+        bytes.add(data.sublist(offset, to));
+        if (to != end) {
+          sink.add(bytes.takeBytes());
+          bytes.add(data.sublist(to, end));
         }
-      };
+        if (bytes.length == chunkSize) {
+          sink.add(bytes.takeBytes());
+        }
+      }
+    } on Object catch (error, stackTrace) {
+      sink.addError(error, stackTrace);
+    }
+  };
 }

@@ -12,10 +12,7 @@ Future<void> _mobileInitialization() async {
   // Set the app to be full-screen (no buttons, bar or notifications on top).
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   // Set the preferred orientation of the app to landscape only.
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
-  ]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
 }
 
 Future<void> _desktopInitialization() async {
@@ -28,24 +25,22 @@ Future<void> _desktopInitialization() async {
     /* maximumSize: const Size(1440, 1080), */
     center: true,
     windowButtonVisibility: false,
-    backgroundColor: platform.platformBrightness == Brightness.dark
-        ? ThemeData.dark().colorScheme.surface
-        : ThemeData.light().colorScheme.surface,
+    backgroundColor:
+        platform.platformBrightness == Brightness.dark
+            ? ThemeData.dark().colorScheme.surface
+            : ThemeData.light().colorScheme.surface,
     skipTaskbar: false,
     titleBarStyle: TitleBarStyle.hidden,
     alwaysOnTop: false,
     fullScreen: false,
     title: 'Application',
   );
-  await windowManager.waitUntilReadyToShow(
-    windowOptions,
-    () async {
-      if (io.Platform.isMacOS) {
-        await windowManager.setMovable(true);
-      }
-      await windowManager.setMaximizable(true);
-      await windowManager.show();
-      await windowManager.focus();
-    },
-  );
+  await windowManager.waitUntilReadyToShow(windowOptions, () async {
+    if (io.Platform.isMacOS) {
+      await windowManager.setMovable(true);
+    }
+    await windowManager.setMaximizable(true);
+    await windowManager.show();
+    await windowManager.focus();
+  });
 }

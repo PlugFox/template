@@ -25,32 +25,30 @@ class OutlinedText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Stack(
-        children: <Widget>[
-          // Stroked text as border.
-          Text(
-            text,
-            maxLines: maxLines,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: style.copyWith(
-              height: 0,
-              foreground: Paint()
+    children: <Widget>[
+      // Stroked text as border.
+      Text(
+        text,
+        maxLines: maxLines,
+        overflow: TextOverflow.ellipsis,
+        textAlign: TextAlign.center,
+        style: style.copyWith(
+          height: 0,
+          foreground:
+              Paint()
                 ..style = PaintingStyle.stroke
                 ..strokeWidth = strokeWidth
                 ..color = strokeColor ?? Colors.black45,
-            ),
-          ),
-          // Solid text as fill.
-          Text(
-            text,
-            maxLines: maxLines,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: style.copyWith(
-              height: 0,
-              color: fillColor ?? Colors.grey.shade300,
-            ),
-          ),
-        ],
-      );
+        ),
+      ),
+      // Solid text as fill.
+      Text(
+        text,
+        maxLines: maxLines,
+        overflow: TextOverflow.ellipsis,
+        textAlign: TextAlign.center,
+        style: style.copyWith(height: 0, color: fillColor ?? Colors.grey.shade300),
+      ),
+    ],
+  );
 }

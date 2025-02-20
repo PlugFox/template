@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_template_name/src/common/localization/generated/l10n.dart' as generated
+import 'package:flutter_template_name/src/common/localization/generated/l10n.dart'
+    as generated
     show GeneratedLocalization, AppLocalizationDelegate;
 import 'package:meta/meta.dart';
 
@@ -18,19 +19,20 @@ final class Localization extends generated.GeneratedLocalization {
 
   /// Get localization instance for the widget structure.
   static Localization of(BuildContext context) => switch (Localizations.of<Localization>(context, Localization)) {
-        Localization localization => localization,
-        _ => throw ArgumentError(
-            'Out of scope, not found inherited widget '
-                'a Localization of the exact type',
-            'out_of_scope',
-          ),
-      };
+    Localization localization => localization,
+    _ =>
+      throw ArgumentError(
+        'Out of scope, not found inherited widget '
+            'a Localization of the exact type',
+        'out_of_scope',
+      ),
+  };
 
   /// Get language by code.
   static ({String name, String nativeName})? getLanguageByCode(String code) => switch (_isoLangs[code]) {
-        (String, String) lang => (name: lang.$1, nativeName: lang.$2),
-        _ => null,
-      };
+    (String, String) lang => (name: lang.$1, nativeName: lang.$2),
+    _ => null,
+  };
 
   /// Get supported locales.
   static List<Locale> get supportedLocales => const generated.AppLocalizationDelegate().supportedLocales;
@@ -39,9 +41,7 @@ final class Localization extends generated.GeneratedLocalization {
 @immutable
 final class _LocalizationView extends LocalizationsDelegate<Localization> {
   @literal
-  const _LocalizationView(
-    LocalizationsDelegate<generated.GeneratedLocalization> delegate,
-  ) : _delegate = delegate;
+  const _LocalizationView(LocalizationsDelegate<generated.GeneratedLocalization> delegate) : _delegate = delegate;
 
   final LocalizationsDelegate<generated.GeneratedLocalization> _delegate;
 
@@ -49,8 +49,9 @@ final class _LocalizationView extends LocalizationsDelegate<Localization> {
   bool isSupported(Locale locale) => _delegate.isSupported(locale);
 
   @override
-  Future<Localization> load(Locale locale) => generated.GeneratedLocalization.load(locale)
-      .then<Localization>((localization) => Localization._current = Localization._(locale));
+  Future<Localization> load(Locale locale) => generated.GeneratedLocalization.load(
+    locale,
+  ).then<Localization>((localization) => Localization._current = Localization._(locale));
 
   @override
   bool shouldReload(covariant _LocalizationView old) => _delegate.shouldReload(old._delegate);

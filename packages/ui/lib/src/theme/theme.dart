@@ -30,9 +30,7 @@ extension AudoThemeExtension on ThemeData {
 /// Light theme data for the App.
 final ThemeData _appLightTheme = ThemeData.light().copyWith(
   colorScheme: AppColors.light.scheme,
-  extensions: const <ThemeExtension>[
-    AppColors.light,
-  ],
+  extensions: const <ThemeExtension>[AppColors.light],
 );
 
 // --- Dark Theme --- //
@@ -40,7 +38,5 @@ final ThemeData _appLightTheme = ThemeData.light().copyWith(
 /// Dark theme data for the App.
 final ThemeData _appDarkTheme = ThemeData.dark().copyWith(
   colorScheme: AppColors.dark.scheme,
-  extensions: const <ThemeExtension>[
-    AppColors.dark,
-  ],
+  extensions: const <ThemeExtension>[AppColors.dark],
 );

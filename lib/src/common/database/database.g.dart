@@ -9,28 +9,52 @@ class SettingsTbl extends Table with TableInfo<SettingsTbl, SettingsTblData> {
   final String? _alias;
   SettingsTbl(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _userIdMeta = VerificationMeta('userId');
-  late final GeneratedColumn<String> userId = GeneratedColumn<String>('user_id', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true, $customConstraints: 'NOT NULL PRIMARY KEY');
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL PRIMARY KEY',
+  );
   static const VerificationMeta _jsonDataMeta = VerificationMeta('jsonData');
-  late final GeneratedColumn<String> jsonData = GeneratedColumn<String>('json_data', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL CHECK (length(json_data) > 2 AND json_valid(json_data))');
+  late final GeneratedColumn<String> jsonData = GeneratedColumn<String>(
+    'json_data',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL CHECK (length(json_data) > 2 AND json_valid(json_data))',
+  );
   static const VerificationMeta _memoMeta = VerificationMeta('memo');
-  late final GeneratedColumn<String> memo = GeneratedColumn<String>('memo', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false, $customConstraints: '');
+  late final GeneratedColumn<String> memo = GeneratedColumn<String>(
+    'memo',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    $customConstraints: '',
+  );
   static const VerificationMeta _metaCreatedAtMeta = VerificationMeta('metaCreatedAt');
-  late final GeneratedColumn<int> metaCreatedAt = GeneratedColumn<int>('meta_created_at', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
-      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  late final GeneratedColumn<int> metaCreatedAt = GeneratedColumn<int>(
+    'meta_created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
+    defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'),
+  );
   static const VerificationMeta _metaUpdatedAtMeta = VerificationMeta('metaUpdatedAt');
-  late final GeneratedColumn<int> metaUpdatedAt = GeneratedColumn<int>('meta_updated_at', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\')) CHECK (meta_updated_at >= meta_created_at)',
-      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  late final GeneratedColumn<int> metaUpdatedAt = GeneratedColumn<int>(
+    'meta_updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\')) CHECK (meta_updated_at >= meta_created_at)',
+    defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'),
+  );
   @override
   List<GeneratedColumn> get $columns => [userId, jsonData, memo, metaCreatedAt, metaUpdatedAt];
   @override
@@ -57,11 +81,15 @@ class SettingsTbl extends Table with TableInfo<SettingsTbl, SettingsTblData> {
     }
     if (data.containsKey('meta_created_at')) {
       context.handle(
-          _metaCreatedAtMeta, metaCreatedAt.isAcceptableOrUnknown(data['meta_created_at']!, _metaCreatedAtMeta));
+        _metaCreatedAtMeta,
+        metaCreatedAt.isAcceptableOrUnknown(data['meta_created_at']!, _metaCreatedAtMeta),
+      );
     }
     if (data.containsKey('meta_updated_at')) {
       context.handle(
-          _metaUpdatedAtMeta, metaUpdatedAt.isAcceptableOrUnknown(data['meta_updated_at']!, _metaUpdatedAtMeta));
+        _metaUpdatedAtMeta,
+        metaUpdatedAt.isAcceptableOrUnknown(data['meta_updated_at']!, _metaUpdatedAtMeta),
+      );
     }
     return context;
   }
@@ -106,12 +134,13 @@ class SettingsTblData extends DataClass implements Insertable<SettingsTblData> {
 
   /// Updated date (unixtime in seconds)
   final int metaUpdatedAt;
-  const SettingsTblData(
-      {required this.userId,
-      required this.jsonData,
-      this.memo,
-      required this.metaCreatedAt,
-      required this.metaUpdatedAt});
+  const SettingsTblData({
+    required this.userId,
+    required this.jsonData,
+    this.memo,
+    required this.metaCreatedAt,
+    required this.metaUpdatedAt,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -157,19 +186,19 @@ class SettingsTblData extends DataClass implements Insertable<SettingsTblData> {
     };
   }
 
-  SettingsTblData copyWith(
-          {String? userId,
-          String? jsonData,
-          Value<String?> memo = const Value.absent(),
-          int? metaCreatedAt,
-          int? metaUpdatedAt}) =>
-      SettingsTblData(
-        userId: userId ?? this.userId,
-        jsonData: jsonData ?? this.jsonData,
-        memo: memo.present ? memo.value : this.memo,
-        metaCreatedAt: metaCreatedAt ?? this.metaCreatedAt,
-        metaUpdatedAt: metaUpdatedAt ?? this.metaUpdatedAt,
-      );
+  SettingsTblData copyWith({
+    String? userId,
+    String? jsonData,
+    Value<String?> memo = const Value.absent(),
+    int? metaCreatedAt,
+    int? metaUpdatedAt,
+  }) => SettingsTblData(
+    userId: userId ?? this.userId,
+    jsonData: jsonData ?? this.jsonData,
+    memo: memo.present ? memo.value : this.memo,
+    metaCreatedAt: metaCreatedAt ?? this.metaCreatedAt,
+    metaUpdatedAt: metaUpdatedAt ?? this.metaUpdatedAt,
+  );
   @override
   String toString() {
     return (StringBuffer('SettingsTblData(')
@@ -217,8 +246,8 @@ class SettingsTblCompanion extends UpdateCompanion<SettingsTblData> {
     this.metaCreatedAt = const Value.absent(),
     this.metaUpdatedAt = const Value.absent(),
     this.rowid = const Value.absent(),
-  })  : userId = Value(userId),
-        jsonData = Value(jsonData);
+  }) : userId = Value(userId),
+       jsonData = Value(jsonData);
   static Insertable<SettingsTblData> custom({
     Expression<String>? userId,
     Expression<String>? jsonData,
@@ -237,13 +266,14 @@ class SettingsTblCompanion extends UpdateCompanion<SettingsTblData> {
     });
   }
 
-  SettingsTblCompanion copyWith(
-      {Value<String>? userId,
-      Value<String>? jsonData,
-      Value<String?>? memo,
-      Value<int>? metaCreatedAt,
-      Value<int>? metaUpdatedAt,
-      Value<int>? rowid}) {
+  SettingsTblCompanion copyWith({
+    Value<String>? userId,
+    Value<String>? jsonData,
+    Value<String?>? memo,
+    Value<int>? metaCreatedAt,
+    Value<int>? metaUpdatedAt,
+    Value<int>? rowid,
+  }) {
     return SettingsTblCompanion(
       userId: userId ?? this.userId,
       jsonData: jsonData ?? this.jsonData,
@@ -298,26 +328,52 @@ class LogTbl extends Table with TableInfo<LogTbl, LogTblData> {
   final String? _alias;
   LogTbl(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = VerificationMeta('id');
-  late final GeneratedColumn<int> id = GeneratedColumn<int>('id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT',
+  );
   static const VerificationMeta _timeMeta = VerificationMeta('time');
-  late final GeneratedColumn<int> time = GeneratedColumn<int>('time', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
-      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  late final GeneratedColumn<int> time = GeneratedColumn<int>(
+    'time',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
+    defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'),
+  );
   static const VerificationMeta _levelMeta = VerificationMeta('level');
-  late final GeneratedColumn<int> level = GeneratedColumn<int>('level', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true, $customConstraints: 'NOT NULL');
+  late final GeneratedColumn<int> level = GeneratedColumn<int>(
+    'level',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
   static const VerificationMeta _messageMeta = VerificationMeta('message');
-  late final GeneratedColumn<String> message = GeneratedColumn<String>('message', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true, $customConstraints: 'NOT NULL');
+  late final GeneratedColumn<String> message = GeneratedColumn<String>(
+    'message',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
   static const VerificationMeta _stackMeta = VerificationMeta('stack');
-  late final GeneratedColumn<String> stack = GeneratedColumn<String>('stack', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false, $customConstraints: '');
+  late final GeneratedColumn<String> stack = GeneratedColumn<String>(
+    'stack',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    $customConstraints: '',
+  );
   @override
   List<GeneratedColumn> get $columns => [id, time, level, message, stack];
   @override
@@ -489,8 +545,8 @@ class LogTblCompanion extends UpdateCompanion<LogTblData> {
     required int level,
     required String message,
     this.stack = const Value.absent(),
-  })  : level = Value(level),
-        message = Value(message);
+  }) : level = Value(level),
+       message = Value(message);
   static Insertable<LogTblData> custom({
     Expression<int>? id,
     Expression<int>? time,
@@ -507,8 +563,13 @@ class LogTblCompanion extends UpdateCompanion<LogTblData> {
     });
   }
 
-  LogTblCompanion copyWith(
-      {Value<int>? id, Value<int>? time, Value<int>? level, Value<String>? message, Value<String?>? stack}) {
+  LogTblCompanion copyWith({
+    Value<int>? id,
+    Value<int>? time,
+    Value<int>? level,
+    Value<String>? message,
+    Value<String?>? stack,
+  }) {
     return LogTblCompanion(
       id: id ?? this.id,
       time: time ?? this.time,
@@ -558,17 +619,41 @@ class LogPrefixTbl extends Table with TableInfo<LogPrefixTbl, LogPrefixTblData> 
   final String? _alias;
   LogPrefixTbl(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _prefixMeta = VerificationMeta('prefix');
-  late final GeneratedColumn<String> prefix = GeneratedColumn<String>('prefix', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true, $customConstraints: 'NOT NULL');
+  late final GeneratedColumn<String> prefix = GeneratedColumn<String>(
+    'prefix',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
   static const VerificationMeta _logIdMeta = VerificationMeta('logId');
-  late final GeneratedColumn<int> logId = GeneratedColumn<int>('log_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true, $customConstraints: 'NOT NULL');
+  late final GeneratedColumn<int> logId = GeneratedColumn<int>(
+    'log_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
   static const VerificationMeta _wordMeta = VerificationMeta('word');
-  late final GeneratedColumn<String> word = GeneratedColumn<String>('word', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true, $customConstraints: 'NOT NULL');
+  late final GeneratedColumn<String> word = GeneratedColumn<String>(
+    'word',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
   static const VerificationMeta _lenMeta = VerificationMeta('len');
-  late final GeneratedColumn<int> len = GeneratedColumn<int>('len', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true, $customConstraints: 'NOT NULL');
+  late final GeneratedColumn<int> len = GeneratedColumn<int>(
+    'len',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
   @override
   List<GeneratedColumn> get $columns => [prefix, logId, word, len];
   @override
@@ -625,9 +710,9 @@ class LogPrefixTbl extends Table with TableInfo<LogPrefixTbl, LogPrefixTblData> 
   bool get isStrict => true;
   @override
   List<String> get customConstraints => const [
-        'PRIMARY KEY(prefix, log_id, word)',
-        'FOREIGN KEY(log_id)REFERENCES log_tbl(id)ON UPDATE CASCADE ON DELETE CASCADE'
-      ];
+    'PRIMARY KEY(prefix, log_id, word)',
+    'FOREIGN KEY(log_id)REFERENCES log_tbl(id)ON UPDATE CASCADE ON DELETE CASCADE',
+  ];
   @override
   bool get dontWriteConstraints => true;
 }
@@ -657,12 +742,7 @@ class LogPrefixTblData extends DataClass implements Insertable<LogPrefixTblData>
   }
 
   LogPrefixTblCompanion toCompanion(bool nullToAbsent) {
-    return LogPrefixTblCompanion(
-      prefix: Value(prefix),
-      logId: Value(logId),
-      word: Value(word),
-      len: Value(len),
-    );
+    return LogPrefixTblCompanion(prefix: Value(prefix), logId: Value(logId), word: Value(word), len: Value(len));
   }
 
   factory LogPrefixTblData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
@@ -686,11 +766,11 @@ class LogPrefixTblData extends DataClass implements Insertable<LogPrefixTblData>
   }
 
   LogPrefixTblData copyWith({String? prefix, int? logId, String? word, int? len}) => LogPrefixTblData(
-        prefix: prefix ?? this.prefix,
-        logId: logId ?? this.logId,
-        word: word ?? this.word,
-        len: len ?? this.len,
-      );
+    prefix: prefix ?? this.prefix,
+    logId: logId ?? this.logId,
+    word: word ?? this.word,
+    len: len ?? this.len,
+  );
   @override
   String toString() {
     return (StringBuffer('LogPrefixTblData(')
@@ -733,10 +813,10 @@ class LogPrefixTblCompanion extends UpdateCompanion<LogPrefixTblData> {
     required String word,
     required int len,
     this.rowid = const Value.absent(),
-  })  : prefix = Value(prefix),
-        logId = Value(logId),
-        word = Value(word),
-        len = Value(len);
+  }) : prefix = Value(prefix),
+       logId = Value(logId),
+       word = Value(word),
+       len = Value(len);
   static Insertable<LogPrefixTblData> custom({
     Expression<String>? prefix,
     Expression<int>? logId,
@@ -753,8 +833,13 @@ class LogPrefixTblCompanion extends UpdateCompanion<LogPrefixTblData> {
     });
   }
 
-  LogPrefixTblCompanion copyWith(
-      {Value<String>? prefix, Value<int>? logId, Value<String>? word, Value<int>? len, Value<int>? rowid}) {
+  LogPrefixTblCompanion copyWith({
+    Value<String>? prefix,
+    Value<int>? logId,
+    Value<String>? word,
+    Value<int>? len,
+    Value<int>? rowid,
+  }) {
     return LogPrefixTblCompanion(
       prefix: prefix ?? this.prefix,
       logId: logId ?? this.logId,
@@ -804,30 +889,52 @@ class CharacteristicTbl extends Table with TableInfo<CharacteristicTbl, Characte
   final String? _alias;
   CharacteristicTbl(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _typeMeta = VerificationMeta('type');
-  late final GeneratedColumn<String> type = GeneratedColumn<String>('type', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL CHECK (length(type) > 0 AND length(type) <= 255)');
+  late final GeneratedColumn<String> type = GeneratedColumn<String>(
+    'type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL CHECK (length(type) > 0 AND length(type) <= 255)',
+  );
   static const VerificationMeta _idMeta = VerificationMeta('id');
-  late final GeneratedColumn<int> id = GeneratedColumn<int>('id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true, $customConstraints: 'NOT NULL');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
   static const VerificationMeta _dataMeta = VerificationMeta('data');
-  late final GeneratedColumn<String> data = GeneratedColumn<String>('data', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL CHECK (length(data) > 2 AND json_valid(data))');
+  late final GeneratedColumn<String> data = GeneratedColumn<String>(
+    'data',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL CHECK (length(data) > 2 AND json_valid(data))',
+  );
   static const VerificationMeta _metaCreatedAtMeta = VerificationMeta('metaCreatedAt');
-  late final GeneratedColumn<int> metaCreatedAt = GeneratedColumn<int>('meta_created_at', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
-      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  late final GeneratedColumn<int> metaCreatedAt = GeneratedColumn<int>(
+    'meta_created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
+    defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'),
+  );
   static const VerificationMeta _metaUpdatedAtMeta = VerificationMeta('metaUpdatedAt');
-  late final GeneratedColumn<int> metaUpdatedAt = GeneratedColumn<int>('meta_updated_at', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\')) CHECK (meta_updated_at >= meta_created_at)',
-      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  late final GeneratedColumn<int> metaUpdatedAt = GeneratedColumn<int>(
+    'meta_updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\')) CHECK (meta_updated_at >= meta_created_at)',
+    defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'),
+  );
   @override
   List<GeneratedColumn> get $columns => [type, id, data, metaCreatedAt, metaUpdatedAt];
   @override
@@ -856,11 +963,15 @@ class CharacteristicTbl extends Table with TableInfo<CharacteristicTbl, Characte
     }
     if (data.containsKey('meta_created_at')) {
       context.handle(
-          _metaCreatedAtMeta, metaCreatedAt.isAcceptableOrUnknown(data['meta_created_at']!, _metaCreatedAtMeta));
+        _metaCreatedAtMeta,
+        metaCreatedAt.isAcceptableOrUnknown(data['meta_created_at']!, _metaCreatedAtMeta),
+      );
     }
     if (data.containsKey('meta_updated_at')) {
       context.handle(
-          _metaUpdatedAtMeta, metaUpdatedAt.isAcceptableOrUnknown(data['meta_updated_at']!, _metaUpdatedAtMeta));
+        _metaUpdatedAtMeta,
+        metaUpdatedAt.isAcceptableOrUnknown(data['meta_updated_at']!, _metaUpdatedAtMeta),
+      );
     }
     return context;
   }
@@ -907,12 +1018,13 @@ class CharacteristicTblData extends DataClass implements Insertable<Characterist
 
   /// Updated date (unixtime in seconds)
   final int metaUpdatedAt;
-  const CharacteristicTblData(
-      {required this.type,
-      required this.id,
-      required this.data,
-      required this.metaCreatedAt,
-      required this.metaUpdatedAt});
+  const CharacteristicTblData({
+    required this.type,
+    required this.id,
+    required this.data,
+    required this.metaCreatedAt,
+    required this.metaUpdatedAt,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1011,9 +1123,9 @@ class CharacteristicTblCompanion extends UpdateCompanion<CharacteristicTblData> 
     this.metaCreatedAt = const Value.absent(),
     this.metaUpdatedAt = const Value.absent(),
     this.rowid = const Value.absent(),
-  })  : type = Value(type),
-        id = Value(id),
-        data = Value(data);
+  }) : type = Value(type),
+       id = Value(id),
+       data = Value(data);
   static Insertable<CharacteristicTblData> custom({
     Expression<String>? type,
     Expression<int>? id,
@@ -1032,13 +1144,14 @@ class CharacteristicTblCompanion extends UpdateCompanion<CharacteristicTblData> 
     });
   }
 
-  CharacteristicTblCompanion copyWith(
-      {Value<String>? type,
-      Value<int>? id,
-      Value<String>? data,
-      Value<int>? metaCreatedAt,
-      Value<int>? metaUpdatedAt,
-      Value<int>? rowid}) {
+  CharacteristicTblCompanion copyWith({
+    Value<String>? type,
+    Value<int>? id,
+    Value<String>? data,
+    Value<int>? metaCreatedAt,
+    Value<int>? metaUpdatedAt,
+    Value<int>? rowid,
+  }) {
     return CharacteristicTblCompanion(
       type: type ?? this.type,
       id: id ?? this.id,
@@ -1093,32 +1206,70 @@ class KvTbl extends Table with TableInfo<KvTbl, KvTblData> {
   final String? _alias;
   KvTbl(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _kMeta = VerificationMeta('k');
-  late final GeneratedColumn<String> k = GeneratedColumn<String>('k', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true, $customConstraints: 'NOT NULL PRIMARY KEY');
+  late final GeneratedColumn<String> k = GeneratedColumn<String>(
+    'k',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL PRIMARY KEY',
+  );
   static const VerificationMeta _vstringMeta = VerificationMeta('vstring');
-  late final GeneratedColumn<String> vstring = GeneratedColumn<String>('vstring', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false, $customConstraints: '');
+  late final GeneratedColumn<String> vstring = GeneratedColumn<String>(
+    'vstring',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    $customConstraints: '',
+  );
   static const VerificationMeta _vintMeta = VerificationMeta('vint');
-  late final GeneratedColumn<int> vint = GeneratedColumn<int>('vint', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false, $customConstraints: '');
+  late final GeneratedColumn<int> vint = GeneratedColumn<int>(
+    'vint',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: '',
+  );
   static const VerificationMeta _vdoubleMeta = VerificationMeta('vdouble');
-  late final GeneratedColumn<double> vdouble = GeneratedColumn<double>('vdouble', aliasedName, true,
-      type: DriftSqlType.double, requiredDuringInsert: false, $customConstraints: '');
+  late final GeneratedColumn<double> vdouble = GeneratedColumn<double>(
+    'vdouble',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    $customConstraints: '',
+  );
   static const VerificationMeta _vboolMeta = VerificationMeta('vbool');
-  late final GeneratedColumn<int> vbool = GeneratedColumn<int>('vbool', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false, $customConstraints: '');
+  late final GeneratedColumn<int> vbool = GeneratedColumn<int>(
+    'vbool',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: '',
+  );
   static const VerificationMeta _metaCreatedAtMeta = VerificationMeta('metaCreatedAt');
-  late final GeneratedColumn<int> metaCreatedAt = GeneratedColumn<int>('meta_created_at', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
-      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  late final GeneratedColumn<int> metaCreatedAt = GeneratedColumn<int>(
+    'meta_created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
+    defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'),
+  );
   static const VerificationMeta _metaUpdatedAtMeta = VerificationMeta('metaUpdatedAt');
-  late final GeneratedColumn<int> metaUpdatedAt = GeneratedColumn<int>('meta_updated_at', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\')) CHECK (meta_updated_at >= meta_created_at)',
-      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  late final GeneratedColumn<int> metaUpdatedAt = GeneratedColumn<int>(
+    'meta_updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\')) CHECK (meta_updated_at >= meta_created_at)',
+    defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'),
+  );
   @override
   List<GeneratedColumn> get $columns => [k, vstring, vint, vdouble, vbool, metaCreatedAt, metaUpdatedAt];
   @override
@@ -1149,11 +1300,15 @@ class KvTbl extends Table with TableInfo<KvTbl, KvTblData> {
     }
     if (data.containsKey('meta_created_at')) {
       context.handle(
-          _metaCreatedAtMeta, metaCreatedAt.isAcceptableOrUnknown(data['meta_created_at']!, _metaCreatedAtMeta));
+        _metaCreatedAtMeta,
+        metaCreatedAt.isAcceptableOrUnknown(data['meta_created_at']!, _metaCreatedAtMeta),
+      );
     }
     if (data.containsKey('meta_updated_at')) {
       context.handle(
-          _metaUpdatedAtMeta, metaUpdatedAt.isAcceptableOrUnknown(data['meta_updated_at']!, _metaUpdatedAtMeta));
+        _metaUpdatedAtMeta,
+        metaUpdatedAt.isAcceptableOrUnknown(data['meta_updated_at']!, _metaUpdatedAtMeta),
+      );
     }
     return context;
   }
@@ -1208,14 +1363,15 @@ class KvTblData extends DataClass implements Insertable<KvTblData> {
 
   /// req Updated date (unixtime in seconds)
   final int metaUpdatedAt;
-  const KvTblData(
-      {required this.k,
-      this.vstring,
-      this.vint,
-      this.vdouble,
-      this.vbool,
-      required this.metaCreatedAt,
-      required this.metaUpdatedAt});
+  const KvTblData({
+    required this.k,
+    this.vstring,
+    this.vint,
+    this.vdouble,
+    this.vbool,
+    required this.metaCreatedAt,
+    required this.metaUpdatedAt,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1275,23 +1431,23 @@ class KvTblData extends DataClass implements Insertable<KvTblData> {
     };
   }
 
-  KvTblData copyWith(
-          {String? k,
-          Value<String?> vstring = const Value.absent(),
-          Value<int?> vint = const Value.absent(),
-          Value<double?> vdouble = const Value.absent(),
-          Value<int?> vbool = const Value.absent(),
-          int? metaCreatedAt,
-          int? metaUpdatedAt}) =>
-      KvTblData(
-        k: k ?? this.k,
-        vstring: vstring.present ? vstring.value : this.vstring,
-        vint: vint.present ? vint.value : this.vint,
-        vdouble: vdouble.present ? vdouble.value : this.vdouble,
-        vbool: vbool.present ? vbool.value : this.vbool,
-        metaCreatedAt: metaCreatedAt ?? this.metaCreatedAt,
-        metaUpdatedAt: metaUpdatedAt ?? this.metaUpdatedAt,
-      );
+  KvTblData copyWith({
+    String? k,
+    Value<String?> vstring = const Value.absent(),
+    Value<int?> vint = const Value.absent(),
+    Value<double?> vdouble = const Value.absent(),
+    Value<int?> vbool = const Value.absent(),
+    int? metaCreatedAt,
+    int? metaUpdatedAt,
+  }) => KvTblData(
+    k: k ?? this.k,
+    vstring: vstring.present ? vstring.value : this.vstring,
+    vint: vint.present ? vint.value : this.vint,
+    vdouble: vdouble.present ? vdouble.value : this.vdouble,
+    vbool: vbool.present ? vbool.value : this.vbool,
+    metaCreatedAt: metaCreatedAt ?? this.metaCreatedAt,
+    metaUpdatedAt: metaUpdatedAt ?? this.metaUpdatedAt,
+  );
   @override
   String toString() {
     return (StringBuffer('KvTblData(')
@@ -1372,15 +1528,16 @@ class KvTblCompanion extends UpdateCompanion<KvTblData> {
     });
   }
 
-  KvTblCompanion copyWith(
-      {Value<String>? k,
-      Value<String?>? vstring,
-      Value<int?>? vint,
-      Value<double?>? vdouble,
-      Value<int?>? vbool,
-      Value<int>? metaCreatedAt,
-      Value<int>? metaUpdatedAt,
-      Value<int>? rowid}) {
+  KvTblCompanion copyWith({
+    Value<String>? k,
+    Value<String?>? vstring,
+    Value<int?>? vint,
+    Value<double?>? vdouble,
+    Value<int?>? vbool,
+    Value<int>? metaCreatedAt,
+    Value<int>? metaUpdatedAt,
+    Value<int>? rowid,
+  }) {
     return KvTblCompanion(
       k: k ?? this.k,
       vstring: vstring ?? this.vstring,
@@ -1443,89 +1600,94 @@ abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(e);
   late final SettingsTbl settingsTbl = SettingsTbl(this);
   late final Trigger settingsMetaUpdatedAtTrig = Trigger(
-      'CREATE TRIGGER IF NOT EXISTS settings_meta_updated_at_trig AFTER UPDATE ON settings_tbl BEGIN UPDATE settings_tbl SET meta_updated_at = strftime(\'%s\', \'now\') WHERE user_id = NEW.user_id;END',
-      'settings_meta_updated_at_trig');
+    'CREATE TRIGGER IF NOT EXISTS settings_meta_updated_at_trig AFTER UPDATE ON settings_tbl BEGIN UPDATE settings_tbl SET meta_updated_at = strftime(\'%s\', \'now\') WHERE user_id = NEW.user_id;END',
+    'settings_meta_updated_at_trig',
+  );
   late final LogTbl logTbl = LogTbl(this);
   late final Index logTimeIdx = Index('log_time_idx', 'CREATE INDEX IF NOT EXISTS log_time_idx ON log_tbl (time)');
   late final Index logLevelIdx = Index('log_level_idx', 'CREATE INDEX IF NOT EXISTS log_level_idx ON log_tbl (level)');
   late final LogPrefixTbl logPrefixTbl = LogPrefixTbl(this);
-  late final Index logPrefixPrefixIdx =
-      Index('log_prefix_prefix_idx', 'CREATE INDEX IF NOT EXISTS log_prefix_prefix_idx ON log_prefix_tbl (prefix)');
-  late final Index logPrefixLogIdIdx =
-      Index('log_prefix_log_id_idx', 'CREATE INDEX IF NOT EXISTS log_prefix_log_id_idx ON log_prefix_tbl (log_id)');
-  late final Index logPrefixLenIdx =
-      Index('log_prefix_len_idx', 'CREATE INDEX IF NOT EXISTS log_prefix_len_idx ON log_prefix_tbl (len)');
+  late final Index logPrefixPrefixIdx = Index(
+    'log_prefix_prefix_idx',
+    'CREATE INDEX IF NOT EXISTS log_prefix_prefix_idx ON log_prefix_tbl (prefix)',
+  );
+  late final Index logPrefixLogIdIdx = Index(
+    'log_prefix_log_id_idx',
+    'CREATE INDEX IF NOT EXISTS log_prefix_log_id_idx ON log_prefix_tbl (log_id)',
+  );
+  late final Index logPrefixLenIdx = Index(
+    'log_prefix_len_idx',
+    'CREATE INDEX IF NOT EXISTS log_prefix_len_idx ON log_prefix_tbl (len)',
+  );
   late final CharacteristicTbl characteristicTbl = CharacteristicTbl(this);
-  late final Index characteristicMetaCreatedAtIdx = Index('characteristic_meta_created_at_idx',
-      'CREATE INDEX IF NOT EXISTS characteristic_meta_created_at_idx ON characteristic_tbl (meta_created_at)');
-  late final Index characteristicMetaUpdatedAtIdx = Index('characteristic_meta_updated_at_idx',
-      'CREATE INDEX IF NOT EXISTS characteristic_meta_updated_at_idx ON characteristic_tbl (meta_updated_at)');
+  late final Index characteristicMetaCreatedAtIdx = Index(
+    'characteristic_meta_created_at_idx',
+    'CREATE INDEX IF NOT EXISTS characteristic_meta_created_at_idx ON characteristic_tbl (meta_created_at)',
+  );
+  late final Index characteristicMetaUpdatedAtIdx = Index(
+    'characteristic_meta_updated_at_idx',
+    'CREATE INDEX IF NOT EXISTS characteristic_meta_updated_at_idx ON characteristic_tbl (meta_updated_at)',
+  );
   late final Trigger characteristicMetaUpdatedAtTrig = Trigger(
-      'CREATE TRIGGER IF NOT EXISTS characteristic_meta_updated_at_trig AFTER UPDATE ON characteristic_tbl BEGIN UPDATE characteristic_tbl SET meta_updated_at = strftime(\'%s\', \'now\') WHERE type = NEW.type AND id = NEW.id;END',
-      'characteristic_meta_updated_at_trig');
+    'CREATE TRIGGER IF NOT EXISTS characteristic_meta_updated_at_trig AFTER UPDATE ON characteristic_tbl BEGIN UPDATE characteristic_tbl SET meta_updated_at = strftime(\'%s\', \'now\') WHERE type = NEW.type AND id = NEW.id;END',
+    'characteristic_meta_updated_at_trig',
+  );
   late final KvTbl kvTbl = KvTbl(this);
-  late final Index kvMetaCreatedAtIdx =
-      Index('kv_meta_created_at_idx', 'CREATE INDEX IF NOT EXISTS kv_meta_created_at_idx ON kv_tbl (meta_created_at)');
-  late final Index kvMetaUpdatedAtIdx =
-      Index('kv_meta_updated_at_idx', 'CREATE INDEX IF NOT EXISTS kv_meta_updated_at_idx ON kv_tbl (meta_updated_at)');
+  late final Index kvMetaCreatedAtIdx = Index(
+    'kv_meta_created_at_idx',
+    'CREATE INDEX IF NOT EXISTS kv_meta_created_at_idx ON kv_tbl (meta_created_at)',
+  );
+  late final Index kvMetaUpdatedAtIdx = Index(
+    'kv_meta_updated_at_idx',
+    'CREATE INDEX IF NOT EXISTS kv_meta_updated_at_idx ON kv_tbl (meta_updated_at)',
+  );
   late final Trigger kvMetaUpdatedAtTrig = Trigger(
-      'CREATE TRIGGER IF NOT EXISTS kv_meta_updated_at_trig AFTER UPDATE ON kv_tbl BEGIN UPDATE kv_tbl SET meta_updated_at = strftime(\'%s\', \'now\') WHERE k = NEW.k;END',
-      'kv_meta_updated_at_trig');
+    'CREATE TRIGGER IF NOT EXISTS kv_meta_updated_at_trig AFTER UPDATE ON kv_tbl BEGIN UPDATE kv_tbl SET meta_updated_at = strftime(\'%s\', \'now\') WHERE k = NEW.k;END',
+    'kv_meta_updated_at_trig',
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables => allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
-        settingsTbl,
-        settingsMetaUpdatedAtTrig,
-        logTbl,
-        logTimeIdx,
-        logLevelIdx,
-        logPrefixTbl,
-        logPrefixPrefixIdx,
-        logPrefixLogIdIdx,
-        logPrefixLenIdx,
-        characteristicTbl,
-        characteristicMetaCreatedAtIdx,
-        characteristicMetaUpdatedAtIdx,
-        characteristicMetaUpdatedAtTrig,
-        kvTbl,
-        kvMetaCreatedAtIdx,
-        kvMetaUpdatedAtIdx,
-        kvMetaUpdatedAtTrig
-      ];
+    settingsTbl,
+    settingsMetaUpdatedAtTrig,
+    logTbl,
+    logTimeIdx,
+    logLevelIdx,
+    logPrefixTbl,
+    logPrefixPrefixIdx,
+    logPrefixLogIdIdx,
+    logPrefixLenIdx,
+    characteristicTbl,
+    characteristicMetaCreatedAtIdx,
+    characteristicMetaUpdatedAtIdx,
+    characteristicMetaUpdatedAtTrig,
+    kvTbl,
+    kvMetaCreatedAtIdx,
+    kvMetaUpdatedAtIdx,
+    kvMetaUpdatedAtTrig,
+  ];
   @override
-  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(
-        [
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('settings_tbl', limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('settings_tbl', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('log_tbl', limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('log_prefix_tbl', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('log_tbl', limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('log_prefix_tbl', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('characteristic_tbl', limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('characteristic_tbl', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('kv_tbl', limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('kv_tbl', kind: UpdateKind.update),
-            ],
-          ),
-        ],
-      );
+  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
+    WritePropagation(
+      on: TableUpdateQuery.onTableName('settings_tbl', limitUpdateKind: UpdateKind.update),
+      result: [TableUpdate('settings_tbl', kind: UpdateKind.update)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName('log_tbl', limitUpdateKind: UpdateKind.delete),
+      result: [TableUpdate('log_prefix_tbl', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName('log_tbl', limitUpdateKind: UpdateKind.update),
+      result: [TableUpdate('log_prefix_tbl', kind: UpdateKind.update)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName('characteristic_tbl', limitUpdateKind: UpdateKind.update),
+      result: [TableUpdate('characteristic_tbl', kind: UpdateKind.update)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName('kv_tbl', limitUpdateKind: UpdateKind.update),
+      result: [TableUpdate('kv_tbl', kind: UpdateKind.update)],
+    ),
+  ]);
 }

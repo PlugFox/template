@@ -26,11 +26,11 @@ enum Routes with OctopusRoute {
 
   @override
   Widget builder(BuildContext context, OctopusState state, OctopusNode node) => switch (this) {
-        Routes.signin => const SignInScreen(),
-        Routes.signup => const SignUpScreen(),
-        Routes.home => const HomeScreen(),
-        Routes.profile => const ProfileScreen(),
-        Routes.developer => const DeveloperScreen(),
-        Routes.settings => const SettingsScreen(),
-      };
+    Routes.signin => const SignInScreen(),
+    Routes.signup => const SignUpScreen(),
+    Routes.home => const HomeScreen(),
+    Routes.profile => const ProfileScreen(),
+    Routes.developer => const DeveloperScreen(),
+    Routes.settings => const SettingsScreen(),
+  };
 }

@@ -7,11 +7,7 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class RadialProgressIndicator extends StatefulWidget {
   /// {@macro radial_progress_indicator}
-  const RadialProgressIndicator({
-    this.size = 64,
-    this.child,
-    super.key,
-  });
+  const RadialProgressIndicator({this.size = 64, this.child, super.key});
 
   /// The size of the progress indicator
   final double size;
@@ -30,14 +26,8 @@ class _RadialProgressIndicatorState extends State<RadialProgressIndicator> with 
   @override
   void initState() {
     super.initState();
-    _sweepController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    )..repeat();
-    _curvedAnimation = CurvedAnimation(
-      parent: _sweepController,
-      curve: Curves.ease,
-    );
+    _sweepController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1000))..repeat();
+    _curvedAnimation = CurvedAnimation(parent: _sweepController, curve: Curves.ease);
   }
 
   @override
@@ -48,33 +38,30 @@ class _RadialProgressIndicatorState extends State<RadialProgressIndicator> with 
 
   @override
   Widget build(BuildContext context) => Center(
-        child: SizedBox.square(
-          dimension: widget.size,
-          child: RepaintBoundary(
-            child: CustomPaint(
-              painter: _RadialProgressIndicatorPainter(
-                animation: _curvedAnimation,
-                color: Theme.of(context).indicatorColor,
-              ),
-              child: Center(
-                child: widget.child,
-              ),
-            ),
+    child: SizedBox.square(
+      dimension: widget.size,
+      child: RepaintBoundary(
+        child: CustomPaint(
+          painter: _RadialProgressIndicatorPainter(
+            animation: _curvedAnimation,
+            color: Theme.of(context).indicatorColor,
           ),
+          child: Center(child: widget.child),
         ),
-      );
+      ),
+    ),
+  );
 }
 
 class _RadialProgressIndicatorPainter extends CustomPainter {
-  _RadialProgressIndicatorPainter({
-    required Animation<double> animation,
-    Color color = Colors.blue,
-  })  : _animation = animation,
-        _arcPaint = Paint()
-          ..strokeCap = StrokeCap.round
-          ..style = PaintingStyle.stroke
-          ..color = color,
-        super(repaint: animation);
+  _RadialProgressIndicatorPainter({required Animation<double> animation, Color color = Colors.blue})
+    : _animation = animation,
+      _arcPaint =
+          Paint()
+            ..strokeCap = StrokeCap.round
+            ..style = PaintingStyle.stroke
+            ..color = color,
+      super(repaint: animation);
 
   final Animation<double> _animation;
   final Paint _arcPaint;

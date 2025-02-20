@@ -44,15 +44,16 @@ library pubspec;
 ///
 /// Additional labels for pre-release and build metadata are available
 /// as extensions to the MAJOR.MINOR.PATCH format.
-typedef PubspecVersion = ({
-  String representation,
-  String canonical,
-  int major,
-  int minor,
-  int patch,
-  List<String> preRelease,
-  List<String> build
-});
+typedef PubspecVersion =
+    ({
+      String representation,
+      String canonical,
+      int major,
+      int minor,
+      int patch,
+      List<String> preRelease,
+      List<String> build,
+    });
 
 /// # The pubspec file
 ///
@@ -122,16 +123,7 @@ sealed class Pubspec {
   );
 
   /// Build date and time (UTC)
-  static final DateTime timestamp = DateTime.utc(
-    2024,
-    10,
-    8,
-    9,
-    8,
-    49,
-    803,
-    983,
-  );
+  static final DateTime timestamp = DateTime.utc(2024, 10, 8, 9, 8, 49, 803, 983);
 
   /// Name
   ///
@@ -347,10 +339,7 @@ sealed class Pubspec {
   static const List<Object> topics = <Object>[];
 
   /// Environment
-  static const Map<String, String> environment = <String, String>{
-    'sdk': '>=3.3.0 <4.0.0',
-    'flutter': '>=3.3.0 <4.0.0',
-  };
+  static const Map<String, String> environment = <String, String>{'sdk': '>=3.3.0 <4.0.0', 'flutter': '>=3.3.0 <4.0.0'};
 
   /// Platforms
   ///
@@ -409,12 +398,8 @@ sealed class Pubspec {
   /// For more information,
   /// see [Package dependencies](https://dart.dev/tools/pub/dependencies).
   static const Map<String, Object> dependencies = <String, Object>{
-    'flutter': <String, Object>{
-      'sdk': r'flutter',
-    },
-    'flutter_localizations': <String, Object>{
-      'sdk': r'flutter',
-    },
+    'flutter': <String, Object>{'sdk': r'flutter'},
+    'flutter_localizations': <String, Object>{'sdk': r'flutter'},
     'intl': r'any',
     'octopus': r'^0.0.8',
     'meta': r'any',
@@ -443,12 +428,8 @@ sealed class Pubspec {
 
   /// Developer dependencies
   static const Map<String, Object> devDependencies = <String, Object>{
-    'flutter_test': <String, Object>{
-      'sdk': r'flutter',
-    },
-    'integration_test': <String, Object>{
-      'sdk': r'flutter',
-    },
+    'flutter_test': <String, Object>{'sdk': r'flutter'},
+    'integration_test': <String, Object>{'sdk': r'flutter'},
     'flutter_lints': r'^3.0.2',
     'build_runner': r'^2.4.6',
     'drift_dev': r'^2.16.0',
@@ -514,12 +495,8 @@ sealed class Pubspec {
     'flutter': <String, Object>{
       'generate': true,
       'uses-material-design': true,
-      'shaders': <Object>[
-        r'assets/shaders/shimmer.frag',
-      ],
-      'assets': <Object>[
-        r'assets/icons/',
-      ],
+      'shaders': <Object>[r'assets/shaders/shimmer.frag'],
+      'assets': <Object>[r'assets/icons/'],
     },
     'flutter_intl': <String, Object>{
       'enabled': true,
@@ -529,9 +506,6 @@ sealed class Pubspec {
       'output_dir': r'lib/src/common/localization/generated',
       'use_deferred_loading': false,
     },
-    'flutter_gen': <String, Object>{
-      'output': r'lib/src/common/constant/',
-      'line_length': 120,
-    },
+    'flutter_gen': <String, Object>{'output': r'lib/src/common/constant/', 'line_length': 120},
   };
 }
