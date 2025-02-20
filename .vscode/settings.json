@@ -41,7 +41,6 @@
   "dart.additionalAnalyzerFileExtensions": [
     "drift"
   ],
-  /* "dart.flutterSdkPath": ".fvm/versions/3.29.0", */
   "search.exclude": {
     "**/.fvm": true,
     ".dart_tool": true,
@@ -68,5 +67,6 @@
   },
   "files.associations": {
     "*.drift": "sql"
-  }
+  },
+  "dart.flutterSdkPath": ".fvm/versions/3.29.0"
 }

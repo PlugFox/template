@@ -30,7 +30,7 @@ doctor: ## Check flutter doctor
 
 .PHONY: format
 format: ## Format the code
-	@dart format -l 120 --fix lib/ test/
+	@dart format -l 120 lib/ test/
 
 .PHONY: fmt
 fmt: format

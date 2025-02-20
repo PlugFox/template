@@ -8,88 +8,83 @@ class SettingsTbl extends Table with TableInfo<SettingsTbl, SettingsTblData> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   SettingsTbl(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _userIdMeta = VerificationMeta('userId');
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
   late final GeneratedColumn<String> userId = GeneratedColumn<String>(
-    'user_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL PRIMARY KEY',
-  );
-  static const VerificationMeta _jsonDataMeta = VerificationMeta('jsonData');
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL PRIMARY KEY');
+  static const VerificationMeta _jsonDataMeta =
+      const VerificationMeta('jsonData');
   late final GeneratedColumn<String> jsonData = GeneratedColumn<String>(
-    'json_data',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL CHECK (length(json_data) > 2 AND json_valid(json_data))',
-  );
-  static const VerificationMeta _memoMeta = VerificationMeta('memo');
+      'json_data', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints:
+          'NOT NULL CHECK (length(json_data) > 2 AND json_valid(json_data))');
+  static const VerificationMeta _memoMeta = const VerificationMeta('memo');
   late final GeneratedColumn<String> memo = GeneratedColumn<String>(
-    'memo',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    $customConstraints: '',
-  );
-  static const VerificationMeta _metaCreatedAtMeta = VerificationMeta('metaCreatedAt');
+      'memo', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _metaCreatedAtMeta =
+      const VerificationMeta('metaCreatedAt');
   late final GeneratedColumn<int> metaCreatedAt = GeneratedColumn<int>(
-    'meta_created_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
-    defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'),
-  );
-  static const VerificationMeta _metaUpdatedAtMeta = VerificationMeta('metaUpdatedAt');
+      'meta_created_at', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
+      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  static const VerificationMeta _metaUpdatedAtMeta =
+      const VerificationMeta('metaUpdatedAt');
   late final GeneratedColumn<int> metaUpdatedAt = GeneratedColumn<int>(
-    'meta_updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\')) CHECK (meta_updated_at >= meta_created_at)',
-    defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'),
-  );
+      'meta_updated_at', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints:
+          'NOT NULL DEFAULT (strftime(\'%s\', \'now\')) CHECK (meta_updated_at >= meta_created_at)',
+      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
   @override
-  List<GeneratedColumn> get $columns => [userId, jsonData, memo, metaCreatedAt, metaUpdatedAt];
+  List<GeneratedColumn> get $columns =>
+      [userId, jsonData, memo, metaCreatedAt, metaUpdatedAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'settings_tbl';
   @override
-  VerificationContext validateIntegrity(Insertable<SettingsTblData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(Insertable<SettingsTblData> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('user_id')) {
-      context.handle(_userIdMeta, userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
     } else if (isInserting) {
       context.missing(_userIdMeta);
     }
     if (data.containsKey('json_data')) {
-      context.handle(_jsonDataMeta, jsonData.isAcceptableOrUnknown(data['json_data']!, _jsonDataMeta));
+      context.handle(_jsonDataMeta,
+          jsonData.isAcceptableOrUnknown(data['json_data']!, _jsonDataMeta));
     } else if (isInserting) {
       context.missing(_jsonDataMeta);
     }
     if (data.containsKey('memo')) {
-      context.handle(_memoMeta, memo.isAcceptableOrUnknown(data['memo']!, _memoMeta));
+      context.handle(
+          _memoMeta, memo.isAcceptableOrUnknown(data['memo']!, _memoMeta));
     }
     if (data.containsKey('meta_created_at')) {
       context.handle(
-        _metaCreatedAtMeta,
-        metaCreatedAt.isAcceptableOrUnknown(data['meta_created_at']!, _metaCreatedAtMeta),
-      );
+          _metaCreatedAtMeta,
+          metaCreatedAt.isAcceptableOrUnknown(
+              data['meta_created_at']!, _metaCreatedAtMeta));
     }
     if (data.containsKey('meta_updated_at')) {
       context.handle(
-        _metaUpdatedAtMeta,
-        metaUpdatedAt.isAcceptableOrUnknown(data['meta_updated_at']!, _metaUpdatedAtMeta),
-      );
+          _metaUpdatedAtMeta,
+          metaUpdatedAt.isAcceptableOrUnknown(
+              data['meta_updated_at']!, _metaUpdatedAtMeta));
     }
     return context;
   }
@@ -100,11 +95,16 @@ class SettingsTbl extends Table with TableInfo<SettingsTbl, SettingsTblData> {
   SettingsTblData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return SettingsTblData(
-      userId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
-      jsonData: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}json_data'])!,
-      memo: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}memo']),
-      metaCreatedAt: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}meta_created_at'])!,
-      metaUpdatedAt: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}meta_updated_at'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      jsonData: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}json_data'])!,
+      memo: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}memo']),
+      metaCreatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}meta_created_at'])!,
+      metaUpdatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}meta_updated_at'])!,
     );
   }
 
@@ -134,13 +134,12 @@ class SettingsTblData extends DataClass implements Insertable<SettingsTblData> {
 
   /// Updated date (unixtime in seconds)
   final int metaUpdatedAt;
-  const SettingsTblData({
-    required this.userId,
-    required this.jsonData,
-    this.memo,
-    required this.metaCreatedAt,
-    required this.metaUpdatedAt,
-  });
+  const SettingsTblData(
+      {required this.userId,
+      required this.jsonData,
+      this.memo,
+      required this.metaCreatedAt,
+      required this.metaUpdatedAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -164,7 +163,8 @@ class SettingsTblData extends DataClass implements Insertable<SettingsTblData> {
     );
   }
 
-  factory SettingsTblData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory SettingsTblData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return SettingsTblData(
       userId: serializer.fromJson<String>(json['user_id']),
@@ -186,19 +186,33 @@ class SettingsTblData extends DataClass implements Insertable<SettingsTblData> {
     };
   }
 
-  SettingsTblData copyWith({
-    String? userId,
-    String? jsonData,
-    Value<String?> memo = const Value.absent(),
-    int? metaCreatedAt,
-    int? metaUpdatedAt,
-  }) => SettingsTblData(
-    userId: userId ?? this.userId,
-    jsonData: jsonData ?? this.jsonData,
-    memo: memo.present ? memo.value : this.memo,
-    metaCreatedAt: metaCreatedAt ?? this.metaCreatedAt,
-    metaUpdatedAt: metaUpdatedAt ?? this.metaUpdatedAt,
-  );
+  SettingsTblData copyWith(
+          {String? userId,
+          String? jsonData,
+          Value<String?> memo = const Value.absent(),
+          int? metaCreatedAt,
+          int? metaUpdatedAt}) =>
+      SettingsTblData(
+        userId: userId ?? this.userId,
+        jsonData: jsonData ?? this.jsonData,
+        memo: memo.present ? memo.value : this.memo,
+        metaCreatedAt: metaCreatedAt ?? this.metaCreatedAt,
+        metaUpdatedAt: metaUpdatedAt ?? this.metaUpdatedAt,
+      );
+  SettingsTblData copyWithCompanion(SettingsTblCompanion data) {
+    return SettingsTblData(
+      userId: data.userId.present ? data.userId.value : this.userId,
+      jsonData: data.jsonData.present ? data.jsonData.value : this.jsonData,
+      memo: data.memo.present ? data.memo.value : this.memo,
+      metaCreatedAt: data.metaCreatedAt.present
+          ? data.metaCreatedAt.value
+          : this.metaCreatedAt,
+      metaUpdatedAt: data.metaUpdatedAt.present
+          ? data.metaUpdatedAt.value
+          : this.metaUpdatedAt,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('SettingsTblData(')
@@ -212,7 +226,8 @@ class SettingsTblData extends DataClass implements Insertable<SettingsTblData> {
   }
 
   @override
-  int get hashCode => Object.hash(userId, jsonData, memo, metaCreatedAt, metaUpdatedAt);
+  int get hashCode =>
+      Object.hash(userId, jsonData, memo, metaCreatedAt, metaUpdatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -246,8 +261,8 @@ class SettingsTblCompanion extends UpdateCompanion<SettingsTblData> {
     this.metaCreatedAt = const Value.absent(),
     this.metaUpdatedAt = const Value.absent(),
     this.rowid = const Value.absent(),
-  }) : userId = Value(userId),
-       jsonData = Value(jsonData);
+  })  : userId = Value(userId),
+        jsonData = Value(jsonData);
   static Insertable<SettingsTblData> custom({
     Expression<String>? userId,
     Expression<String>? jsonData,
@@ -266,14 +281,13 @@ class SettingsTblCompanion extends UpdateCompanion<SettingsTblData> {
     });
   }
 
-  SettingsTblCompanion copyWith({
-    Value<String>? userId,
-    Value<String>? jsonData,
-    Value<String?>? memo,
-    Value<int>? metaCreatedAt,
-    Value<int>? metaUpdatedAt,
-    Value<int>? rowid,
-  }) {
+  SettingsTblCompanion copyWith(
+      {Value<String>? userId,
+      Value<String>? jsonData,
+      Value<String?>? memo,
+      Value<int>? metaCreatedAt,
+      Value<int>? metaUpdatedAt,
+      Value<int>? rowid}) {
     return SettingsTblCompanion(
       userId: userId ?? this.userId,
       jsonData: jsonData ?? this.jsonData,
@@ -327,53 +341,39 @@ class LogTbl extends Table with TableInfo<LogTbl, LogTblData> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   LogTbl(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = VerificationMeta('id');
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT',
-  );
-  static const VerificationMeta _timeMeta = VerificationMeta('time');
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _timeMeta = const VerificationMeta('time');
   late final GeneratedColumn<int> time = GeneratedColumn<int>(
-    'time',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
-    defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'),
-  );
-  static const VerificationMeta _levelMeta = VerificationMeta('level');
+      'time', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
+      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  static const VerificationMeta _levelMeta = const VerificationMeta('level');
   late final GeneratedColumn<int> level = GeneratedColumn<int>(
-    'level',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  static const VerificationMeta _messageMeta = VerificationMeta('message');
+      'level', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _messageMeta =
+      const VerificationMeta('message');
   late final GeneratedColumn<String> message = GeneratedColumn<String>(
-    'message',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  static const VerificationMeta _stackMeta = VerificationMeta('stack');
+      'message', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _stackMeta = const VerificationMeta('stack');
   late final GeneratedColumn<String> stack = GeneratedColumn<String>(
-    'stack',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    $customConstraints: '',
-  );
+      'stack', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
   @override
   List<GeneratedColumn> get $columns => [id, time, level, message, stack];
   @override
@@ -382,27 +382,32 @@ class LogTbl extends Table with TableInfo<LogTbl, LogTblData> {
   String get actualTableName => $name;
   static const String $name = 'log_tbl';
   @override
-  VerificationContext validateIntegrity(Insertable<LogTblData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(Insertable<LogTblData> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('time')) {
-      context.handle(_timeMeta, time.isAcceptableOrUnknown(data['time']!, _timeMeta));
+      context.handle(
+          _timeMeta, time.isAcceptableOrUnknown(data['time']!, _timeMeta));
     }
     if (data.containsKey('level')) {
-      context.handle(_levelMeta, level.isAcceptableOrUnknown(data['level']!, _levelMeta));
+      context.handle(
+          _levelMeta, level.isAcceptableOrUnknown(data['level']!, _levelMeta));
     } else if (isInserting) {
       context.missing(_levelMeta);
     }
     if (data.containsKey('message')) {
-      context.handle(_messageMeta, message.isAcceptableOrUnknown(data['message']!, _messageMeta));
+      context.handle(_messageMeta,
+          message.isAcceptableOrUnknown(data['message']!, _messageMeta));
     } else if (isInserting) {
       context.missing(_messageMeta);
     }
     if (data.containsKey('stack')) {
-      context.handle(_stackMeta, stack.isAcceptableOrUnknown(data['stack']!, _stackMeta));
+      context.handle(
+          _stackMeta, stack.isAcceptableOrUnknown(data['stack']!, _stackMeta));
     }
     return context;
   }
@@ -413,11 +418,16 @@ class LogTbl extends Table with TableInfo<LogTbl, LogTblData> {
   LogTblData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return LogTblData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      time: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}time'])!,
-      level: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}level'])!,
-      message: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}message'])!,
-      stack: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}stack']),
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      time: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}time'])!,
+      level: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}level'])!,
+      message: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}message'])!,
+      stack: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}stack']),
     );
   }
 
@@ -447,7 +457,12 @@ class LogTblData extends DataClass implements Insertable<LogTblData> {
 
   /// StackTrace a stack trace associated with this log event
   final String? stack;
-  const LogTblData({required this.id, required this.time, required this.level, required this.message, this.stack});
+  const LogTblData(
+      {required this.id,
+      required this.time,
+      required this.level,
+      required this.message,
+      this.stack});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -467,11 +482,13 @@ class LogTblData extends DataClass implements Insertable<LogTblData> {
       time: Value(time),
       level: Value(level),
       message: Value(message),
-      stack: stack == null && nullToAbsent ? const Value.absent() : Value(stack),
+      stack:
+          stack == null && nullToAbsent ? const Value.absent() : Value(stack),
     );
   }
 
-  factory LogTblData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory LogTblData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return LogTblData(
       id: serializer.fromJson<int>(json['id']),
@@ -493,7 +510,12 @@ class LogTblData extends DataClass implements Insertable<LogTblData> {
     };
   }
 
-  LogTblData copyWith({int? id, int? time, int? level, String? message, Value<String?> stack = const Value.absent()}) =>
+  LogTblData copyWith(
+          {int? id,
+          int? time,
+          int? level,
+          String? message,
+          Value<String?> stack = const Value.absent()}) =>
       LogTblData(
         id: id ?? this.id,
         time: time ?? this.time,
@@ -501,6 +523,16 @@ class LogTblData extends DataClass implements Insertable<LogTblData> {
         message: message ?? this.message,
         stack: stack.present ? stack.value : this.stack,
       );
+  LogTblData copyWithCompanion(LogTblCompanion data) {
+    return LogTblData(
+      id: data.id.present ? data.id.value : this.id,
+      time: data.time.present ? data.time.value : this.time,
+      level: data.level.present ? data.level.value : this.level,
+      message: data.message.present ? data.message.value : this.message,
+      stack: data.stack.present ? data.stack.value : this.stack,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('LogTblData(')
@@ -545,8 +577,8 @@ class LogTblCompanion extends UpdateCompanion<LogTblData> {
     required int level,
     required String message,
     this.stack = const Value.absent(),
-  }) : level = Value(level),
-       message = Value(message);
+  })  : level = Value(level),
+        message = Value(message);
   static Insertable<LogTblData> custom({
     Expression<int>? id,
     Expression<int>? time,
@@ -563,13 +595,12 @@ class LogTblCompanion extends UpdateCompanion<LogTblData> {
     });
   }
 
-  LogTblCompanion copyWith({
-    Value<int>? id,
-    Value<int>? time,
-    Value<int>? level,
-    Value<String>? message,
-    Value<String?>? stack,
-  }) {
+  LogTblCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? time,
+      Value<int>? level,
+      Value<String>? message,
+      Value<String?>? stack}) {
     return LogTblCompanion(
       id: id ?? this.id,
       time: time ?? this.time,
@@ -613,47 +644,36 @@ class LogTblCompanion extends UpdateCompanion<LogTblData> {
   }
 }
 
-class LogPrefixTbl extends Table with TableInfo<LogPrefixTbl, LogPrefixTblData> {
+class LogPrefixTbl extends Table
+    with TableInfo<LogPrefixTbl, LogPrefixTblData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   LogPrefixTbl(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _prefixMeta = VerificationMeta('prefix');
+  static const VerificationMeta _prefixMeta = const VerificationMeta('prefix');
   late final GeneratedColumn<String> prefix = GeneratedColumn<String>(
-    'prefix',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  static const VerificationMeta _logIdMeta = VerificationMeta('logId');
+      'prefix', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _logIdMeta = const VerificationMeta('logId');
   late final GeneratedColumn<int> logId = GeneratedColumn<int>(
-    'log_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  static const VerificationMeta _wordMeta = VerificationMeta('word');
+      'log_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _wordMeta = const VerificationMeta('word');
   late final GeneratedColumn<String> word = GeneratedColumn<String>(
-    'word',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  static const VerificationMeta _lenMeta = VerificationMeta('len');
+      'word', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _lenMeta = const VerificationMeta('len');
   late final GeneratedColumn<int> len = GeneratedColumn<int>(
-    'len',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
+      'len', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   @override
   List<GeneratedColumn> get $columns => [prefix, logId, word, len];
   @override
@@ -662,26 +682,31 @@ class LogPrefixTbl extends Table with TableInfo<LogPrefixTbl, LogPrefixTblData> 
   String get actualTableName => $name;
   static const String $name = 'log_prefix_tbl';
   @override
-  VerificationContext validateIntegrity(Insertable<LogPrefixTblData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(Insertable<LogPrefixTblData> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('prefix')) {
-      context.handle(_prefixMeta, prefix.isAcceptableOrUnknown(data['prefix']!, _prefixMeta));
+      context.handle(_prefixMeta,
+          prefix.isAcceptableOrUnknown(data['prefix']!, _prefixMeta));
     } else if (isInserting) {
       context.missing(_prefixMeta);
     }
     if (data.containsKey('log_id')) {
-      context.handle(_logIdMeta, logId.isAcceptableOrUnknown(data['log_id']!, _logIdMeta));
+      context.handle(
+          _logIdMeta, logId.isAcceptableOrUnknown(data['log_id']!, _logIdMeta));
     } else if (isInserting) {
       context.missing(_logIdMeta);
     }
     if (data.containsKey('word')) {
-      context.handle(_wordMeta, word.isAcceptableOrUnknown(data['word']!, _wordMeta));
+      context.handle(
+          _wordMeta, word.isAcceptableOrUnknown(data['word']!, _wordMeta));
     } else if (isInserting) {
       context.missing(_wordMeta);
     }
     if (data.containsKey('len')) {
-      context.handle(_lenMeta, len.isAcceptableOrUnknown(data['len']!, _lenMeta));
+      context.handle(
+          _lenMeta, len.isAcceptableOrUnknown(data['len']!, _lenMeta));
     } else if (isInserting) {
       context.missing(_lenMeta);
     }
@@ -694,10 +719,14 @@ class LogPrefixTbl extends Table with TableInfo<LogPrefixTbl, LogPrefixTblData> 
   LogPrefixTblData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return LogPrefixTblData(
-      prefix: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}prefix'])!,
-      logId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}log_id'])!,
-      word: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}word'])!,
-      len: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}len'])!,
+      prefix: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}prefix'])!,
+      logId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}log_id'])!,
+      word: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}word'])!,
+      len: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}len'])!,
     );
   }
 
@@ -710,19 +739,20 @@ class LogPrefixTbl extends Table with TableInfo<LogPrefixTbl, LogPrefixTblData> 
   bool get isStrict => true;
   @override
   List<String> get customConstraints => const [
-    'PRIMARY KEY(prefix, log_id, word)',
-    'FOREIGN KEY(log_id)REFERENCES log_tbl(id)ON UPDATE CASCADE ON DELETE CASCADE',
-  ];
+        'PRIMARY KEY(prefix, log_id, word)',
+        'FOREIGN KEY(log_id)REFERENCES log_tbl(id)ON UPDATE CASCADE ON DELETE CASCADE'
+      ];
   @override
   bool get dontWriteConstraints => true;
 }
 
-class LogPrefixTblData extends DataClass implements Insertable<LogPrefixTblData> {
+class LogPrefixTblData extends DataClass
+    implements Insertable<LogPrefixTblData> {
   /// req Prefix (first 3 chars of word, lowercased)
   final String prefix;
 
-  /// req Unique identifier
   /// CHECK(length(prefix) = 3)
+  /// req Unique identifier
   final int logId;
 
   /// req Word (3 or more chars, lowercased)
@@ -730,7 +760,11 @@ class LogPrefixTblData extends DataClass implements Insertable<LogPrefixTblData>
 
   /// req Word's length
   final int len;
-  const LogPrefixTblData({required this.prefix, required this.logId, required this.word, required this.len});
+  const LogPrefixTblData(
+      {required this.prefix,
+      required this.logId,
+      required this.word,
+      required this.len});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -742,10 +776,16 @@ class LogPrefixTblData extends DataClass implements Insertable<LogPrefixTblData>
   }
 
   LogPrefixTblCompanion toCompanion(bool nullToAbsent) {
-    return LogPrefixTblCompanion(prefix: Value(prefix), logId: Value(logId), word: Value(word), len: Value(len));
+    return LogPrefixTblCompanion(
+      prefix: Value(prefix),
+      logId: Value(logId),
+      word: Value(word),
+      len: Value(len),
+    );
   }
 
-  factory LogPrefixTblData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory LogPrefixTblData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return LogPrefixTblData(
       prefix: serializer.fromJson<String>(json['prefix']),
@@ -765,12 +805,23 @@ class LogPrefixTblData extends DataClass implements Insertable<LogPrefixTblData>
     };
   }
 
-  LogPrefixTblData copyWith({String? prefix, int? logId, String? word, int? len}) => LogPrefixTblData(
-    prefix: prefix ?? this.prefix,
-    logId: logId ?? this.logId,
-    word: word ?? this.word,
-    len: len ?? this.len,
-  );
+  LogPrefixTblData copyWith(
+          {String? prefix, int? logId, String? word, int? len}) =>
+      LogPrefixTblData(
+        prefix: prefix ?? this.prefix,
+        logId: logId ?? this.logId,
+        word: word ?? this.word,
+        len: len ?? this.len,
+      );
+  LogPrefixTblData copyWithCompanion(LogPrefixTblCompanion data) {
+    return LogPrefixTblData(
+      prefix: data.prefix.present ? data.prefix.value : this.prefix,
+      logId: data.logId.present ? data.logId.value : this.logId,
+      word: data.word.present ? data.word.value : this.word,
+      len: data.len.present ? data.len.value : this.len,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('LogPrefixTblData(')
@@ -813,10 +864,10 @@ class LogPrefixTblCompanion extends UpdateCompanion<LogPrefixTblData> {
     required String word,
     required int len,
     this.rowid = const Value.absent(),
-  }) : prefix = Value(prefix),
-       logId = Value(logId),
-       word = Value(word),
-       len = Value(len);
+  })  : prefix = Value(prefix),
+        logId = Value(logId),
+        word = Value(word),
+        len = Value(len);
   static Insertable<LogPrefixTblData> custom({
     Expression<String>? prefix,
     Expression<int>? logId,
@@ -833,13 +884,12 @@ class LogPrefixTblCompanion extends UpdateCompanion<LogPrefixTblData> {
     });
   }
 
-  LogPrefixTblCompanion copyWith({
-    Value<String>? prefix,
-    Value<int>? logId,
-    Value<String>? word,
-    Value<int>? len,
-    Value<int>? rowid,
-  }) {
+  LogPrefixTblCompanion copyWith(
+      {Value<String>? prefix,
+      Value<int>? logId,
+      Value<String>? word,
+      Value<int>? len,
+      Value<int>? rowid}) {
     return LogPrefixTblCompanion(
       prefix: prefix ?? this.prefix,
       logId: logId ?? this.logId,
@@ -883,71 +933,66 @@ class LogPrefixTblCompanion extends UpdateCompanion<LogPrefixTblData> {
   }
 }
 
-class CharacteristicTbl extends Table with TableInfo<CharacteristicTbl, CharacteristicTblData> {
+class CharacteristicTbl extends Table
+    with TableInfo<CharacteristicTbl, CharacteristicTblData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   CharacteristicTbl(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _typeMeta = VerificationMeta('type');
+  static const VerificationMeta _typeMeta = const VerificationMeta('type');
   late final GeneratedColumn<String> type = GeneratedColumn<String>(
-    'type',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL CHECK (length(type) > 0 AND length(type) <= 255)',
-  );
-  static const VerificationMeta _idMeta = VerificationMeta('id');
+      'type', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints:
+          'NOT NULL CHECK (length(type) > 0 AND length(type) <= 255)');
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  static const VerificationMeta _dataMeta = VerificationMeta('data');
+      'id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _dataMeta = const VerificationMeta('data');
   late final GeneratedColumn<String> data = GeneratedColumn<String>(
-    'data',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL CHECK (length(data) > 2 AND json_valid(data))',
-  );
-  static const VerificationMeta _metaCreatedAtMeta = VerificationMeta('metaCreatedAt');
+      'data', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints:
+          'NOT NULL CHECK (length(data) > 2 AND json_valid(data))');
+  static const VerificationMeta _metaCreatedAtMeta =
+      const VerificationMeta('metaCreatedAt');
   late final GeneratedColumn<int> metaCreatedAt = GeneratedColumn<int>(
-    'meta_created_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
-    defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'),
-  );
-  static const VerificationMeta _metaUpdatedAtMeta = VerificationMeta('metaUpdatedAt');
+      'meta_created_at', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
+      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  static const VerificationMeta _metaUpdatedAtMeta =
+      const VerificationMeta('metaUpdatedAt');
   late final GeneratedColumn<int> metaUpdatedAt = GeneratedColumn<int>(
-    'meta_updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\')) CHECK (meta_updated_at >= meta_created_at)',
-    defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'),
-  );
+      'meta_updated_at', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints:
+          'NOT NULL DEFAULT (strftime(\'%s\', \'now\')) CHECK (meta_updated_at >= meta_created_at)',
+      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
   @override
-  List<GeneratedColumn> get $columns => [type, id, data, metaCreatedAt, metaUpdatedAt];
+  List<GeneratedColumn> get $columns =>
+      [type, id, data, metaCreatedAt, metaUpdatedAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'characteristic_tbl';
   @override
-  VerificationContext validateIntegrity(Insertable<CharacteristicTblData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+      Insertable<CharacteristicTblData> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('type')) {
-      context.handle(_typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
+      context.handle(
+          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
     } else if (isInserting) {
       context.missing(_typeMeta);
     }
@@ -957,21 +1002,22 @@ class CharacteristicTbl extends Table with TableInfo<CharacteristicTbl, Characte
       context.missing(_idMeta);
     }
     if (data.containsKey('data')) {
-      context.handle(_dataMeta, this.data.isAcceptableOrUnknown(data['data']!, _dataMeta));
+      context.handle(
+          _dataMeta, this.data.isAcceptableOrUnknown(data['data']!, _dataMeta));
     } else if (isInserting) {
       context.missing(_dataMeta);
     }
     if (data.containsKey('meta_created_at')) {
       context.handle(
-        _metaCreatedAtMeta,
-        metaCreatedAt.isAcceptableOrUnknown(data['meta_created_at']!, _metaCreatedAtMeta),
-      );
+          _metaCreatedAtMeta,
+          metaCreatedAt.isAcceptableOrUnknown(
+              data['meta_created_at']!, _metaCreatedAtMeta));
     }
     if (data.containsKey('meta_updated_at')) {
       context.handle(
-        _metaUpdatedAtMeta,
-        metaUpdatedAt.isAcceptableOrUnknown(data['meta_updated_at']!, _metaUpdatedAtMeta),
-      );
+          _metaUpdatedAtMeta,
+          metaUpdatedAt.isAcceptableOrUnknown(
+              data['meta_updated_at']!, _metaUpdatedAtMeta));
     }
     return context;
   }
@@ -982,11 +1028,16 @@ class CharacteristicTbl extends Table with TableInfo<CharacteristicTbl, Characte
   CharacteristicTblData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return CharacteristicTblData(
-      type: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}type'])!,
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      data: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}data'])!,
-      metaCreatedAt: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}meta_created_at'])!,
-      metaUpdatedAt: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}meta_updated_at'])!,
+      type: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}type'])!,
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      data: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}data'])!,
+      metaCreatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}meta_created_at'])!,
+      metaUpdatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}meta_updated_at'])!,
     );
   }
 
@@ -1003,7 +1054,8 @@ class CharacteristicTbl extends Table with TableInfo<CharacteristicTbl, Characte
   bool get dontWriteConstraints => true;
 }
 
-class CharacteristicTblData extends DataClass implements Insertable<CharacteristicTblData> {
+class CharacteristicTblData extends DataClass
+    implements Insertable<CharacteristicTblData> {
   /// req Type
   final String type;
 
@@ -1018,13 +1070,12 @@ class CharacteristicTblData extends DataClass implements Insertable<Characterist
 
   /// Updated date (unixtime in seconds)
   final int metaUpdatedAt;
-  const CharacteristicTblData({
-    required this.type,
-    required this.id,
-    required this.data,
-    required this.metaCreatedAt,
-    required this.metaUpdatedAt,
-  });
+  const CharacteristicTblData(
+      {required this.type,
+      required this.id,
+      required this.data,
+      required this.metaCreatedAt,
+      required this.metaUpdatedAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1046,7 +1097,8 @@ class CharacteristicTblData extends DataClass implements Insertable<Characterist
     );
   }
 
-  factory CharacteristicTblData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory CharacteristicTblData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return CharacteristicTblData(
       type: serializer.fromJson<String>(json['type']),
@@ -1068,7 +1120,12 @@ class CharacteristicTblData extends DataClass implements Insertable<Characterist
     };
   }
 
-  CharacteristicTblData copyWith({String? type, int? id, String? data, int? metaCreatedAt, int? metaUpdatedAt}) =>
+  CharacteristicTblData copyWith(
+          {String? type,
+          int? id,
+          String? data,
+          int? metaCreatedAt,
+          int? metaUpdatedAt}) =>
       CharacteristicTblData(
         type: type ?? this.type,
         id: id ?? this.id,
@@ -1076,6 +1133,20 @@ class CharacteristicTblData extends DataClass implements Insertable<Characterist
         metaCreatedAt: metaCreatedAt ?? this.metaCreatedAt,
         metaUpdatedAt: metaUpdatedAt ?? this.metaUpdatedAt,
       );
+  CharacteristicTblData copyWithCompanion(CharacteristicTblCompanion data) {
+    return CharacteristicTblData(
+      type: data.type.present ? data.type.value : this.type,
+      id: data.id.present ? data.id.value : this.id,
+      data: data.data.present ? data.data.value : this.data,
+      metaCreatedAt: data.metaCreatedAt.present
+          ? data.metaCreatedAt.value
+          : this.metaCreatedAt,
+      metaUpdatedAt: data.metaUpdatedAt.present
+          ? data.metaUpdatedAt.value
+          : this.metaUpdatedAt,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('CharacteristicTblData(')
@@ -1101,7 +1172,8 @@ class CharacteristicTblData extends DataClass implements Insertable<Characterist
           other.metaUpdatedAt == this.metaUpdatedAt);
 }
 
-class CharacteristicTblCompanion extends UpdateCompanion<CharacteristicTblData> {
+class CharacteristicTblCompanion
+    extends UpdateCompanion<CharacteristicTblData> {
   final Value<String> type;
   final Value<int> id;
   final Value<String> data;
@@ -1123,9 +1195,9 @@ class CharacteristicTblCompanion extends UpdateCompanion<CharacteristicTblData> 
     this.metaCreatedAt = const Value.absent(),
     this.metaUpdatedAt = const Value.absent(),
     this.rowid = const Value.absent(),
-  }) : type = Value(type),
-       id = Value(id),
-       data = Value(data);
+  })  : type = Value(type),
+        id = Value(id),
+        data = Value(data);
   static Insertable<CharacteristicTblData> custom({
     Expression<String>? type,
     Expression<int>? id,
@@ -1144,14 +1216,13 @@ class CharacteristicTblCompanion extends UpdateCompanion<CharacteristicTblData> 
     });
   }
 
-  CharacteristicTblCompanion copyWith({
-    Value<String>? type,
-    Value<int>? id,
-    Value<String>? data,
-    Value<int>? metaCreatedAt,
-    Value<int>? metaUpdatedAt,
-    Value<int>? rowid,
-  }) {
+  CharacteristicTblCompanion copyWith(
+      {Value<String>? type,
+      Value<int>? id,
+      Value<String>? data,
+      Value<int>? metaCreatedAt,
+      Value<int>? metaUpdatedAt,
+      Value<int>? rowid}) {
     return CharacteristicTblCompanion(
       type: type ?? this.type,
       id: id ?? this.id,
@@ -1205,80 +1276,66 @@ class KvTbl extends Table with TableInfo<KvTbl, KvTblData> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   KvTbl(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _kMeta = VerificationMeta('k');
+  static const VerificationMeta _kMeta = const VerificationMeta('k');
   late final GeneratedColumn<String> k = GeneratedColumn<String>(
-    'k',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL PRIMARY KEY',
-  );
-  static const VerificationMeta _vstringMeta = VerificationMeta('vstring');
+      'k', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL PRIMARY KEY');
+  static const VerificationMeta _vstringMeta =
+      const VerificationMeta('vstring');
   late final GeneratedColumn<String> vstring = GeneratedColumn<String>(
-    'vstring',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    $customConstraints: '',
-  );
-  static const VerificationMeta _vintMeta = VerificationMeta('vint');
+      'vstring', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _vintMeta = const VerificationMeta('vint');
   late final GeneratedColumn<int> vint = GeneratedColumn<int>(
-    'vint',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: '',
-  );
-  static const VerificationMeta _vdoubleMeta = VerificationMeta('vdouble');
+      'vint', aliasedName, true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _vdoubleMeta =
+      const VerificationMeta('vdouble');
   late final GeneratedColumn<double> vdouble = GeneratedColumn<double>(
-    'vdouble',
-    aliasedName,
-    true,
-    type: DriftSqlType.double,
-    requiredDuringInsert: false,
-    $customConstraints: '',
-  );
-  static const VerificationMeta _vboolMeta = VerificationMeta('vbool');
+      'vdouble', aliasedName, true,
+      type: DriftSqlType.double,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _vboolMeta = const VerificationMeta('vbool');
   late final GeneratedColumn<int> vbool = GeneratedColumn<int>(
-    'vbool',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: '',
-  );
-  static const VerificationMeta _metaCreatedAtMeta = VerificationMeta('metaCreatedAt');
+      'vbool', aliasedName, true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _metaCreatedAtMeta =
+      const VerificationMeta('metaCreatedAt');
   late final GeneratedColumn<int> metaCreatedAt = GeneratedColumn<int>(
-    'meta_created_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
-    defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'),
-  );
-  static const VerificationMeta _metaUpdatedAtMeta = VerificationMeta('metaUpdatedAt');
+      'meta_created_at', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
+      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  static const VerificationMeta _metaUpdatedAtMeta =
+      const VerificationMeta('metaUpdatedAt');
   late final GeneratedColumn<int> metaUpdatedAt = GeneratedColumn<int>(
-    'meta_updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\')) CHECK (meta_updated_at >= meta_created_at)',
-    defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'),
-  );
+      'meta_updated_at', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints:
+          'NOT NULL DEFAULT (strftime(\'%s\', \'now\')) CHECK (meta_updated_at >= meta_created_at)',
+      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
   @override
-  List<GeneratedColumn> get $columns => [k, vstring, vint, vdouble, vbool, metaCreatedAt, metaUpdatedAt];
+  List<GeneratedColumn> get $columns =>
+      [k, vstring, vint, vdouble, vbool, metaCreatedAt, metaUpdatedAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'kv_tbl';
   @override
-  VerificationContext validateIntegrity(Insertable<KvTblData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(Insertable<KvTblData> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('k')) {
@@ -1287,28 +1344,32 @@ class KvTbl extends Table with TableInfo<KvTbl, KvTblData> {
       context.missing(_kMeta);
     }
     if (data.containsKey('vstring')) {
-      context.handle(_vstringMeta, vstring.isAcceptableOrUnknown(data['vstring']!, _vstringMeta));
+      context.handle(_vstringMeta,
+          vstring.isAcceptableOrUnknown(data['vstring']!, _vstringMeta));
     }
     if (data.containsKey('vint')) {
-      context.handle(_vintMeta, vint.isAcceptableOrUnknown(data['vint']!, _vintMeta));
+      context.handle(
+          _vintMeta, vint.isAcceptableOrUnknown(data['vint']!, _vintMeta));
     }
     if (data.containsKey('vdouble')) {
-      context.handle(_vdoubleMeta, vdouble.isAcceptableOrUnknown(data['vdouble']!, _vdoubleMeta));
+      context.handle(_vdoubleMeta,
+          vdouble.isAcceptableOrUnknown(data['vdouble']!, _vdoubleMeta));
     }
     if (data.containsKey('vbool')) {
-      context.handle(_vboolMeta, vbool.isAcceptableOrUnknown(data['vbool']!, _vboolMeta));
+      context.handle(
+          _vboolMeta, vbool.isAcceptableOrUnknown(data['vbool']!, _vboolMeta));
     }
     if (data.containsKey('meta_created_at')) {
       context.handle(
-        _metaCreatedAtMeta,
-        metaCreatedAt.isAcceptableOrUnknown(data['meta_created_at']!, _metaCreatedAtMeta),
-      );
+          _metaCreatedAtMeta,
+          metaCreatedAt.isAcceptableOrUnknown(
+              data['meta_created_at']!, _metaCreatedAtMeta));
     }
     if (data.containsKey('meta_updated_at')) {
       context.handle(
-        _metaUpdatedAtMeta,
-        metaUpdatedAt.isAcceptableOrUnknown(data['meta_updated_at']!, _metaUpdatedAtMeta),
-      );
+          _metaUpdatedAtMeta,
+          metaUpdatedAt.isAcceptableOrUnknown(
+              data['meta_updated_at']!, _metaUpdatedAtMeta));
     }
     return context;
   }
@@ -1319,13 +1380,20 @@ class KvTbl extends Table with TableInfo<KvTbl, KvTblData> {
   KvTblData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return KvTblData(
-      k: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}k'])!,
-      vstring: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}vstring']),
-      vint: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}vint']),
-      vdouble: attachedDatabase.typeMapping.read(DriftSqlType.double, data['${effectivePrefix}vdouble']),
-      vbool: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}vbool']),
-      metaCreatedAt: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}meta_created_at'])!,
-      metaUpdatedAt: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}meta_updated_at'])!,
+      k: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}k'])!,
+      vstring: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}vstring']),
+      vint: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}vint']),
+      vdouble: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}vdouble']),
+      vbool: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}vbool']),
+      metaCreatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}meta_created_at'])!,
+      metaUpdatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}meta_updated_at'])!,
     );
   }
 
@@ -1356,22 +1424,21 @@ class KvTblData extends DataClass implements Insertable<KvTblData> {
   /// Boolean
   final int? vbool;
 
-  /// req Created date (unixtime in seconds)
-  ///vblob BLOB,
   /// Binary
+  ///vblob BLOB,
+  /// req Created date (unixtime in seconds)
   final int metaCreatedAt;
 
   /// req Updated date (unixtime in seconds)
   final int metaUpdatedAt;
-  const KvTblData({
-    required this.k,
-    this.vstring,
-    this.vint,
-    this.vdouble,
-    this.vbool,
-    required this.metaCreatedAt,
-    required this.metaUpdatedAt,
-  });
+  const KvTblData(
+      {required this.k,
+      this.vstring,
+      this.vint,
+      this.vdouble,
+      this.vbool,
+      required this.metaCreatedAt,
+      required this.metaUpdatedAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1396,16 +1463,22 @@ class KvTblData extends DataClass implements Insertable<KvTblData> {
   KvTblCompanion toCompanion(bool nullToAbsent) {
     return KvTblCompanion(
       k: Value(k),
-      vstring: vstring == null && nullToAbsent ? const Value.absent() : Value(vstring),
+      vstring: vstring == null && nullToAbsent
+          ? const Value.absent()
+          : Value(vstring),
       vint: vint == null && nullToAbsent ? const Value.absent() : Value(vint),
-      vdouble: vdouble == null && nullToAbsent ? const Value.absent() : Value(vdouble),
-      vbool: vbool == null && nullToAbsent ? const Value.absent() : Value(vbool),
+      vdouble: vdouble == null && nullToAbsent
+          ? const Value.absent()
+          : Value(vdouble),
+      vbool:
+          vbool == null && nullToAbsent ? const Value.absent() : Value(vbool),
       metaCreatedAt: Value(metaCreatedAt),
       metaUpdatedAt: Value(metaUpdatedAt),
     );
   }
 
-  factory KvTblData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory KvTblData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return KvTblData(
       k: serializer.fromJson<String>(json['k']),
@@ -1431,23 +1504,39 @@ class KvTblData extends DataClass implements Insertable<KvTblData> {
     };
   }
 
-  KvTblData copyWith({
-    String? k,
-    Value<String?> vstring = const Value.absent(),
-    Value<int?> vint = const Value.absent(),
-    Value<double?> vdouble = const Value.absent(),
-    Value<int?> vbool = const Value.absent(),
-    int? metaCreatedAt,
-    int? metaUpdatedAt,
-  }) => KvTblData(
-    k: k ?? this.k,
-    vstring: vstring.present ? vstring.value : this.vstring,
-    vint: vint.present ? vint.value : this.vint,
-    vdouble: vdouble.present ? vdouble.value : this.vdouble,
-    vbool: vbool.present ? vbool.value : this.vbool,
-    metaCreatedAt: metaCreatedAt ?? this.metaCreatedAt,
-    metaUpdatedAt: metaUpdatedAt ?? this.metaUpdatedAt,
-  );
+  KvTblData copyWith(
+          {String? k,
+          Value<String?> vstring = const Value.absent(),
+          Value<int?> vint = const Value.absent(),
+          Value<double?> vdouble = const Value.absent(),
+          Value<int?> vbool = const Value.absent(),
+          int? metaCreatedAt,
+          int? metaUpdatedAt}) =>
+      KvTblData(
+        k: k ?? this.k,
+        vstring: vstring.present ? vstring.value : this.vstring,
+        vint: vint.present ? vint.value : this.vint,
+        vdouble: vdouble.present ? vdouble.value : this.vdouble,
+        vbool: vbool.present ? vbool.value : this.vbool,
+        metaCreatedAt: metaCreatedAt ?? this.metaCreatedAt,
+        metaUpdatedAt: metaUpdatedAt ?? this.metaUpdatedAt,
+      );
+  KvTblData copyWithCompanion(KvTblCompanion data) {
+    return KvTblData(
+      k: data.k.present ? data.k.value : this.k,
+      vstring: data.vstring.present ? data.vstring.value : this.vstring,
+      vint: data.vint.present ? data.vint.value : this.vint,
+      vdouble: data.vdouble.present ? data.vdouble.value : this.vdouble,
+      vbool: data.vbool.present ? data.vbool.value : this.vbool,
+      metaCreatedAt: data.metaCreatedAt.present
+          ? data.metaCreatedAt.value
+          : this.metaCreatedAt,
+      metaUpdatedAt: data.metaUpdatedAt.present
+          ? data.metaUpdatedAt.value
+          : this.metaUpdatedAt,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('KvTblData(')
@@ -1463,7 +1552,8 @@ class KvTblData extends DataClass implements Insertable<KvTblData> {
   }
 
   @override
-  int get hashCode => Object.hash(k, vstring, vint, vdouble, vbool, metaCreatedAt, metaUpdatedAt);
+  int get hashCode => Object.hash(
+      k, vstring, vint, vdouble, vbool, metaCreatedAt, metaUpdatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1528,16 +1618,15 @@ class KvTblCompanion extends UpdateCompanion<KvTblData> {
     });
   }
 
-  KvTblCompanion copyWith({
-    Value<String>? k,
-    Value<String?>? vstring,
-    Value<int?>? vint,
-    Value<double?>? vdouble,
-    Value<int?>? vbool,
-    Value<int>? metaCreatedAt,
-    Value<int>? metaUpdatedAt,
-    Value<int>? rowid,
-  }) {
+  KvTblCompanion copyWith(
+      {Value<String>? k,
+      Value<String?>? vstring,
+      Value<int?>? vint,
+      Value<double?>? vdouble,
+      Value<int?>? vbool,
+      Value<int>? metaCreatedAt,
+      Value<int>? metaUpdatedAt,
+      Value<int>? rowid}) {
     return KvTblCompanion(
       k: k ?? this.k,
       vstring: vstring ?? this.vstring,
@@ -1598,96 +1687,959 @@ class KvTblCompanion extends UpdateCompanion<KvTblData> {
 
 abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(e);
+  $DatabaseManager get managers => $DatabaseManager(this);
   late final SettingsTbl settingsTbl = SettingsTbl(this);
   late final Trigger settingsMetaUpdatedAtTrig = Trigger(
-    'CREATE TRIGGER IF NOT EXISTS settings_meta_updated_at_trig AFTER UPDATE ON settings_tbl BEGIN UPDATE settings_tbl SET meta_updated_at = strftime(\'%s\', \'now\') WHERE user_id = NEW.user_id;END',
-    'settings_meta_updated_at_trig',
-  );
+      'CREATE TRIGGER IF NOT EXISTS settings_meta_updated_at_trig AFTER UPDATE ON settings_tbl BEGIN UPDATE settings_tbl SET meta_updated_at = strftime(\'%s\', \'now\') WHERE user_id = NEW.user_id;END',
+      'settings_meta_updated_at_trig');
   late final LogTbl logTbl = LogTbl(this);
-  late final Index logTimeIdx = Index('log_time_idx', 'CREATE INDEX IF NOT EXISTS log_time_idx ON log_tbl (time)');
-  late final Index logLevelIdx = Index('log_level_idx', 'CREATE INDEX IF NOT EXISTS log_level_idx ON log_tbl (level)');
+  late final Index logTimeIdx = Index('log_time_idx',
+      'CREATE INDEX IF NOT EXISTS log_time_idx ON log_tbl (time)');
+  late final Index logLevelIdx = Index('log_level_idx',
+      'CREATE INDEX IF NOT EXISTS log_level_idx ON log_tbl (level)');
   late final LogPrefixTbl logPrefixTbl = LogPrefixTbl(this);
-  late final Index logPrefixPrefixIdx = Index(
-    'log_prefix_prefix_idx',
-    'CREATE INDEX IF NOT EXISTS log_prefix_prefix_idx ON log_prefix_tbl (prefix)',
-  );
-  late final Index logPrefixLogIdIdx = Index(
-    'log_prefix_log_id_idx',
-    'CREATE INDEX IF NOT EXISTS log_prefix_log_id_idx ON log_prefix_tbl (log_id)',
-  );
-  late final Index logPrefixLenIdx = Index(
-    'log_prefix_len_idx',
-    'CREATE INDEX IF NOT EXISTS log_prefix_len_idx ON log_prefix_tbl (len)',
-  );
+  late final Index logPrefixPrefixIdx = Index('log_prefix_prefix_idx',
+      'CREATE INDEX IF NOT EXISTS log_prefix_prefix_idx ON log_prefix_tbl (prefix)');
+  late final Index logPrefixLogIdIdx = Index('log_prefix_log_id_idx',
+      'CREATE INDEX IF NOT EXISTS log_prefix_log_id_idx ON log_prefix_tbl (log_id)');
+  late final Index logPrefixLenIdx = Index('log_prefix_len_idx',
+      'CREATE INDEX IF NOT EXISTS log_prefix_len_idx ON log_prefix_tbl (len)');
   late final CharacteristicTbl characteristicTbl = CharacteristicTbl(this);
   late final Index characteristicMetaCreatedAtIdx = Index(
-    'characteristic_meta_created_at_idx',
-    'CREATE INDEX IF NOT EXISTS characteristic_meta_created_at_idx ON characteristic_tbl (meta_created_at)',
-  );
+      'characteristic_meta_created_at_idx',
+      'CREATE INDEX IF NOT EXISTS characteristic_meta_created_at_idx ON characteristic_tbl (meta_created_at)');
   late final Index characteristicMetaUpdatedAtIdx = Index(
-    'characteristic_meta_updated_at_idx',
-    'CREATE INDEX IF NOT EXISTS characteristic_meta_updated_at_idx ON characteristic_tbl (meta_updated_at)',
-  );
+      'characteristic_meta_updated_at_idx',
+      'CREATE INDEX IF NOT EXISTS characteristic_meta_updated_at_idx ON characteristic_tbl (meta_updated_at)');
   late final Trigger characteristicMetaUpdatedAtTrig = Trigger(
-    'CREATE TRIGGER IF NOT EXISTS characteristic_meta_updated_at_trig AFTER UPDATE ON characteristic_tbl BEGIN UPDATE characteristic_tbl SET meta_updated_at = strftime(\'%s\', \'now\') WHERE type = NEW.type AND id = NEW.id;END',
-    'characteristic_meta_updated_at_trig',
-  );
+      'CREATE TRIGGER IF NOT EXISTS characteristic_meta_updated_at_trig AFTER UPDATE ON characteristic_tbl BEGIN UPDATE characteristic_tbl SET meta_updated_at = strftime(\'%s\', \'now\') WHERE type = NEW.type AND id = NEW.id;END',
+      'characteristic_meta_updated_at_trig');
   late final KvTbl kvTbl = KvTbl(this);
-  late final Index kvMetaCreatedAtIdx = Index(
-    'kv_meta_created_at_idx',
-    'CREATE INDEX IF NOT EXISTS kv_meta_created_at_idx ON kv_tbl (meta_created_at)',
-  );
-  late final Index kvMetaUpdatedAtIdx = Index(
-    'kv_meta_updated_at_idx',
-    'CREATE INDEX IF NOT EXISTS kv_meta_updated_at_idx ON kv_tbl (meta_updated_at)',
-  );
+  late final Index kvMetaCreatedAtIdx = Index('kv_meta_created_at_idx',
+      'CREATE INDEX IF NOT EXISTS kv_meta_created_at_idx ON kv_tbl (meta_created_at)');
+  late final Index kvMetaUpdatedAtIdx = Index('kv_meta_updated_at_idx',
+      'CREATE INDEX IF NOT EXISTS kv_meta_updated_at_idx ON kv_tbl (meta_updated_at)');
   late final Trigger kvMetaUpdatedAtTrig = Trigger(
-    'CREATE TRIGGER IF NOT EXISTS kv_meta_updated_at_trig AFTER UPDATE ON kv_tbl BEGIN UPDATE kv_tbl SET meta_updated_at = strftime(\'%s\', \'now\') WHERE k = NEW.k;END',
-    'kv_meta_updated_at_trig',
-  );
+      'CREATE TRIGGER IF NOT EXISTS kv_meta_updated_at_trig AFTER UPDATE ON kv_tbl BEGIN UPDATE kv_tbl SET meta_updated_at = strftime(\'%s\', \'now\') WHERE k = NEW.k;END',
+      'kv_meta_updated_at_trig');
   @override
-  Iterable<TableInfo<Table, Object?>> get allTables => allSchemaEntities.whereType<TableInfo<Table, Object?>>();
+  Iterable<TableInfo<Table, Object?>> get allTables =>
+      allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
-    settingsTbl,
-    settingsMetaUpdatedAtTrig,
-    logTbl,
-    logTimeIdx,
-    logLevelIdx,
-    logPrefixTbl,
-    logPrefixPrefixIdx,
-    logPrefixLogIdIdx,
-    logPrefixLenIdx,
-    characteristicTbl,
-    characteristicMetaCreatedAtIdx,
-    characteristicMetaUpdatedAtIdx,
-    characteristicMetaUpdatedAtTrig,
-    kvTbl,
-    kvMetaCreatedAtIdx,
-    kvMetaUpdatedAtIdx,
-    kvMetaUpdatedAtTrig,
-  ];
+        settingsTbl,
+        settingsMetaUpdatedAtTrig,
+        logTbl,
+        logTimeIdx,
+        logLevelIdx,
+        logPrefixTbl,
+        logPrefixPrefixIdx,
+        logPrefixLogIdIdx,
+        logPrefixLenIdx,
+        characteristicTbl,
+        characteristicMetaCreatedAtIdx,
+        characteristicMetaUpdatedAtIdx,
+        characteristicMetaUpdatedAtTrig,
+        kvTbl,
+        kvMetaCreatedAtIdx,
+        kvMetaUpdatedAtIdx,
+        kvMetaUpdatedAtTrig
+      ];
   @override
-  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
-    WritePropagation(
-      on: TableUpdateQuery.onTableName('settings_tbl', limitUpdateKind: UpdateKind.update),
-      result: [TableUpdate('settings_tbl', kind: UpdateKind.update)],
+  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(
+        [
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('settings_tbl',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('settings_tbl', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('log_tbl',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('log_prefix_tbl', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('log_tbl',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('log_prefix_tbl', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('characteristic_tbl',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('characteristic_tbl', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('kv_tbl',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('kv_tbl', kind: UpdateKind.update),
+            ],
+          ),
+        ],
+      );
+}
+
+typedef $SettingsTblCreateCompanionBuilder = SettingsTblCompanion Function({
+  required String userId,
+  required String jsonData,
+  Value<String?> memo,
+  Value<int> metaCreatedAt,
+  Value<int> metaUpdatedAt,
+  Value<int> rowid,
+});
+typedef $SettingsTblUpdateCompanionBuilder = SettingsTblCompanion Function({
+  Value<String> userId,
+  Value<String> jsonData,
+  Value<String?> memo,
+  Value<int> metaCreatedAt,
+  Value<int> metaUpdatedAt,
+  Value<int> rowid,
+});
+
+class $SettingsTblFilterComposer extends Composer<_$Database, SettingsTbl> {
+  $SettingsTblFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get jsonData => $composableBuilder(
+      column: $table.jsonData, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get memo => $composableBuilder(
+      column: $table.memo, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get metaCreatedAt => $composableBuilder(
+      column: $table.metaCreatedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get metaUpdatedAt => $composableBuilder(
+      column: $table.metaUpdatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $SettingsTblOrderingComposer extends Composer<_$Database, SettingsTbl> {
+  $SettingsTblOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get jsonData => $composableBuilder(
+      column: $table.jsonData, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get memo => $composableBuilder(
+      column: $table.memo, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get metaCreatedAt => $composableBuilder(
+      column: $table.metaCreatedAt,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get metaUpdatedAt => $composableBuilder(
+      column: $table.metaUpdatedAt,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $SettingsTblAnnotationComposer extends Composer<_$Database, SettingsTbl> {
+  $SettingsTblAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get jsonData =>
+      $composableBuilder(column: $table.jsonData, builder: (column) => column);
+
+  GeneratedColumn<String> get memo =>
+      $composableBuilder(column: $table.memo, builder: (column) => column);
+
+  GeneratedColumn<int> get metaCreatedAt => $composableBuilder(
+      column: $table.metaCreatedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get metaUpdatedAt => $composableBuilder(
+      column: $table.metaUpdatedAt, builder: (column) => column);
+}
+
+class $SettingsTblTableManager extends RootTableManager<
+    _$Database,
+    SettingsTbl,
+    SettingsTblData,
+    $SettingsTblFilterComposer,
+    $SettingsTblOrderingComposer,
+    $SettingsTblAnnotationComposer,
+    $SettingsTblCreateCompanionBuilder,
+    $SettingsTblUpdateCompanionBuilder,
+    (SettingsTblData, BaseReferences<_$Database, SettingsTbl, SettingsTblData>),
+    SettingsTblData,
+    PrefetchHooks Function()> {
+  $SettingsTblTableManager(_$Database db, SettingsTbl table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $SettingsTblFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $SettingsTblOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $SettingsTblAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> userId = const Value.absent(),
+            Value<String> jsonData = const Value.absent(),
+            Value<String?> memo = const Value.absent(),
+            Value<int> metaCreatedAt = const Value.absent(),
+            Value<int> metaUpdatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              SettingsTblCompanion(
+            userId: userId,
+            jsonData: jsonData,
+            memo: memo,
+            metaCreatedAt: metaCreatedAt,
+            metaUpdatedAt: metaUpdatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String userId,
+            required String jsonData,
+            Value<String?> memo = const Value.absent(),
+            Value<int> metaCreatedAt = const Value.absent(),
+            Value<int> metaUpdatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              SettingsTblCompanion.insert(
+            userId: userId,
+            jsonData: jsonData,
+            memo: memo,
+            metaCreatedAt: metaCreatedAt,
+            metaUpdatedAt: metaUpdatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $SettingsTblProcessedTableManager = ProcessedTableManager<
+    _$Database,
+    SettingsTbl,
+    SettingsTblData,
+    $SettingsTblFilterComposer,
+    $SettingsTblOrderingComposer,
+    $SettingsTblAnnotationComposer,
+    $SettingsTblCreateCompanionBuilder,
+    $SettingsTblUpdateCompanionBuilder,
+    (SettingsTblData, BaseReferences<_$Database, SettingsTbl, SettingsTblData>),
+    SettingsTblData,
+    PrefetchHooks Function()>;
+typedef $LogTblCreateCompanionBuilder = LogTblCompanion Function({
+  Value<int> id,
+  Value<int> time,
+  required int level,
+  required String message,
+  Value<String?> stack,
+});
+typedef $LogTblUpdateCompanionBuilder = LogTblCompanion Function({
+  Value<int> id,
+  Value<int> time,
+  Value<int> level,
+  Value<String> message,
+  Value<String?> stack,
+});
+
+class $LogTblFilterComposer extends Composer<_$Database, LogTbl> {
+  $LogTblFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get time => $composableBuilder(
+      column: $table.time, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get level => $composableBuilder(
+      column: $table.level, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get message => $composableBuilder(
+      column: $table.message, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get stack => $composableBuilder(
+      column: $table.stack, builder: (column) => ColumnFilters(column));
+}
+
+class $LogTblOrderingComposer extends Composer<_$Database, LogTbl> {
+  $LogTblOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get time => $composableBuilder(
+      column: $table.time, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get level => $composableBuilder(
+      column: $table.level, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get message => $composableBuilder(
+      column: $table.message, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get stack => $composableBuilder(
+      column: $table.stack, builder: (column) => ColumnOrderings(column));
+}
+
+class $LogTblAnnotationComposer extends Composer<_$Database, LogTbl> {
+  $LogTblAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get time =>
+      $composableBuilder(column: $table.time, builder: (column) => column);
+
+  GeneratedColumn<int> get level =>
+      $composableBuilder(column: $table.level, builder: (column) => column);
+
+  GeneratedColumn<String> get message =>
+      $composableBuilder(column: $table.message, builder: (column) => column);
+
+  GeneratedColumn<String> get stack =>
+      $composableBuilder(column: $table.stack, builder: (column) => column);
+}
+
+class $LogTblTableManager extends RootTableManager<
+    _$Database,
+    LogTbl,
+    LogTblData,
+    $LogTblFilterComposer,
+    $LogTblOrderingComposer,
+    $LogTblAnnotationComposer,
+    $LogTblCreateCompanionBuilder,
+    $LogTblUpdateCompanionBuilder,
+    (LogTblData, BaseReferences<_$Database, LogTbl, LogTblData>),
+    LogTblData,
+    PrefetchHooks Function()> {
+  $LogTblTableManager(_$Database db, LogTbl table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $LogTblFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $LogTblOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $LogTblAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> time = const Value.absent(),
+            Value<int> level = const Value.absent(),
+            Value<String> message = const Value.absent(),
+            Value<String?> stack = const Value.absent(),
+          }) =>
+              LogTblCompanion(
+            id: id,
+            time: time,
+            level: level,
+            message: message,
+            stack: stack,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> time = const Value.absent(),
+            required int level,
+            required String message,
+            Value<String?> stack = const Value.absent(),
+          }) =>
+              LogTblCompanion.insert(
+            id: id,
+            time: time,
+            level: level,
+            message: message,
+            stack: stack,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $LogTblProcessedTableManager = ProcessedTableManager<
+    _$Database,
+    LogTbl,
+    LogTblData,
+    $LogTblFilterComposer,
+    $LogTblOrderingComposer,
+    $LogTblAnnotationComposer,
+    $LogTblCreateCompanionBuilder,
+    $LogTblUpdateCompanionBuilder,
+    (LogTblData, BaseReferences<_$Database, LogTbl, LogTblData>),
+    LogTblData,
+    PrefetchHooks Function()>;
+typedef $LogPrefixTblCreateCompanionBuilder = LogPrefixTblCompanion Function({
+  required String prefix,
+  required int logId,
+  required String word,
+  required int len,
+  Value<int> rowid,
+});
+typedef $LogPrefixTblUpdateCompanionBuilder = LogPrefixTblCompanion Function({
+  Value<String> prefix,
+  Value<int> logId,
+  Value<String> word,
+  Value<int> len,
+  Value<int> rowid,
+});
+
+class $LogPrefixTblFilterComposer extends Composer<_$Database, LogPrefixTbl> {
+  $LogPrefixTblFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get prefix => $composableBuilder(
+      column: $table.prefix, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get logId => $composableBuilder(
+      column: $table.logId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get word => $composableBuilder(
+      column: $table.word, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get len => $composableBuilder(
+      column: $table.len, builder: (column) => ColumnFilters(column));
+}
+
+class $LogPrefixTblOrderingComposer extends Composer<_$Database, LogPrefixTbl> {
+  $LogPrefixTblOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get prefix => $composableBuilder(
+      column: $table.prefix, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get logId => $composableBuilder(
+      column: $table.logId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get word => $composableBuilder(
+      column: $table.word, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get len => $composableBuilder(
+      column: $table.len, builder: (column) => ColumnOrderings(column));
+}
+
+class $LogPrefixTblAnnotationComposer
+    extends Composer<_$Database, LogPrefixTbl> {
+  $LogPrefixTblAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get prefix =>
+      $composableBuilder(column: $table.prefix, builder: (column) => column);
+
+  GeneratedColumn<int> get logId =>
+      $composableBuilder(column: $table.logId, builder: (column) => column);
+
+  GeneratedColumn<String> get word =>
+      $composableBuilder(column: $table.word, builder: (column) => column);
+
+  GeneratedColumn<int> get len =>
+      $composableBuilder(column: $table.len, builder: (column) => column);
+}
+
+class $LogPrefixTblTableManager extends RootTableManager<
+    _$Database,
+    LogPrefixTbl,
+    LogPrefixTblData,
+    $LogPrefixTblFilterComposer,
+    $LogPrefixTblOrderingComposer,
+    $LogPrefixTblAnnotationComposer,
+    $LogPrefixTblCreateCompanionBuilder,
+    $LogPrefixTblUpdateCompanionBuilder,
+    (
+      LogPrefixTblData,
+      BaseReferences<_$Database, LogPrefixTbl, LogPrefixTblData>
     ),
-    WritePropagation(
-      on: TableUpdateQuery.onTableName('log_tbl', limitUpdateKind: UpdateKind.delete),
-      result: [TableUpdate('log_prefix_tbl', kind: UpdateKind.delete)],
+    LogPrefixTblData,
+    PrefetchHooks Function()> {
+  $LogPrefixTblTableManager(_$Database db, LogPrefixTbl table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $LogPrefixTblFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $LogPrefixTblOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $LogPrefixTblAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> prefix = const Value.absent(),
+            Value<int> logId = const Value.absent(),
+            Value<String> word = const Value.absent(),
+            Value<int> len = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              LogPrefixTblCompanion(
+            prefix: prefix,
+            logId: logId,
+            word: word,
+            len: len,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String prefix,
+            required int logId,
+            required String word,
+            required int len,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              LogPrefixTblCompanion.insert(
+            prefix: prefix,
+            logId: logId,
+            word: word,
+            len: len,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $LogPrefixTblProcessedTableManager = ProcessedTableManager<
+    _$Database,
+    LogPrefixTbl,
+    LogPrefixTblData,
+    $LogPrefixTblFilterComposer,
+    $LogPrefixTblOrderingComposer,
+    $LogPrefixTblAnnotationComposer,
+    $LogPrefixTblCreateCompanionBuilder,
+    $LogPrefixTblUpdateCompanionBuilder,
+    (
+      LogPrefixTblData,
+      BaseReferences<_$Database, LogPrefixTbl, LogPrefixTblData>
     ),
-    WritePropagation(
-      on: TableUpdateQuery.onTableName('log_tbl', limitUpdateKind: UpdateKind.update),
-      result: [TableUpdate('log_prefix_tbl', kind: UpdateKind.update)],
+    LogPrefixTblData,
+    PrefetchHooks Function()>;
+typedef $CharacteristicTblCreateCompanionBuilder = CharacteristicTblCompanion
+    Function({
+  required String type,
+  required int id,
+  required String data,
+  Value<int> metaCreatedAt,
+  Value<int> metaUpdatedAt,
+  Value<int> rowid,
+});
+typedef $CharacteristicTblUpdateCompanionBuilder = CharacteristicTblCompanion
+    Function({
+  Value<String> type,
+  Value<int> id,
+  Value<String> data,
+  Value<int> metaCreatedAt,
+  Value<int> metaUpdatedAt,
+  Value<int> rowid,
+});
+
+class $CharacteristicTblFilterComposer
+    extends Composer<_$Database, CharacteristicTbl> {
+  $CharacteristicTblFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get type => $composableBuilder(
+      column: $table.type, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get data => $composableBuilder(
+      column: $table.data, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get metaCreatedAt => $composableBuilder(
+      column: $table.metaCreatedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get metaUpdatedAt => $composableBuilder(
+      column: $table.metaUpdatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $CharacteristicTblOrderingComposer
+    extends Composer<_$Database, CharacteristicTbl> {
+  $CharacteristicTblOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get type => $composableBuilder(
+      column: $table.type, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get data => $composableBuilder(
+      column: $table.data, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get metaCreatedAt => $composableBuilder(
+      column: $table.metaCreatedAt,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get metaUpdatedAt => $composableBuilder(
+      column: $table.metaUpdatedAt,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $CharacteristicTblAnnotationComposer
+    extends Composer<_$Database, CharacteristicTbl> {
+  $CharacteristicTblAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => column);
+
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get data =>
+      $composableBuilder(column: $table.data, builder: (column) => column);
+
+  GeneratedColumn<int> get metaCreatedAt => $composableBuilder(
+      column: $table.metaCreatedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get metaUpdatedAt => $composableBuilder(
+      column: $table.metaUpdatedAt, builder: (column) => column);
+}
+
+class $CharacteristicTblTableManager extends RootTableManager<
+    _$Database,
+    CharacteristicTbl,
+    CharacteristicTblData,
+    $CharacteristicTblFilterComposer,
+    $CharacteristicTblOrderingComposer,
+    $CharacteristicTblAnnotationComposer,
+    $CharacteristicTblCreateCompanionBuilder,
+    $CharacteristicTblUpdateCompanionBuilder,
+    (
+      CharacteristicTblData,
+      BaseReferences<_$Database, CharacteristicTbl, CharacteristicTblData>
     ),
-    WritePropagation(
-      on: TableUpdateQuery.onTableName('characteristic_tbl', limitUpdateKind: UpdateKind.update),
-      result: [TableUpdate('characteristic_tbl', kind: UpdateKind.update)],
+    CharacteristicTblData,
+    PrefetchHooks Function()> {
+  $CharacteristicTblTableManager(_$Database db, CharacteristicTbl table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $CharacteristicTblFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $CharacteristicTblOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $CharacteristicTblAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> type = const Value.absent(),
+            Value<int> id = const Value.absent(),
+            Value<String> data = const Value.absent(),
+            Value<int> metaCreatedAt = const Value.absent(),
+            Value<int> metaUpdatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              CharacteristicTblCompanion(
+            type: type,
+            id: id,
+            data: data,
+            metaCreatedAt: metaCreatedAt,
+            metaUpdatedAt: metaUpdatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String type,
+            required int id,
+            required String data,
+            Value<int> metaCreatedAt = const Value.absent(),
+            Value<int> metaUpdatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              CharacteristicTblCompanion.insert(
+            type: type,
+            id: id,
+            data: data,
+            metaCreatedAt: metaCreatedAt,
+            metaUpdatedAt: metaUpdatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $CharacteristicTblProcessedTableManager = ProcessedTableManager<
+    _$Database,
+    CharacteristicTbl,
+    CharacteristicTblData,
+    $CharacteristicTblFilterComposer,
+    $CharacteristicTblOrderingComposer,
+    $CharacteristicTblAnnotationComposer,
+    $CharacteristicTblCreateCompanionBuilder,
+    $CharacteristicTblUpdateCompanionBuilder,
+    (
+      CharacteristicTblData,
+      BaseReferences<_$Database, CharacteristicTbl, CharacteristicTblData>
     ),
-    WritePropagation(
-      on: TableUpdateQuery.onTableName('kv_tbl', limitUpdateKind: UpdateKind.update),
-      result: [TableUpdate('kv_tbl', kind: UpdateKind.update)],
-    ),
-  ]);
+    CharacteristicTblData,
+    PrefetchHooks Function()>;
+typedef $KvTblCreateCompanionBuilder = KvTblCompanion Function({
+  required String k,
+  Value<String?> vstring,
+  Value<int?> vint,
+  Value<double?> vdouble,
+  Value<int?> vbool,
+  Value<int> metaCreatedAt,
+  Value<int> metaUpdatedAt,
+  Value<int> rowid,
+});
+typedef $KvTblUpdateCompanionBuilder = KvTblCompanion Function({
+  Value<String> k,
+  Value<String?> vstring,
+  Value<int?> vint,
+  Value<double?> vdouble,
+  Value<int?> vbool,
+  Value<int> metaCreatedAt,
+  Value<int> metaUpdatedAt,
+  Value<int> rowid,
+});
+
+class $KvTblFilterComposer extends Composer<_$Database, KvTbl> {
+  $KvTblFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get k => $composableBuilder(
+      column: $table.k, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get vstring => $composableBuilder(
+      column: $table.vstring, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get vint => $composableBuilder(
+      column: $table.vint, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get vdouble => $composableBuilder(
+      column: $table.vdouble, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get vbool => $composableBuilder(
+      column: $table.vbool, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get metaCreatedAt => $composableBuilder(
+      column: $table.metaCreatedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get metaUpdatedAt => $composableBuilder(
+      column: $table.metaUpdatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $KvTblOrderingComposer extends Composer<_$Database, KvTbl> {
+  $KvTblOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get k => $composableBuilder(
+      column: $table.k, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get vstring => $composableBuilder(
+      column: $table.vstring, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get vint => $composableBuilder(
+      column: $table.vint, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get vdouble => $composableBuilder(
+      column: $table.vdouble, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get vbool => $composableBuilder(
+      column: $table.vbool, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get metaCreatedAt => $composableBuilder(
+      column: $table.metaCreatedAt,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get metaUpdatedAt => $composableBuilder(
+      column: $table.metaUpdatedAt,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $KvTblAnnotationComposer extends Composer<_$Database, KvTbl> {
+  $KvTblAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get k =>
+      $composableBuilder(column: $table.k, builder: (column) => column);
+
+  GeneratedColumn<String> get vstring =>
+      $composableBuilder(column: $table.vstring, builder: (column) => column);
+
+  GeneratedColumn<int> get vint =>
+      $composableBuilder(column: $table.vint, builder: (column) => column);
+
+  GeneratedColumn<double> get vdouble =>
+      $composableBuilder(column: $table.vdouble, builder: (column) => column);
+
+  GeneratedColumn<int> get vbool =>
+      $composableBuilder(column: $table.vbool, builder: (column) => column);
+
+  GeneratedColumn<int> get metaCreatedAt => $composableBuilder(
+      column: $table.metaCreatedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get metaUpdatedAt => $composableBuilder(
+      column: $table.metaUpdatedAt, builder: (column) => column);
+}
+
+class $KvTblTableManager extends RootTableManager<
+    _$Database,
+    KvTbl,
+    KvTblData,
+    $KvTblFilterComposer,
+    $KvTblOrderingComposer,
+    $KvTblAnnotationComposer,
+    $KvTblCreateCompanionBuilder,
+    $KvTblUpdateCompanionBuilder,
+    (KvTblData, BaseReferences<_$Database, KvTbl, KvTblData>),
+    KvTblData,
+    PrefetchHooks Function()> {
+  $KvTblTableManager(_$Database db, KvTbl table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $KvTblFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $KvTblOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $KvTblAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> k = const Value.absent(),
+            Value<String?> vstring = const Value.absent(),
+            Value<int?> vint = const Value.absent(),
+            Value<double?> vdouble = const Value.absent(),
+            Value<int?> vbool = const Value.absent(),
+            Value<int> metaCreatedAt = const Value.absent(),
+            Value<int> metaUpdatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              KvTblCompanion(
+            k: k,
+            vstring: vstring,
+            vint: vint,
+            vdouble: vdouble,
+            vbool: vbool,
+            metaCreatedAt: metaCreatedAt,
+            metaUpdatedAt: metaUpdatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String k,
+            Value<String?> vstring = const Value.absent(),
+            Value<int?> vint = const Value.absent(),
+            Value<double?> vdouble = const Value.absent(),
+            Value<int?> vbool = const Value.absent(),
+            Value<int> metaCreatedAt = const Value.absent(),
+            Value<int> metaUpdatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              KvTblCompanion.insert(
+            k: k,
+            vstring: vstring,
+            vint: vint,
+            vdouble: vdouble,
+            vbool: vbool,
+            metaCreatedAt: metaCreatedAt,
+            metaUpdatedAt: metaUpdatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $KvTblProcessedTableManager = ProcessedTableManager<
+    _$Database,
+    KvTbl,
+    KvTblData,
+    $KvTblFilterComposer,
+    $KvTblOrderingComposer,
+    $KvTblAnnotationComposer,
+    $KvTblCreateCompanionBuilder,
+    $KvTblUpdateCompanionBuilder,
+    (KvTblData, BaseReferences<_$Database, KvTbl, KvTblData>),
+    KvTblData,
+    PrefetchHooks Function()>;
+
+class $DatabaseManager {
+  final _$Database _db;
+  $DatabaseManager(this._db);
+  $SettingsTblTableManager get settingsTbl =>
+      $SettingsTblTableManager(_db, _db.settingsTbl);
+  $LogTblTableManager get logTbl => $LogTblTableManager(_db, _db.logTbl);
+  $LogPrefixTblTableManager get logPrefixTbl =>
+      $LogPrefixTblTableManager(_db, _db.logPrefixTbl);
+  $CharacteristicTblTableManager get characteristicTbl =>
+      $CharacteristicTblTableManager(_db, _db.characteristicTbl);
+  $KvTblTableManager get kvTbl => $KvTblTableManager(_db, _db.kvTbl);
 }

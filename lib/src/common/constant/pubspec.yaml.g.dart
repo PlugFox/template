@@ -14,7 +14,7 @@ library pubspec;
 
   MIT License
 
-  Copyright (c) 2024 Plague Fox
+  Copyright (c) 2025 Plague Fox
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -44,16 +44,15 @@ library pubspec;
 ///
 /// Additional labels for pre-release and build metadata are available
 /// as extensions to the MAJOR.MINOR.PATCH format.
-typedef PubspecVersion =
-    ({
-      String representation,
-      String canonical,
-      int major,
-      int minor,
-      int patch,
-      List<String> preRelease,
-      List<String> build,
-    });
+typedef PubspecVersion = ({
+  String representation,
+  String canonical,
+  int major,
+  int minor,
+  int patch,
+  List<String> preRelease,
+  List<String> build
+});
 
 /// # The pubspec file
 ///
@@ -123,7 +122,16 @@ sealed class Pubspec {
   );
 
   /// Build date and time (UTC)
-  static final DateTime timestamp = DateTime.utc(2024, 10, 8, 9, 8, 49, 803, 983);
+  static final DateTime timestamp = DateTime.utc(
+    2025,
+    2,
+    20,
+    13,
+    19,
+    26,
+    21,
+    187,
+  );
 
   /// Name
   ///
@@ -339,7 +347,10 @@ sealed class Pubspec {
   static const List<Object> topics = <Object>[];
 
   /// Environment
-  static const Map<String, String> environment = <String, String>{'sdk': '>=3.3.0 <4.0.0', 'flutter': '>=3.3.0 <4.0.0'};
+  static const Map<String, String> environment = <String, String>{
+    'sdk': '>=3.7.0 <4.0.0',
+    'flutter': '>=3.7.0 <4.0.0',
+  };
 
   /// Platforms
   ///
@@ -398,46 +409,56 @@ sealed class Pubspec {
   /// For more information,
   /// see [Package dependencies](https://dart.dev/tools/pub/dependencies).
   static const Map<String, Object> dependencies = <String, Object>{
-    'flutter': <String, Object>{'sdk': r'flutter'},
-    'flutter_localizations': <String, Object>{'sdk': r'flutter'},
+    'flutter': <String, Object>{
+      'sdk': r'flutter',
+    },
+    'flutter_localizations': <String, Object>{
+      'sdk': r'flutter',
+    },
     'intl': r'any',
-    'octopus': r'^0.0.8',
+    'octopus': r'^0.0.9',
     'meta': r'any',
-    'json_annotation': r'^4.8.1',
+    'json_annotation': r'^4.9.0',
     'collection': r'any',
     'async': r'any',
     'path': r'any',
     'convert': r'any',
-    'path_provider': r'^2.1.2',
-    'platform_info': r'^4.0.2',
-    'rxdart': r'^0.28.0-dev.0',
-    'url_launcher': r'^6.2.2',
-    'money2': r'^4.0.0',
-    'l': r'^5.0.0-pre.2',
-    'win32': r'^5.4.0',
-    'window_manager': r'^0.3.8',
-    'control': r'^0.1.0',
-    'shared_preferences': r'^2.2.2',
-    'drift': r'^2.16.0',
-    'sqlite3_flutter_libs': r'^0.5.20',
-    'dio': r'^5.4.2+1',
-    'dio_smart_retry': r'^6.0.0',
-    'cupertino_icons': r'^1.0.5',
-    'drift_db_viewer': r'^2.0.0',
+    'path_provider': r'^2.1.5',
+    'platform_info': r'^5.0.0',
+    'rxdart': r'^0.28.0',
+    'url_launcher': r'^6.3.1',
+    'l': r'^5.0.0',
+    'win32': r'^5.11.0',
+    'window_manager': r'^0.4.3',
+    'control': r'^0.2.0',
+    'shared_preferences': r'^2.5.2',
+    'drift': r'^2.25.1',
+    'sqlite3_flutter_libs': r'^0.5.30',
+    'http': r'^1.3.0',
+    'cupertino_icons': r'^1.0.8',
+    'web': r'^1.1.0',
+    'ui': <String, Object>{
+      'path': r'./packages/ui',
+    },
   };
 
   /// Developer dependencies
   static const Map<String, Object> devDependencies = <String, Object>{
-    'flutter_test': <String, Object>{'sdk': r'flutter'},
-    'integration_test': <String, Object>{'sdk': r'flutter'},
-    'flutter_lints': r'^3.0.2',
-    'build_runner': r'^2.4.6',
-    'drift_dev': r'^2.16.0',
+    'flutter_test': <String, Object>{
+      'sdk': r'flutter',
+    },
+    'integration_test': <String, Object>{
+      'sdk': r'flutter',
+    },
+    'flutter_lints': r'^5.0.0',
+    'test': r'any',
+    'build_runner': r'^2.4.15',
+    'drift_dev': r'^2.25.2',
     'pubspec_generator': r'^4.1.0-pre.1',
-    'flutter_gen_runner': r'^5.3.2',
-    'json_serializable': r'^6.7.1',
-    'flutter_launcher_icons': r'^0.13.1',
-    'flutter_native_splash': r'^2.4.0',
+    'flutter_gen_runner': r'^5.9.0',
+    'json_serializable': r'^6.9.4',
+    'flutter_launcher_icons': r'^0.14.3',
+    'flutter_native_splash': r'^2.4.5',
   };
 
   /// Dependency overrides
@@ -492,11 +513,18 @@ sealed class Pubspec {
     'dependencies': dependencies,
     'dev_dependencies': devDependencies,
     'dependency_overrides': dependencyOverrides,
+    'workspace': <Object>[
+      r'packages/ui',
+    ],
     'flutter': <String, Object>{
       'generate': true,
       'uses-material-design': true,
-      'shaders': <Object>[r'assets/shaders/shimmer.frag'],
-      'assets': <Object>[r'assets/icons/'],
+      'shaders': <Object>[
+        r'packages/ui/shaders/shimmer.frag',
+      ],
+      'assets': <Object>[
+        r'assets/icons/',
+      ],
     },
     'flutter_intl': <String, Object>{
       'enabled': true,
@@ -506,6 +534,10 @@ sealed class Pubspec {
       'output_dir': r'lib/src/common/localization/generated',
       'use_deferred_loading': false,
     },
-    'flutter_gen': <String, Object>{'output': r'lib/src/common/constant/', 'line_length': 120},
+    'flutter_gen': <String, Object>{
+      'output': r'lib/src/common/constant/',
+      'line_length': 120,
+    },
   };
+
 }
