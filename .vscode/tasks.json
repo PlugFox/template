@@ -157,6 +157,68 @@
       }
     },
     {
+      "label": "flutter:pub:outdated",
+      "detail": "Check for outdated dependencies",
+      "icon": {
+        "color": "terminal.ansiGreen",
+        "id": "lightbulb-autofix"
+      },
+      "type": "shell",
+      "command": [
+        "flutter pub outdated --show-all --dev-dependencies --dependency-overrides --transitive --no-prereleases"
+      ],
+      "dependsOn": [],
+      "args": [],
+      "group": {
+        "kind": "none",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": false,
+      "presentation": {
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false,
+        "group": "dart"
+      }
+    },
+    {
+      "label": "flutter:pub:upgrade",
+      "detail": "Upgrade dependencies",
+      "icon": {
+        "color": "terminal.ansiGreen",
+        "id": "lightbulb-autofix"
+      },
+      "type": "shell",
+      "command": [
+        "flutter pub upgrade"
+      ],
+      "dependsOn": [],
+      "args": [],
+      "group": {
+        "kind": "none",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": false,
+      "presentation": {
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false,
+        "group": "dart"
+      }
+    },
+    {
       "label": "flutter:test:all",
       "detail": "Run all tests",
       "icon": {

@@ -19,10 +19,7 @@ final class ControllerObserver implements IControllerObserver {
   @override
   void onHandler(HandlerContext context) {
     final stopwatch = Stopwatch()..start();
-    l.d(
-      'Controller | ${context.controller.name}.${context.name}',
-      context.meta,
-    );
+    l.d('Controller | ${context.controller.name}.${context.name}', context.meta);
     context.done.whenComplete(() {
       stopwatch.stop();
       l.d(
@@ -34,23 +31,14 @@ final class ControllerObserver implements IControllerObserver {
   }
 
   @override
-  void onStateChanged<S extends Object>(
-    StateController<S> controller,
-    S prevState,
-    S nextState,
-  ) {
+  void onStateChanged<S extends Object>(StateController<S> controller, S prevState, S nextState) {
     final context = Controller.context;
     if (context == null) {
       // State change occurred outside of the handler
-      l.d(
-        'StateController | ${controller.name} | $prevState -> $nextState',
-      );
+      l.d('StateController | ${controller.name} | $prevState -> $nextState');
     } else {
       // State change occurred inside the handler
-      l.d(
-        'StateController | ${controller.name}.${context.name} | $prevState -> $nextState',
-        context.meta,
-      );
+      l.d('StateController | ${controller.name}.${context.name} | $prevState -> $nextState', context.meta);
     }
   }
 
@@ -59,17 +47,10 @@ final class ControllerObserver implements IControllerObserver {
     final context = Controller.context;
     if (context == null) {
       // Error occurred outside of the handler
-      l.w(
-        'Controller | ${controller.name} | $error',
-        stackTrace,
-      );
+      l.w('Controller | ${controller.name} | $error', stackTrace);
     } else {
       // Error occurred inside the handler
-      l.w(
-        'Controller | ${controller.name}.${context.name} | $error',
-        stackTrace,
-        context.meta,
-      );
+      l.w('Controller | ${controller.name}.${context.name} | $error', stackTrace, context.meta);
     }
     ErrorUtil.logError(error, stackTrace);
   }

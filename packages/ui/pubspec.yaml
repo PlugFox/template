@@ -13,9 +13,9 @@ resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  intl: any
-  collection: any
-  #google_fonts: ^6.2.1
+  intl:
+  collection:
+  #google_fonts:
 
 dev_dependencies:
   # Test

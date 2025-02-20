@@ -52,10 +52,10 @@ final class _PieChartController with ChangeNotifier {
   static double _lerpDouble(double a, double b, double t) => a * (1.0 - t) + b * t;
 
   /// Linearly interpolate between two integers.
-  static double _lerpInt(int a, int b, double t) => a + (b - a) * t;
+  /* static double _lerpInt(int a, int b, double t) => a + (b - a) * t; */
 
   /// Same as [num.clamp] but specialized for non-null [int].
-  static int _clampInt(int value, int min, int max) {
+  /* static int _clampInt(int value, int min, int max) {
     if (value < min) {
       return min;
     } else if (value > max) {
@@ -63,27 +63,15 @@ final class _PieChartController with ChangeNotifier {
     } else {
       return value;
     }
-  }
+  } */
 
   /// Linearly interpolate between two colors.
-  static Color _lerpColor(Color a, Color b, double t) {
-    final aA = (a.toARGB32() >> 24) & 0xFF;
-    final aR = (a.toARGB32() >> 16) & 0xFF;
-    final aG = (a.toARGB32() >> 8) & 0xFF;
-    final aB = a.toARGB32() & 0xFF;
-
-    final bA = (b.toARGB32() >> 24) & 0xFF;
-    final bR = (b.toARGB32() >> 16) & 0xFF;
-    final bG = (b.toARGB32() >> 8) & 0xFF;
-    final bB = b.toARGB32() & 0xFF;
-
-    return Color.fromARGB(
-      _clampInt(_lerpInt(aA, bA, t).toInt(), 0, 255),
-      _clampInt(_lerpInt(aR, bR, t).toInt(), 0, 255),
-      _clampInt(_lerpInt(aG, bG, t).toInt(), 0, 255),
-      _clampInt(_lerpInt(aB, bB, t).toInt(), 0, 255),
-    );
-  }
+  static Color _lerpColor(Color a, Color b, double t) => Color.fromARGB(
+    (_lerpDouble(a.a, b.a, t) * 255).clamp(0, 255).toInt(),
+    (_lerpDouble(a.r, b.r, t) * 255).clamp(0, 255).toInt(),
+    (_lerpDouble(a.g, b.g, t) * 255).clamp(0, 255).toInt(),
+    (_lerpDouble(a.b, b.b, t) * 255).clamp(0, 255).toInt(),
+  );
 
   final Map<String, PieChartItem> _from = <String, PieChartItem>{};
   final Map<String, PieChartItem> _to = <String, PieChartItem>{};
