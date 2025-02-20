@@ -179,12 +179,12 @@ class _ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) => Align(
-    alignment: widget.alignment,
-    child: SizedBox.fromSize(
-      size: widget.size,
-      child: CustomPaint(size: widget.size, painter: _painter, willChange: true),
-    ),
-  );
+        alignment: widget.alignment,
+        child: SizedBox.fromSize(
+          size: widget.size,
+          child: CustomPaint(size: widget.size, painter: _painter, willChange: true),
+        ),
+      );
 }
 
 class _ShimmerPainter extends CustomPainter {
@@ -213,20 +213,19 @@ class _ShimmerPainter extends CustomPainter {
       final color = widget.color ?? theme.colorScheme.primary;
       final seed = widget.initialSeed + elapsed.inMicroseconds * widget.speed;
       final backgroundColor = widget.backgroundColor ?? theme.colorScheme.surface;
-      paint.shader =
-          shader
-            ..setFloat(0, size.width)
-            ..setFloat(1, size.height)
-            ..setFloat(2, seed)
-            ..setFloat(3, color.r)
-            ..setFloat(4, color.g)
-            ..setFloat(5, color.b)
-            ..setFloat(6, color.a)
-            ..setFloat(7, backgroundColor.r)
-            ..setFloat(8, backgroundColor.g)
-            ..setFloat(9, backgroundColor.b)
-            ..setFloat(10, backgroundColor.a)
-            ..setFloat(11, widget.stripeWidth);
+      paint.shader = shader
+        ..setFloat(0, size.width)
+        ..setFloat(1, size.height)
+        ..setFloat(2, seed)
+        ..setFloat(3, color.r)
+        ..setFloat(4, color.g)
+        ..setFloat(5, color.b)
+        ..setFloat(6, color.a)
+        ..setFloat(7, backgroundColor.r)
+        ..setFloat(8, backgroundColor.g)
+        ..setFloat(9, backgroundColor.b)
+        ..setFloat(10, backgroundColor.a)
+        ..setFloat(11, widget.stripeWidth);
       canvas
         ..clipRRect(RRect.fromRectAndRadius(rect, Radius.circular(widget.cornerRadius)))
         ..drawRect(rect, paint);

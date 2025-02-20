@@ -67,11 +67,11 @@ final class _PieChartController with ChangeNotifier {
 
   /// Linearly interpolate between two colors.
   static Color _lerpColor(Color a, Color b, double t) => Color.fromARGB(
-    (_lerpDouble(a.a, b.a, t) * 255).clamp(0, 255).toInt(),
-    (_lerpDouble(a.r, b.r, t) * 255).clamp(0, 255).toInt(),
-    (_lerpDouble(a.g, b.g, t) * 255).clamp(0, 255).toInt(),
-    (_lerpDouble(a.b, b.b, t) * 255).clamp(0, 255).toInt(),
-  );
+        (_lerpDouble(a.a, b.a, t) * 255).clamp(0, 255).toInt(),
+        (_lerpDouble(a.r, b.r, t) * 255).clamp(0, 255).toInt(),
+        (_lerpDouble(a.g, b.g, t) * 255).clamp(0, 255).toInt(),
+        (_lerpDouble(a.b, b.b, t) * 255).clamp(0, 255).toInt(),
+      );
 
   final Map<String, PieChartItem> _from = <String, PieChartItem>{};
   final Map<String, PieChartItem> _to = <String, PieChartItem>{};
@@ -311,11 +311,11 @@ class _PieChartState extends State<PieChart> with SingleTickerProviderStateMixin
 
   /// Fit the child into a square box.
   static Widget _fit({required Widget child, required double diameter}) => FittedBox(
-    alignment: Alignment.center,
-    fit: BoxFit.contain,
-    clipBehavior: Clip.none,
-    child: SizedBox.square(dimension: diameter, child: child),
-  );
+        alignment: Alignment.center,
+        fit: BoxFit.contain,
+        clipBehavior: Clip.none,
+        child: SizedBox.square(dimension: diameter, child: child),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -340,7 +340,7 @@ class _PieChartState extends State<PieChart> with SingleTickerProviderStateMixin
 
 class _PieChartPainter extends CustomPainter {
   _PieChartPainter({required this.controller, required this.configuration, required this.theme})
-    : super(repaint: Listenable.merge([controller, configuration, theme]));
+      : super(repaint: Listenable.merge([controller, configuration, theme]));
 
   /// Controller for the pie chart state and animation.
   final _PieChartController controller;
@@ -442,31 +442,28 @@ class _PieChartPainter extends CustomPainter {
       if (sweepAngle <= 0) continue;
 
       paint
-        ..style =
-            PaintingStyle
-                .fill // Fill the section
+        ..style = PaintingStyle.fill // Fill the section
         ..color = item.color; // Set the color of the section
 
       // Draw the pie chart section
-      var sectionPath =
-          Path()
-            ..addArc(
-              Rect.fromCircle(center: center, radius: innerRadius),
-              startAngle + gap / 2, // Move the start angle by half the gap size
-              sweepAngle,
-            )
-            ..lineTo(
-              center.dx + math.cos(startAngle + sweepAngle) * radius,
-              center.dy + math.sin(startAngle + sweepAngle) * radius,
-            )
-            ..arcTo(
-              Rect.fromCircle(center: center, radius: radius),
-              startAngle + sweepAngle - gap / 2, // Move the start angle by half the gap size
-              -sweepAngle,
-              false,
-            )
-            ..lineTo(center.dx + math.cos(startAngle) * innerRadius, center.dy + math.sin(startAngle) * innerRadius)
-            ..close();
+      var sectionPath = Path()
+        ..addArc(
+          Rect.fromCircle(center: center, radius: innerRadius),
+          startAngle + gap / 2, // Move the start angle by half the gap size
+          sweepAngle,
+        )
+        ..lineTo(
+          center.dx + math.cos(startAngle + sweepAngle) * radius,
+          center.dy + math.sin(startAngle + sweepAngle) * radius,
+        )
+        ..arcTo(
+          Rect.fromCircle(center: center, radius: radius),
+          startAngle + sweepAngle - gap / 2, // Move the start angle by half the gap size
+          -sweepAngle,
+          false,
+        )
+        ..lineTo(center.dx + math.cos(startAngle) * innerRadius, center.dy + math.sin(startAngle) * innerRadius)
+        ..close();
 
       canvas.drawPath(sectionPath, paint);
       _sections.add((path: sectionPath, item: item));
@@ -475,8 +472,7 @@ class _PieChartPainter extends CustomPainter {
 
       //final sectionCenter = sectionPath.getBounds().center;
       final textRadius = innerRadius + strokeWidth / 2; // Midpoint of the section
-      final sectionCenter =
-          center +
+      final sectionCenter = center +
           Offset(
             math.cos(startAngle + sweepAngle / 2) * textRadius,
             math.sin(startAngle + sweepAngle / 2) * textRadius,
