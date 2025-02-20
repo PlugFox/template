@@ -1,20 +1,18 @@
 import 'dart:async';
 
 import 'package:l/l.dart';
+import 'package:platform_info/platform_info.dart';
 
 /// Catch all application errors and logs.
 void appZone(FutureOr<void> Function() fn) => l.capture<void>(
-      () => runZonedGuarded<void>(
-        () => fn(),
-        l.e,
-      ),
-      const LogOptions(
-        handlePrint: true,
-        messageFormatting: _messageFormatting,
-        outputInRelease: false,
-        printColors: true,
-      ),
-    );
+  () => runZonedGuarded<void>(() => fn(), l.e),
+  LogOptions(
+    messageFormatting: _messageFormatting,
+    handlePrint: true,
+    outputInRelease: false,
+    printColors: !platform.iOS, //? Remove when iOS will supports ANSI colors in console.
+  ),
+);
 
 /// Formats the log message.
 Object _messageFormatting(LogMessage log) => '${_timeFormat(log.timestamp)} | ${log.message}';

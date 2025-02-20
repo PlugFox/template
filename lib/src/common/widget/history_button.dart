@@ -9,7 +9,7 @@ import 'package:octopus/octopus.dart';
 class HistoryButton extends StatefulWidget {
   /// {@macro history_button}
   const HistoryButton({
-    super.key, // ignore: unused_element
+    super.key, // ignore: unused_element_parameter
   });
 
   @override
@@ -68,7 +68,7 @@ class _HistoryButtonState extends State<HistoryButton> {
 class _HistorySearchWidget extends StatefulWidget {
   const _HistorySearchWidget({
     required this.controller,
-    super.key, // ignore: unused_element
+    super.key, // ignore: unused_element_parameter
   });
 
   final OverlayPortalController controller;

@@ -1,11 +1,14 @@
 name: ui
 description: Shared UI Components, Widgets, Fonts, Colors and Theme
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.0
 
 environment:
-  sdk: '>=3.5.0 <4.0.0'
-  flutter: ">=3.24.3"
+  sdk: '>=3.7.0 <4.0.0'
+  flutter: ">=3.29.0"
+
+# https://dart.dev/tools/pub/workspaces
+resolution: workspace
 
 dependencies:
   flutter:

@@ -12,7 +12,7 @@ class OutlinedText extends StatelessWidget {
     this.fillColor,
     this.strokeColor,
     this.maxLines = 1,
-    super.key, // ignore: unused_element
+    super.key, // ignore: unused_element_parameter
   });
 
   final String text;

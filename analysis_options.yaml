@@ -154,7 +154,7 @@ linter:
     unnecessary_statements: true
     unnecessary_string_escapes: true
     unnecessary_string_interpolations: true
-    unsafe_html: true
+    # unsafe_html: true
     use_full_hex_values_for_flutter_colors: true
     use_raw_strings: true
     use_string_buffers: true
@@ -209,7 +209,7 @@ linter:
     non_constant_identifier_names: true
     constant_identifier_names: true
     directives_ordering: true
-    package_api_docs: true
+    # package_api_docs: true
     implementation_imports: true
     prefer_interpolation_to_compose_strings: true
     unnecessary_brace_in_string_interps: true

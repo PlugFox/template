@@ -1,12 +1,11 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
-import 'dart:html' as html;
-
 import 'package:drift/drift.dart';
 import 'package:drift/wasm.dart' as wasm;
 import 'package:flutter_template_name/src/common/constant/config.dart';
 import 'package:l/l.dart';
 import 'package:meta/meta.dart';
+import 'package:web/web.dart' as web;
 
 /*
   IdbFactory.supported => WebDatabase.withStorage(await DriftWebStorage.indexedDbIfSupported(name));
@@ -27,7 +26,7 @@ Future<QueryExecutor> $createQueryExecutor({
       WasmDatabase.inMemory(sqlite3);
     }
   */
-  if (dropDatabase) html.window.indexedDB!.deleteDatabase(Config.databaseName);
+  if (dropDatabase) web.window.indexedDB.deleteDatabase(Config.databaseName);
   final result = await wasm.WasmDatabase.open(
     databaseName: memoryDatabase ? ':memory:' : path ?? Config.databaseName,
     sqlite3Uri: Uri.parse('sqlite3.wasm'),

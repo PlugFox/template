@@ -43,11 +43,12 @@ class PieChartItem implements Comparable<PieChartItem> {
   int compareTo(PieChartItem other) => value.compareTo(other.value);
 
   @override
-  int get hashCode => value.hashCode ^ color.value.hashCode;
+  int get hashCode => value.hashCode ^ color.toARGB32().hashCode;
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is PieChartItem && value == other.value && color.value == other.color.value;
+      identical(this, other) ||
+      other is PieChartItem && value == other.value && color.toARGB32() == other.color.toARGB32();
 
   @override
   String toString() => 'PieChartItem{id: $id, value: $value}';
@@ -78,10 +79,10 @@ final class _PieChartController with ChangeNotifier {
 
   /// Linearly interpolate between two colors.
   static Color _lerpColor(Color a, Color b, double t) => Color.fromARGB(
-        _clampInt(_lerpInt(a.alpha, b.alpha, t).toInt(), 0, 255),
-        _clampInt(_lerpInt(a.red, b.red, t).toInt(), 0, 255),
-        _clampInt(_lerpInt(a.green, b.green, t).toInt(), 0, 255),
-        _clampInt(_lerpInt(a.blue, b.blue, t).toInt(), 0, 255),
+        _clampInt(_lerpInt(a.a.toInt(), b.a.toInt(), t).toInt(), 0, 255),
+        _clampInt(_lerpInt(a.r.toInt(), b.r.toInt(), t).toInt(), 0, 255),
+        _clampInt(_lerpInt(a.g.toInt(), b.g.toInt(), t).toInt(), 0, 255),
+        _clampInt(_lerpInt(a.b.toInt(), b.b.toInt(), t).toInt(), 0, 255),
       );
 
   final Map<String, PieChartItem> _from = <String, PieChartItem>{};
@@ -387,7 +388,7 @@ class _PieChartPainter extends CustomPainter {
 
   /// Calculate the contrasting text color for the given background color.
   static Color contrastingTextColor(Color color) {
-    final brightness = (299 * color.red + 587 * color.green + 114 * color.blue) / 1000;
+    final brightness = (299 * color.r + 587 * color.g + 114 * color.b) / 1000;
     return brightness > 128 ? Colors.black : Colors.white;
   }
 

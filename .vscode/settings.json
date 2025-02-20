@@ -41,24 +41,19 @@
   "dart.additionalAnalyzerFileExtensions": [
     "drift"
   ],
-  // Flutter Version Manager
-  "dart.flutterSdkPath": ".fvm/flutter_sdk",
-  // Remove .fvm files from search
+  "dart.flutterSdkPath": ".fvm/versions/3.29.0",
   "search.exclude": {
     "**/.fvm": true,
     ".dart_tool": true,
     "coverage": true,
     "build": true
   },
-  // Remove from file watching
   "files.watcherExclude": {
     "**/.fvm": true,
     ".dart_tool": true,
     "coverage": true,
     "build": true
   },
-  // Causes the debug view to automatically appear when a breakpoint is hit. This
-  // setting is global and not configurable per-language.
   "debug.openDebug": "openOnDebugBreak",
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,

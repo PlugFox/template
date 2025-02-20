@@ -473,7 +473,7 @@ class _OpenUriTile extends StatelessWidget {
     required this.title,
     required this.description,
     this.uri,
-    super.key, // ignore: unused_element
+    super.key, // ignore: unused_element_parameter
   });
 
   final String title;

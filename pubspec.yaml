@@ -34,8 +34,12 @@ version: 0.0.1+1
 #    path: screenshot_1.png
 
 environment:
-  sdk: '>=3.5.0 <4.0.0'
-  flutter: ">=3.24.3"
+  sdk: '>=3.7.0 <4.0.0'
+  flutter: ">=3.29.0"
+
+# https://dart.dev/tools/pub/workspaces
+workspace:
+  - packages/ui
 
 dependencies:
   flutter:
@@ -61,29 +65,29 @@ dependencies:
   async: any
   path: any
   convert: any
-  path_provider: ^2.1.4
+  path_provider: ^2.1.5
   platform_info: ^5.0.0
   #multiline: ^3.0.0
-  rxdart: ^0.28.0-dev.0
+  rxdart: ^0.28.0
   url_launcher: ^6.3.1
 
   # Logger
-  l: ^5.0.0-pre.2
+  l: ^5.0.0
 
   # Desktop
-  win32: ^5.5.5
-  window_manager: ^0.4.2
+  win32: ^5.11.0
+  window_manager: ^0.4.3
 
   # State management
-  control: ^0.1.0
+  control: ^0.2.0
 
   # Database
-  shared_preferences: ^2.3.2
-  drift: ^2.20.3
-  sqlite3_flutter_libs: ^0.5.24
+  shared_preferences: ^2.5.2
+  drift: ^2.25.1
+  sqlite3_flutter_libs: ^0.5.30
 
   # Networking
-  http: ^1.2.2
+  http: ^1.3.0
   #dio: ^5.4.2+1
   #dio_smart_retry: ^6.0.0
 
@@ -91,6 +95,10 @@ dependencies:
   cupertino_icons: ^1.0.8
   #google_fonts: ^6.2.1
   #font_awesome_flutter: ^10.7.0
+
+  # Web
+  web: ^1.1.0
+
   ui:
     path: ./packages/ui
 
@@ -109,15 +117,15 @@ dev_dependencies:
   test: any
 
   # Code generation
-  build_runner: ^2.4.13
-  drift_dev: ^2.20.3
+  build_runner: ^2.4.15
+  drift_dev: ^2.25.2
   pubspec_generator: ^4.1.0-pre.1
-  flutter_gen_runner: ^5.8.0
-  json_serializable: ^6.8.0
+  flutter_gen_runner: ^5.9.0
+  json_serializable: ^6.9.4
   # dart run flutter_launcher_icons -f flutter_launcher_icons.yaml
-  flutter_launcher_icons: ^0.14.1
+  flutter_launcher_icons: ^0.14.3
   # dart run flutter_native_splash:create --path=flutter_native_splash.yaml
-  flutter_native_splash: ^2.4.1
+  flutter_native_splash: ^2.4.5
 
 
 flutter:
