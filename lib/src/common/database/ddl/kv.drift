@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS kv_tbl (
     meta_created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     -- req Updated date (unixtime in seconds)
     meta_updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')) CHECK(meta_updated_at >= meta_created_at)
-) STRICT;
+) STRICT WITHOUT ROWID;
 
 -- Indexes
 CREATE INDEX IF NOT EXISTS kv_meta_created_at_idx ON kv_tbl (meta_created_at);

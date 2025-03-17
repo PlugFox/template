@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS log_tbl (
 
     -- StackTrace a stack trace associated with this log event
     stack TEXT
-) STRICT;
+) STRICT WITHOUT ROWID;
 
 -- Indexes
 CREATE INDEX IF NOT EXISTS log_time_idx ON log_tbl (time);
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS log_prefix_tbl (
         REFERENCES log_tbl (id)
             ON UPDATE CASCADE
             ON DELETE CASCADE
-) STRICT;
+) STRICT WITHOUT ROWID;
 
 -- Indexes
 CREATE INDEX IF NOT EXISTS log_prefix_prefix_idx ON log_prefix_tbl (prefix);

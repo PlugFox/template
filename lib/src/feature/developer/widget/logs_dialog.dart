@@ -51,16 +51,16 @@ class _LogsListState extends State<_LogsList> {
               .map(
                 (l) =>
                     l.stack != null
-                        ? LogMessageVerbose(
-                          timestamp: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
-                          level: LogLevel.fromValue(l.level),
-                          message: l.message,
-                        )
-                        : LogMessageError(
+                        ? LogMessageError(
                           timestamp: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
                           level: LogLevel.fromValue(l.level),
                           message: l.message,
                           stackTrace: StackTrace.fromString(l.stack!),
+                        )
+                        : LogMessageVerbose(
+                          timestamp: DateTime.fromMillisecondsSinceEpoch(l.time * 1000),
+                          level: LogLevel.fromValue(l.level),
+                          message: l.message,
                         ),
               )
               .toList();
