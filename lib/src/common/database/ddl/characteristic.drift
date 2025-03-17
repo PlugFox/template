@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS characteristic_tbl (
 
     -- Composite primary key
     PRIMARY KEY (type, id)
-) STRICT WITHOUT ROWID;
+) STRICT;
 
 -- Indexes
 CREATE INDEX IF NOT EXISTS characteristic_meta_created_at_idx ON characteristic_tbl (meta_created_at);

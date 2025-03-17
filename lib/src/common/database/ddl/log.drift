@@ -1,3 +1,6 @@
+-- PRAGMA synchronous = OFF;
+-- PRAGMA journal_mode = MEMORY;
+
 -- Logs table
 CREATE TABLE IF NOT EXISTS log_tbl (
     -- req Unique identifier of the log
@@ -14,11 +17,13 @@ CREATE TABLE IF NOT EXISTS log_tbl (
 
     -- StackTrace a stack trace associated with this log event
     stack TEXT
-) STRICT WITHOUT ROWID;
+) STRICT; -- WITHOUT ROWID;
 
 -- Indexes
 CREATE INDEX IF NOT EXISTS log_time_idx ON log_tbl (time);
 CREATE INDEX IF NOT EXISTS log_level_idx ON log_tbl (level);
+-- CREATE INDEX IF NOT EXISTS log_time_level_idx ON log_tbl (time, level);
+
 
 -- Search table
 CREATE TABLE IF NOT EXISTS log_prefix_tbl (
