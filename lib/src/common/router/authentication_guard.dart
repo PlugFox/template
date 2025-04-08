@@ -7,7 +7,7 @@ import 'package:octopus/octopus.dart';
 /// A router guard that checks if the user is authenticated.
 class AuthenticationGuard extends OctopusGuard {
   AuthenticationGuard({
-    required FutureOr<User> Function() getUser,
+    required Future<User> Function() getUser,
     required Set<String> routes,
     required OctopusState signinNavigation,
     required OctopusState homeNavigation,
@@ -32,7 +32,7 @@ class AuthenticationGuard extends OctopusGuard {
   }
 
   /// Get the current user.
-  final FutureOr<User> Function() _getUser;
+  final Future<User> Function() _getUser;
 
   /// Routes names that stand for the authentication routes.
   final Set<String> _routes;
@@ -44,7 +44,7 @@ class AuthenticationGuard extends OctopusGuard {
   OctopusState _lastNavigation;
 
   @override
-  FutureOr<OctopusState> call(
+  Future<OctopusState> call(
     List<OctopusHistoryEntry> history,
     OctopusState$Mutable state,
     Map<String, Object?> context,

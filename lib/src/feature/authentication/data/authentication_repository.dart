@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 abstract interface class IAuthenticationRepository {
   Stream<User> userChanges();
-  FutureOr<User> getUser();
+  Future<User> getUser();
   Future<User> signIn(SignInData data);
   Future<User?> restore();
   Future<void> signOut();
@@ -23,7 +23,7 @@ class AuthenticationRepositoryImpl implements IAuthenticationRepository {
   User _user = const User.unauthenticated();
 
   @override
-  FutureOr<User> getUser() => _user;
+  Future<User> getUser() async => _user;
 
   @override
   Stream<User> userChanges() => _userController.stream;
@@ -66,7 +66,7 @@ class AuthenticationRepositoryFake implements IAuthenticationRepository {
   User _user = const User.unauthenticated();
 
   @override
-  FutureOr<User> getUser() => _user;
+  Future<User> getUser() async => _user;
 
   @override
   Stream<User> userChanges() => _userController.stream;

@@ -13,7 +13,7 @@ Future<Dependencies>? _$initializeApp;
 /// Initializes the app and prepares it for use.
 Future<Dependencies> $initializeApp({
   void Function(int progress, String message)? onProgress,
-  FutureOr<void> Function(Dependencies dependencies)? onSuccess,
+  Future<void> Function(Dependencies dependencies)? onSuccess,
   void Function(Object error, StackTrace stackTrace)? onError,
 }) =>
     _$initializeApp ??= Future<Dependencies>(() async {

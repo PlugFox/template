@@ -4,7 +4,7 @@ import 'package:l/l.dart';
 import 'package:platform_info/platform_info.dart';
 
 /// Catch all application errors and logs.
-void appZone(FutureOr<void> Function() fn) => l.capture<void>(
+void appZone(Future<void> Function() fn) => l.capture<void>(
   () => runZonedGuarded<void>(() => fn(), l.e),
   LogOptions(
     messageFormatting: _messageFormatting,

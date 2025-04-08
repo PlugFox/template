@@ -10,7 +10,7 @@ import 'package:l/l.dart';
 
 /// Migrate application when version is changed.
 sealed class AppMigrator {
-  static FutureOr<void> migrate(Database database) async {
+  static Future<void> migrate(Database database) async {
     try {
       final prevMajor = database.getKey<int>(Config.versionMajorKey);
       final prevMinor = database.getKey<int>(Config.versionMinorKey);
@@ -22,7 +22,9 @@ sealed class AppMigrator {
           Pubspec.version.minor != prevMinor ||
           Pubspec.version.patch != prevPatch) {
         l.i(
-          'Migrating from $prevMajor.$prevMinor.$prevPatch to ${Pubspec.version.major}.${Pubspec.version.minor}.${Pubspec.version.patch}',
+          'Migrating from $prevMajor.$prevMinor.$prevPatch '
+          'to '
+          '${Pubspec.version.major}.${Pubspec.version.minor}.${Pubspec.version.patch}',
         );
         /* ... */
       } else {

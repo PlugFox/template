@@ -12,11 +12,11 @@ class HomeGuard extends OctopusGuard {
   static final String _homeName = Routes.home.name;
 
   @override
-  FutureOr<OctopusState> call(
+  Future<OctopusState> call(
     List<OctopusHistoryEntry> history,
     OctopusState$Mutable state,
     Map<String, Object?> context,
-  ) {
+  ) async {
     // If the user is not authenticated, do nothing.
     // The home route should not be in the state.
     if (context['user'] case User user) if (!user.isAuthenticated) return state;
